@@ -5,223 +5,227 @@ title: Home
 template: home
 author: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1740622446
+updated_at: 1778617661
 block_types:
   -
     id: m7ap00pr
     template:
       code: |-
-        <!--
-        ==================================================================================================
-        ====================================== SECCIÓN CONVOCATORIAS =====================================
-        ==================================================================================================
-        -->
+        <!--======= SECCIÓN  CARRUSEL CONVOCATORIAS ============-->
+        <section id="convocatorias-relevantes" class="convocatorias-section"
+                 aria-roledescription="carrusel" aria-label="Convocatorias destacadas">
 
-        <style>
-                .convocatorias-section {
-                  position: relative;
-                  display: block;
-                  margin: 0 auto;
-                  width: 100%;
-                  background-color: #f4f4f4;
-                  border-radius: 10px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                  overflow: hidden;
-                }
-
-                .carousel-inner {
-                  position: relative;
-                  width: 100%;
-                  height: auto;
-                }
-
-                .carousel-item-conv {
-                  display: none; /* Ocultamos todos los elementos por defecto */
-                  flex-direction: row;
-                  align-items: center;
-                  justify-content: space-between;
-                  padding: 20px;
-                  background: linear-gradient(120deg, #e3f98e, #6ebf91, #3c9f04);
-                  border-radius: 10px;
-                  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                }
-
-                .carousel-item-conv.active {
-                  display: flex; /* Solo mostramos el elemento activo */
-                }
-
-                .carousel-item-conv img {
-                  max-width: 40%;
-                  height: auto;
-                  border-radius: 10px;
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                }
-
-                .convocatoria-content {
-                  background: rgba(0, 0, 0, 0.4);
-                  padding: 20px;
-                  border-radius: 8px;
-                  width: 55%;
-                }
-
-                .convocatoria-content h2 {
-                  font-size: 28px;
-                  color: #fff;
-                  font-weight: bold;
-                  margin-bottom: 15px;
-                }
-
-                .convocatoria-content p {
-                  font-size: 16px;
-                  color: #fff;
-                  margin-bottom: 20px;
-                }
-
-                .convocatoria-content .btn {
-                  font-size: 16px;
-                  padding: 10px 20px;
-                  border-radius: 20px;
-                  background-color: #ffc107;
-                  color: #000;
-                  font-weight: bold;
-                  text-transform: uppercase;
-                  text-decoration: none;
-                }
-
-                .convocatoria-content .btn:hover {
-                  background-color: #e0a800;
-                  color: #fff;
-                }
-
-                /* Flechas de navegación */
-                .carousel-control {
-                  position: absolute;
-                  top: 50%;
-                  width: 40px;
-                  height: 40px;
-                  background: rgba(0, 0, 0, 0.6);
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  cursor: pointer;
-                  transform: translateY(-50%);
-                  opacity: 0;
-                  transition: opacity 0.3s ease;
-                }
-
-                .carousel-control:hover {
-                  background: rgba(0, 0, 0, 0.8);
-                }
-
-                .carousel-control svg {
-                  fill: #fff;
-                }
-
-                .carousel-control-prev {
-                  left: 10px;
-                }
-
-                .carousel-control-next {
-                  right: 10px;
-                }
-
-                .convocatorias-section:hover .carousel-control {
-                  opacity: 1;
-                }
-                </style>
-
-        		<section id="convocatorias-relevantes" class="convocatorias-section">
-        		  <div class="carousel-inner">
-        			{{ collection:blog sort="date:desc" limit="2" }}
-        			{{ if convocatoria == "si" }}
-        			<div class="carousel-item-conv {{ if {count} == 1 }}active{{ /if }}">
-        			  <img src="{{ imagen_principal | url }}" alt="{{ title }}">
-        			  <div class="convocatoria-content">
-        				<h2>{{ title }}</h2>
-        				<p>{{ descripcion }}</p>
-        				<a href="/blog/{{ slug }}" class="btn">Leer más</a>
-        			  </div>
-        			</div>
-        			{{ /if }}
-        			{{ /collection:blog }}
-        		  </div>
-
-        		  <!-- Flecha izquierda -->
-        		  <div class="carousel-control carousel-control-prev" onclick="prevSlide()">
-        			<svg width="24" height="24" viewBox="0 0 24 24">
-        			  <polyline points="15 18 9 12 15 6" fill="none" stroke="white" stroke-width="2" />
-        			</svg>
-        		  </div>
-
-        		  <!-- Flecha derecha -->
-        		  <div class="carousel-control carousel-control-next" onclick="nextSlide()">
-        			<svg width="24" height="24" viewBox="0 0 24 24">
-        			  <polyline points="9 6 15 12 9 18" fill="none" stroke="white" stroke-width="2" />
-        			</svg>
-        		  </div>
-        		</section>
-
-        		<script>
-        		  let currentIndex = 0;
-        		  const items = document.querySelectorAll('.carousel-item-conv');
-
-        		  function updateCarousel() {
-        			items.forEach((item, index) => {
-        			  item.classList.toggle('active', index === currentIndex);
-        			});
-        		  }
-
-        		  function prevSlide() {
-        			currentIndex = (currentIndex - 1 + items.length) % items.length;
-        			updateCarousel();
-        		  }
-
-        		  function nextSlide() {
-        			currentIndex = (currentIndex + 1) % items.length;
-        			updateCarousel();
-        		  }
-
-        		  // Opcional: Desplazamiento automático cada 5 segundos
-        		  setInterval(() => {
-        			nextSlide();
-        		  }, 5000);
-        		</script>
-               <!--<section id="convocatorias-relevantes" class="convocatorias-section">
-                  <div class="carousel-inner">
-                    <div class="carousel-item-conv active">
-                      <img src="assets/convocatoria-tesis.jpg" alt="Concurso de Financiamiento de Tesis">
-                      <div class="convocatoria-content">
-                        <h2>Concurso de Financiamiento de Tesis, 2024-II</h2>
-                        <p>Participa y accede a financiamiento para tu proyecto de investigación. ¡Postula antes del 20 de enero!</p>
-                        <a href="/noticias-vrin" class="btn">Leer más</a>
-                      </div>
-                    </div>
-
-                    <div class="carousel-item-conv">
-                      <img src="assets/convocatoria-riqchary.jpg" alt="Revista Científica Riqchary">
-                      <div class="convocatoria-content">
-                        <h2>Revista Científica Riqchary: Nueva Edición</h2>
-                        <p>Explora los avances en tecnología 5G y 6G en la última edición de nuestra revista.</p>
-                        <a href="/noticias-vrin" class="btn">Leer más</a>
-                      </div>
-                    </div>
-                  </div>
-         	
-                  <div class="carousel-control carousel-control-prev" onclick="prevSlide()">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <polyline points="15 18 9 12 15 6" fill="none" stroke="white" stroke-width="2" />
-                    </svg>
-                  </div>
-
-                  <div class="carousel-control carousel-control-next" onclick="nextSlide()">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <polyline points="9 6 15 12 9 18" fill="none" stroke="white" stroke-width="2" />
-                    </svg>
-                  </div>
-                </section>-->
+          <div class="carousel-inner" aria-live="polite">
+            {{ collection:blog filter="convocatoria:si" sort="date:desc" limit="3" }}
+            <article class="carousel-item-conv {{ if {count} == 1 }}active{{ /if }}"
+                     role="group" aria-roledescription="slide">
+              <div class="conv-media">
+                <div class="conv-media-aura"
+                     style="background-image: url('{{ imagen_principal | url }}');"
+                     aria-hidden="true"></div>
+                <img src="{{ imagen_principal | url }}" alt="{{ title }}">
+              </div>
+              <div class="convocatoria-content">
+                <span class="conv-label">
+                  <span class="conv-label-bar"></span>
+                  Convocatoria
+                </span>
+                <h2>{{ title }}</h2>
+                <p>{{ descripcion }}</p>
+                <a href="/blog/{{ slug }}" class="btn">
+                  Ver más <i class="fa fa-long-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+            {{ /collection:blog }}
+            <button type="button" class="carousel-control carousel-control-prev" aria-label="Convocatoria anterior">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <polyline points="15 18 9 12 15 6" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="carousel-control carousel-control-next" aria-label="Siguiente convocatoria">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <polyline points="9 6 15 12 9 18" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="carousel-footer">
+            <div class="carousel-dots" id="convocatoriasDots" role="tablist" aria-label="Paginación"></div>
+            <div class="carousel-counter" aria-live="polite">
+              <span class="current" id="convCurrentSlide">01</span>
+              <span class="sep">/</span>
+              <span class="total" id="convTotalSlides">01</span>
+            </div>
+          </div>
+        </section>
       mode: htmlmixed
     type: template
+    enabled: true
+  -
+    id: mp2tp2x8
+    contador_docentes_renacyt: 20
+    contador_grupos_de_investigacion: 29
+    contador_lineas_de_investigacion: 24
+    contador_articulos_cientificos: 50
+    contador_docentes_cti_vitae: 200
+    template:
+      code: |-
+        <section class="stats-counter-section">
+          <div class="stats-counter-wrap">
+
+            <div class="stat-item">
+              <div class="stat-icon-wrap">
+                <a href="/lineas-de-investigacion">
+                  <img src="{{icono_lineas_de_investigacion}}" alt="Líneas de Investigación">
+                </a>
+              </div>
+              <span class="stat-num">+{{contador_lineas_de_investigacion}}</span>
+              <span class="stat-desc">Líneas de Investigación</span>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon-wrap">
+                <a href="/docentes-investigadores">
+                  <img src="{{icono_docentes_cti_vitae}}" alt="Docentes CTI Vitae">
+                </a>
+              </div>
+              <span class="stat-num stat-num-green">+{{contador_docentes_cti_vitae}}</span>
+              <span class="stat-desc">Docentes Inscritos en CTI Vitae</span>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon-wrap">
+                <a href="/articulos-publicados">
+                  <img src="{{icono_articulos_publicados}}" alt="Artículos Científicos">
+                </a>
+              </div>
+              <span class="stat-num stat-num-green">+{{contador_articulos_cientificos}}</span>
+              <span class="stat-desc">Artículos Científicos</span>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon-wrap">
+                <a href="/docentes-renacyt">
+                  <img src="{{icono_docentes_renacyt}}" alt="Docentes RENACYT">
+                </a>
+              </div>
+              <span class="stat-num">{{contador_docentes_renacyt}}</span>
+              <span class="stat-desc">Docentes RENACYT</span>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon-wrap">
+                <a href="/grupos-de-investigacion">
+                  <img src="{{icono_grupos_de_investigacion}}" alt="Grupos de Investigación">
+                </a>
+              </div>
+              <span class="stat-num">{{contador_grupos_de_investigacion}}</span>
+              <span class="stat-desc">Grupos de Investigación</span>
+            </div>
+
+          </div>
+        </section>
+      mode: htmlmixed
+    type: contador_estado
+    enabled: true
+    icono_docentes_renacyt: vrin/renacytvrins.png
+    icono_grupos_de_investigacion: vrin/gruposvrin.png
+    icono_lineas_de_investigacion: vrin/lineasvrin.png
+    icono_articulos_publicados: vrin/articulosvrin.png
+    icono_docentes_cti_vitae: vrin/vitaevrins.png
+  -
+    id: m7by52bw
+    titulo_seccion_blog: 'Plataformas Tecnológicas'
+    template:
+      code: |-
+        <!--======= SECCIÓN PLATAFORMAS TECNOLOGICAS ============-->
+                 <section class="plataformas-section">
+                  <div class="plataformas-container">
+                    <div class="plataformas-header">
+                      <h2>Plataformas Tecnológicas</h2>
+                      <p>La Universidad Nacional Micaela Bastidas de Apurímac cuenta con las siguientes herramientas útiles de búsqueda.</p>
+                    </div>
+                    <div class="plataformas-grid">
+
+                      <div class="plat-card">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/mylofts.png" alt="MYLOF">
+                        </div>
+                        <h3 class="plat-name">MYLOF</h3>
+                        <p class="plat-desc">Sistema de gestión bibliométrico para consultas de catálogo y recursos</p>
+                        <a href="https://mylof.unamba.edu.pe" class="plat-link" target="_blank">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card plat-active">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/observatoriov.png" alt="Observatorio">
+                        </div>
+                        <h3 class="plat-name">Observatorio</h3>
+                        <p class="plat-desc">Monitoreo en Proyectos de Investigación Docente y Tesis de Estudiantes</p>
+                        <a href="https://observatorio.unamba.edu.pe" class="plat-link" target="_blank">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/repositorio.png" alt="Repositorio Institucional">
+                        </div>
+                        <h3 class="plat-name">Repositorio Institucional</h3>
+                        <p class="plat-desc">Repositorio institucional de la UNAMBA (Tesis, revistas, libros y Series)</p>
+                        <a href="https://repositorio.unamba.edu.pe" class="plat-link" target="_blank">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card plat-active">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/pure.png" alt="PURE">
+                        </div>
+                        <h3 class="plat-name">PURE</h3>
+                        <p class="plat-desc">Plataforma de gestión de investigación (publicaciones, proyectos y más)</p>
+                        <a href="https://pure.unamba.edu.pe/es/" class="plat-link" target="_blank">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/micaelas.png" alt="Fondo Editorial">
+                        </div>
+                        <h3 class="plat-name">Fondo Editorial</h3>
+                        <p class="plat-desc">Publicación y difusión de obras académicas, científicas y culturales</p>
+                        <a href="/fondo-editorial" class="plat-link">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card plat-active">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/revistas.png" alt="Revistas Científicas">
+                        </div>
+                        <h3 class="plat-name">Revistas Científicas</h3>
+                        <p class="plat-desc">Revistas científicas y académicas de la UNAMBA con periodicidad</p>
+                        <a href="https://revistas.unamba.edu.pe/" class="plat-link" target="_blank">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/turniting.png" alt="Turnitin">
+                        </div>
+                        <h3 class="plat-name">Turnitin</h3>
+                        <p class="plat-desc">Software docente para verificar la originalidad en trabajos académicos</p>
+                        <a href="#" class="plat-link">Acceder &rarr;</a>
+                      </div>
+
+                      <div class="plat-card plat-active">
+                        <div class="plat-icon">
+                          <img src="/assets/vrin/grupo.png" alt="Grupos de Investigación">
+                        </div>
+                        <h3 class="plat-name">Grupos de Investigación</h3>
+                        <p class="plat-desc">Equipos de colaboradores inscritos en las diferentes áreas de estudio</p>
+                        <a href="/grupos-de-investigacion" class="plat-link">Acceder &rarr;</a>
+                      </div>
+
+                    </div>
+                  </div>
+                </section>
+      mode: htmlmixed
+    type: blog
     enabled: true
   -
     id: m7ap5pvp
@@ -229,84 +233,19 @@ block_types:
       code: |-
         <!--
         ==================================================================================================
-        ====================================== SECCIÓN NOTICIAS ==========================================
+        ===== SECCIÓN NOTICIAS ==========================================
         ==================================================================================================
-        -->
-
-        <style>
-                .main-container {
-                    max-width: 95%; 
-                    margin: 20px auto; 
-                    background: #fff; 
-                    border-radius: 15px; 
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-                    padding: 20px; 
-                }
-                .news-item {
-                    border: 1px solid #ddd;
-                    border-radius: 10px;
-                    overflow: hidden;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                }
-                .news-item img {
-                    width: 100%;
-                  	height: 250px;
-                    object-fit: cover;
-                }
-                .news-content {
-                    padding: 15px;
-                }
-                .news-content h4 {
-                    font-weight: bold;
-                    color: #2c3e50; 
-                    margin-bottom: 10px;
-                    font-size: 1.25rem;
-                }
-                .news-content p {
-                    margin-bottom: 10px;
-                    color: #34495e; 
-                    font-size: 0.95rem;
-                }
-                .news-content a {
-                    color: #2980b9; 
-                    font-weight: bold;
-                    text-decoration: none;
-                }
-                .news-content a:hover {
-                    text-decoration: underline;
-                }
-
-                .go-to-news {
-                    display: inline-block;
-                    margin: 20px auto;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #fff;
-                    background-color: #2980b9;
-                    border: none;
-                    border-radius: 5px;
-                    text-align: center;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-                .go-to-news:hover {
-                    background-color: #1a6ca8;
-        		  	color: white;
-                }
-                </style>
-
-                <!-- Contenedor principal -->
-                <div class="main-container">
-                  	<div class="section-header">
-                		<h2>Últimas Noticias</h2>
-                        <p>Conoce todas las actividades y noticias del Vicerrectorado de Investigación de la UNAMBA.</p>
-                	</div> 
-
-                    <!-- Lista de Noticias -->
-                    <div class="row">
+        -
+        <section>
+            <!-- Lista de Noticias -->
+            <div class="row">
+                <div class="col-md-8 mb-8">
+                    <div class="section-header">
+                        <h2>Noticias y Eventos</h2>
+                    </div>
+                    <div>
                         {{ collection:noticias limit="3" }}
-                        <div class="col-md-4 mb-4">
+                        <div>
                             <div class="news-item">
                                 <!-- Imagen de la noticia -->
                                 <a href="{{ url }}" target="_blank">
@@ -316,7 +255,7 @@ block_types:
                                 <div class="news-content">
                                     <h4>{{ title }}</h4>
                                     <p class="text-sm text-gray-500"><strong>Fecha:</strong> {{ fecha_publicacion }}</p>
-                                    
+
                                     <a href="{{ link }}" class="text-blue-600 hover:underline">Ir a la publicación</a>
                                 </div>
                             </div>
@@ -329,10 +268,16 @@ block_types:
                         <a href="/noticias-vrin" class="go-to-news" style="background-color: #6a1b9a;">Ver más Noticias</a>
                     </div>
                 </div>
-                <hr>
+                <div class="col-md-4 mb-4">
+                    <div class="section-header">
+                            <h2>Informate con el Vrin</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
       mode: htmlmixed
     type: template
-    enabled: true
+    enabled: false
   -
     id: lka0v9ms
     title_1: 'Servicios VRIN'
@@ -397,7 +342,7 @@ block_types:
       </div>
       <!-- fin acerca de vicerrector -->
     type: acerca_vicerrector
-    enabled: true
+    enabled: false
     nombre_vicerrector: 'Dr. Wilson Jhon Mollocondo Flores'
     template:
       code: |-
@@ -556,219 +501,7 @@ block_types:
         <!-- fin blog/evento -->
       mode: htmlmixed
     type: blog
-    enabled: true
-  -
-    id: m7by00qf
-    template:
-      code: |-
-        <hr>
-        <style>
-        /* Estilos generales */
-        .section-header {
-          text-align: center;
-          margin-bottom: 30px;
-        }
-
-        .section-header h2 {
-          font-size: 2.5rem;
-          color: #003366;
-          margin-bottom: 10px;
-          font-weight: bold;
-        }
-
-        .section-header p {
-          font-size: 1rem;
-          color: #555;
-          margin: 0;
-        }
-
-        .section-header h2::after {
-          content: '';
-          display: block;
-          width: 60px;
-          height: 3px;
-          background-color: #b22222;
-          margin: auto 0;
-        }
-        </style>
-
-        <div class="section-header">
-            <h2>Comunidades del Conocimiento</h2>
-            <p>Conoce más sobre nuestros docentes, grupos y líneas de investigación</p>
-        </div>
-      mode: htmlmixed
-    type: template
-    enabled: true
-  -
-    id: lka3zo1d
-    estado_1: a_home_otros/inves.png
-    contador1: 32
-    contador_1: 'DOCENTES RENACYT'
-    estado_2: a_home_otros/grupos.png
-    contador2: 18
-    contador_2: 'GRUPOS DE INVESTIGACIÓN'
-    estado_3: a_home_otros/lineas.png
-    contador3: 20
-    contador_3: 'LINEAS DE INVESTIGACIÓN'
-    template_estado: |-
-      <div id="status">
-          <div class="sm-block" id="block1">
-              <div class="icon-img-wrapper">
-                  <div class="eb-counter-image-wrapper">
-                      <a title="docentes" target="_blank" href="investigacion/lista-de-docentes-renacyt-2.html">
-                      <img class="eb-counter-image" alt="" src="assets/img/inves.png">
-                      </a>
-                  </div>
-              </div>
-              <h1><span class="block-no">32</span></h1>
-              <b >DOCENTES RENACYT</b>
-          </div>
-          <div class="sm-block" id="block2">
-              <div class="icon-img-wrapper">
-                  <div class="eb-counter-image-wrapper">
-                      <a title="docentes" target="_blank" href="https://vrin.unamba.edu.pe/lista-de-docentes-renacyt-2/">
-                      <img class="eb-counter-image" alt="" src="assets/img/grupos.png"/></a>
-                  </div>
-              </div>
-              <h1><span class="block-no">14</span></h1>
-              <b>GRUPOS DE INVESTIGACIÓN</b>
-          </div>
-          <div class="sm-block" id="block3">
-              <div class="icon-img-wrapper">
-                  <div class="eb-counter-image-wrapper">
-                      <a title="docentes" target="_blank" href="lineas-de-investigacion.html">
-                      <img class="eb-counter-image" alt="" src="assets/img/lineas.png"/></a>
-                  </div>
-              </div>
-              <h1><span class="block-no">20</span></h1>
-              <b>LINEAS DE INVESTIGACIÓN</b>
-          </div>
-      </div>
-    type: contador_estado
-    enabled: true
-    template:
-      code: |-
-        <!-- Comunidades del Conocimiento -->
-
-        <style>
-        /* Estilos generales */
-        .section-header {
-          text-align: center;
-          margin-bottom: 30px;
-        }
-
-        .section-header h2 {
-          font-size: 2.5rem;
-          color: #003366;
-          margin-bottom: 10px;
-          font-weight: bold;
-        }
-
-        .section-header p {
-          font-size: 1rem;
-          color: #555;
-          margin: 0;
-        }
-
-        .section-header h2::after {
-          content: '';
-          display: block;
-          width: 60px;
-          height: 3px;
-          background-color: #b22222;
-          margin: 10px auto 0;
-        }
-
-        .sm-container {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 20px;
-          margin-top: 20px; 
-        }
-
-        .sm-block {
-          text-align: center;
-          padding: 20px;
-          border: 2px solid black;
-          border-radius: 10px;
-          width: 250px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .sm-block:hover {
-          transform: scale(1.05);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .sm-block img {
-          max-width: 100px;
-          margin-bottom: 10px;
-        }
-
-        .sm-block h1 {
-          font-size: 2rem;
-          margin: 10px 0;
-          color: #003366;
-        }
-
-        .sm-block b {
-          font-size: 1rem;
-          color: #555;
-        }
-        </style>
-
-        <div id="status">
-          <!-- Bloques -->
-          <div class="sm-container">
-            <!-- Bloque 1 -->
-            <div class="sm-block" id="block1">
-              <div class="icon-img-wrapper">
-                <div class="eb-counter-image-wrapper">
-                  <a title="docentes" target="_blank" href="/docentes-renacyt">
-                    <img class="eb-counter-image" alt="" src="{{icono_docentes_renacyt}}">
-                  </a>
-                </div>
-              </div>
-              <h1><span class="block-no" style="font-family: 'Times New Roman', serif;">{{contador_docentes_renacyt}}</span></h1>
-              <b>DOCENTES RENACYT</b>
-            </div>
-
-            <!-- Bloque 2 -->
-            <div class="sm-block" id="block2">
-              <div class="icon-img-wrapper">
-                <div class="eb-counter-image-wrapper">
-                  <a title="grupos" href="/grupos-de-investigacion">
-                    <img class="eb-counter-image" alt="" src="{{icono_grupos_de_investigacion}}"/>
-                  </a>
-                </div>
-              </div>
-              <h1><span class="block-no" style="font-family: 'Times New Roman', serif;">{{contador_grupos_de_investigacion}}</span></h1>
-              <b>GRUPOS DE INVESTIGACIÓN</b>
-            </div>
-
-            <!-- Bloque 3 -->
-            <div class="sm-block" id="block3">
-              <div class="icon-img-wrapper">
-                <div class="eb-counter-image-wrapper">
-                  <a title="lineas-de-investigacion" href="/lineas-de-investigacion">
-                    <img class="eb-counter-image" alt="" src="{{icono_lineas_de_investigacion}}"/>
-                  </a>
-                </div>
-              </div>
-              <h1><span class="block-no" style="font-family: 'Times New Roman', serif;">{{contador_lineas_de_investigacion}}</span></h1>
-              <b>LINEAS DE INVESTIGACIÓN</b>
-            </div>
-          </div>
-        </div>
-        <hr>
-      mode: htmlmixed
-    contador_docentes_renacyt: 56
-    contador_grupos_de_investigacion: 20
-    contador_lineas_de_investigacion: 20
-    icono_docentes_renacyt: a_home_otros/inves.png
-    icono_grupos_de_investigacion: a_home_otros/grupos.png
-    icono_lineas_de_investigacion: a_home_otros/lineas.png
+    enabled: false
   -
     id: m7by1g19
     titulo_seccion_blog: 'REVISTAS DE INVESTIGACION'
@@ -920,7 +653,7 @@ block_types:
         </div>
       mode: htmlmixed
     type: blog
-    enabled: true
+    enabled: false
   -
     id: m7by2bng
     titulo_seccion_blog: 'REVISTA URQUTANPU WILLAKUY'
@@ -1075,191 +808,7 @@ block_types:
         </div>
       mode: htmlmixed
     type: blog
-    enabled: true
-  -
-    id: m7by52bw
-    titulo_seccion_blog: 'HERRAMIENTAS DE BUSQUEDA DE LA UNAMBA'
-    template:
-      code: |-
-        <!-- APARTADO DE HERRAMIENTAS DE BÚSQUEDA -->
-        <style>
-          .title h2 {
-        	font-size: 2.5rem;
-        	color: #003366;
-        	margin-bottom: 10px;
-          }
-          .title h2 {
-          color: #003366;
-          margin-bottom: 10px;
-          padding-bottom: 10px; 
-          }
-        .title {
-          font-size: 2rem;
-          color: #003366;
-          margin-bottom: 20px;
-        }
-
-        .img-herramienta {
-          max-height: 100px;
-          transition: transform 0.1s ease;
-        }
-
-        .img:hover {
-          transform: scale(1.1);
-        }
-
-        .carousel-control-prev, .carousel-control-next {
-          background: rgba(0, 0, 0, 0.5);
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .carousel-control-prev:hover, .carousel-control-next:hover {
-          background: rgba(0, 0, 0, 0.8);
-        }
-
-        .carousel-control-prev-icon, .carousel-control-next-icon {
-          filter: invert(1);
-        }
-        </style>
-        <div class="section ">
-                    <div class="team">
-                        <!-- cuerpo -->
-                        <div class="cards">
-                            <div class="container">
-                                <div class="title">
-                                    <h2 style="text-align: center; font-weight: bold; font-family: "Roboto", "Helvetica", "Arial", sans-serif;">Herramientas de Busqueda UNAMBA</h3>
-                                </div>
-        					 <div class="container">
-        						<h4 style="text-align: center;"> La Universidad Nacional Micaela Bastidas de Apurímac cuenta con las siguientes herramientas útiles de búsqueda:
-        						</h4>
-        					</div>
-                                <!--  herramientas de Busqueda unamba -->
-                                <div class="row">
-                                    <div class="col-md-4 ml-auto mr-auto text-center">
-                                        <div class="card card-profile">
-                                            <br>
-                                            <div class=" mr-auto ml-auto ">
-                                                <img class="img" src="./assets/informacion-docente/nube.png">
-                                            </div>
-                                            <div class="card-body">
-                                                <h2 class="card-title text-center">
-                                                PURE</h2>
-                                                <p class="Tim-note">
-                                                    PURE es una plataforma de gestión de investigación que recopila información sobre los
-                                                    resultados obtenidos por docentes e investigadores, incluyendo publicaciones, proyectos
-                                                    y más en un solo lugar.
-                                                </p>
-                                                <a href="https://pure.unamba.edu.pe/es/" target="_blank" class="btn btn-primary btn-round" style="background-color: #6a1b9a;">Ver Pagina</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 ml-auto mr-auto text-center">
-                                        <div class="card card-profile">
-                                            <br>
-                                            <div class=" mr-auto ml-auto ">
-                                                <img class="img" src="./assets/informacion-docente/repo.png">
-                                            </div>
-                                            <div class="card-body ">
-                                                <h2 class="card-title text-center">
-                                                Repositorio</h4>
-                                                <p class="Tim-note">
-                                                    El repositorio UNAMBA es una plataforma que contiene materiales académicos y científicos
-                                                    producidos por la comunidad universitaria, tales como tesis, artículos y libros, entre otros .
-                                                </p>
-                                                <a href="https://repositorio.unamba.edu.pe" target="_blank" class="btn btn-primary btn-round" style="background-color: #6a1b9a;">Ver Pagina</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4  ml-auto mr-auto text-center ">
-                                        <div class="card card-profile">
-                                            <br>
-                                            <div class=" mr-auto ml-auto ">
-                                                <img class="img" src="/assets/informacion-docente/observatorio.png">
-                                            </div>
-                                            <div class="card-body ">
-                                                <h2 class="card-title text-center">
-                                                Observatorio</h4>
-                                                <p class="Tim-note">
-                                                    Aplicación web para el monitoreo de Proyectos de investigación Docente y Tesis de pre grado.
-                                                    Forma parte de la red mas grande de investigadores de la región de Apurímac.
-                                                </p>
-                                                <a href="https://observatorio.unamba.edu.pe" target="_blank" class="btn btn-primary btn-round" style="background-color: #6a1b9a;">Ver Pagina</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-        				<!-- Herramientas de Búsqueda Web -->
-        				<div class="container text-center">
-        				  <h2 style="color: #003366; font-weight: bold; font-family: "Roboto", "Helvetica", "Arial", sans-serif;">Herramientas de Búsqueda Web</h2>
-        				  <br>
-        				  <div id="search-tools-carousel" class="carousel slide" data-ride="carousel">
-        					<!-- Contenedor de imágenes -->
-        					<div class="carousel-inner">
-        					  <!-- Grupo 1 -->
-        					  <div class="carousel-item active">
-        						<div class="d-flex justify-content-center">
-        						  <a href="https://www.lareferencia.info/es/" target="_blank" class="mx-3">
-        							<img src="/assets/la_referencia.png" alt="La Referencia" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  <a href="https://www.gob.pe/concytec" target="_blank" class="mx-3">
-        							<img src="/assets/concytec.png" alt="Concytec" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  
-        						  <a href="https://renati.sunedu.gob.pe" target="_blank" class="mx-3">
-        							<img src="/assets/renati.jpg" alt="Renati" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  
-        						  <a href="https://alicia.concytec.gob.pe/vufind/" target="_blank" class="mx-3">
-        							<img src="/assets/alicia.png" alt="Alicia" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  
-        						</div>
-        					  </div>
-        					  <!-- Grupo 2 -->
-        					  <div class="carousel-item">
-        						<div class="d-flex justify-content-center">
-        						  <a href="https://alicia.concytec.gob.pe/vufind/" target="_blank" class="mx-3">
-        							<img src="/assets/alicia.png" alt="Alicia" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  
-        						  <a href="https://scielo.org/es/" target="_blank" class="mx-3">
-        							<img src="/assets/scielo.png" alt="Scielo" class="img-herramienta">
-        						  </a>
-        						  
-        						  <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/" target="_blank" class="mx-3">
-        							<img src="/assets/cti_vitae.jpg" alt="CTI Vitae" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						  
-        						  <a href="https://www.scopus.com/home.uri" target="_blank" class="mx-3">
-        							<img src="/assets/scopus-2.png" alt="Scopus" class="img-herramienta" style="width: 250px;">
-        						  </a>
-        						</div>
-        					  </div>
-        					</div>
-
-        					<!-- Controles de navegación -->
-        					<a class="carousel-control-prev" href="#search-tools-carousel" role="button" data-slide="prev">
-        					  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        					  <span class="sr-only">Anterior</span>
-        					</a>
-        					<a class="carousel-control-next" href="#search-tools-carousel" role="button" data-slide="next">
-        					  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        					  <span class="sr-only">Siguiente</span>
-        					</a>
-        				  </div>
-        				</div>
-        			  <hr>
-         		</div>
-      mode: htmlmixed
-    type: blog
-    enabled: true
+    enabled: false
   -
     id: lkbe8ld0
     direccion: 'Av. Inca Garcilazo de la Vega, Abancay'
@@ -1349,57 +898,59 @@ block_types:
       mode: htmlmixed
     type: info_contacto
     enabled: false
+  -
+    id: mp30krko
+    template:
+      code: |-
+        <!--======= SECCIÓN ENLACES DE INTERES ============-->  
+                <section class="enlaces-section">
+                  <div class="enlaces-container">
+                    <h2 class="enlaces-title">Enlaces de Interés</h2>
+                    <div class="enlaces-carousel-wrap">
+                      <button class="enlaces-nav-btn" id="enlacesPrev" aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                      </button>
+                      <div class="enlaces-viewport" id="enlacesViewport">
+                        <div class="enlaces-track" id="enlacesTrack">
+                          <a href="https://www.lareferencia.info/es/" target="_blank" class="enlace-logo">
+                            <img src="/assets/la_referencia.png" alt="LA Referencia" draggable="false">
+                          </a>
+                          <a href="https://www.gob.pe/concytec" target="_blank" class="enlace-logo">
+                            <img src="/assets/concytec.png" alt="CONCYTEC" draggable="false">
+                          </a>
+                          <a href="https://renati.sunedu.gob.pe" target="_blank" class="enlace-logo">
+                            <img src="/assets/renati.jpg" alt="RENATI" draggable="false">
+                          </a>
+                          <a href="https://alicia.concytec.gob.pe/vufind/" target="_blank" class="enlace-logo">
+                            <img src="/assets/alicia.png" alt="ALICIA" draggable="false">
+                          </a>
+                          <a href="https://scielo.org/es/" target="_blank" class="enlace-logo">
+                            <img src="/assets/scielo.png" alt="Scielo" draggable="false">
+                          </a>
+                          <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/" target="_blank" class="enlace-logo">
+                            <img src="/assets/cti_vitae.jpg" alt="CTI Vitae" draggable="false">
+                          </a>
+                          <a href="https://www.scopus.com/home.uri" target="_blank" class="enlace-logo">
+                            <img src="/assets/scopus-2.png" alt="Scopus" draggable="false">
+                          </a>
+                        </div>
+                      </div>
+                      <button class="enlaces-nav-btn" id="enlacesNext" aria-label="Siguiente">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                      </button>
+                    </div>
+                    <div class="enlaces-dots" id="enlacesDots"></div>
+                  </div>
+                </section>
+      mode: htmlmixed
+    type: template
+    enabled: true
 texto_bienvenida: 'Vicerrectorado de Investigación'
 titulo_pagina: 'Vicerrectorado de Investigación - VRIN UNAMBA'
 imagen_fondo:
   - a_home_otros/bg4.jpg
 template_imagen_fondo:
-  code: |-
-    <!--<div class="header-3">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-               
-            </ol>
-            <div class="carousel-inner">
-                
-                <div class="carousel-item active">
-                    <div class="page-header header-filter" data-parallax="true" style="background-image: url('./assets/a_home_otros/bg4.jpg');">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8 ml-auto mr-auto text-center">
-                                    <h1 class="title">{{texto_bienvenida}}</h1>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    			<div class="carousel-item">
-                    <div class="page-header header-filter" data-parallax="true" style="background-image: url('./assets/a_home_otros/vrin_facebook.png');">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 text-left">
-                                    <h1 class="title">Direcciones</h1>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <i class="material-icons">keyboard_arrow_left</i>
-            <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <i class="material-icons">keyboard_arrow_right</i>
-            <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>-->
+  code: null
   mode: htmlmixed
 modal:
   code: |-

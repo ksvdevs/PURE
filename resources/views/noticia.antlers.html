@@ -12,102 +12,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- Additional CSS vrinstyle -->
 <link href="../vrinstyle/css/material-kit.css" rel="stylesheet" />
-
-<style>
-body {
-    background-color: #f5f5f5; 
-    font-family: 'Roboto', sans-serif;
-}
-.main-container {
-    width: 100%; 
-    margin: 20px auto; 
-    background: #fff; 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 20px; 
-}
-.news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px; 
-}
-.news-item {
-    display: flex;
-    align-items: flex-start; 
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-.news-item.hidden {
-    display: none; 
-}
-.news-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-.news-item img {
-    flex: 0 0 25%; 
-    max-width: 30%;
-    border-radius: 10px; 
-    margin-right: 20px; 
-}
-.news-content {
-    flex: 1;
-}
-.news-content h4 {
-    font-weight: bold;
-    color: #2c3e50; 
-    margin-bottom: 10px;
-}
-.news-content p {
-    margin-bottom: 10px;
-    color: #34495e; 
-    line-height: 1.6; 
-    white-space: pre-line; 
-}
-.news-content a {
-    color: #2980b9; 
-    font-weight: bold;
-    text-decoration: none;
-}
-.news-content a:hover {
-    text-decoration: underline; 
-}
-
-.load-more {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #2980b9;
-    border: 2px solid #2980b9;
-    border-radius: 5px;
-    background: none;
-    cursor: pointer;
-    text-align: center;
-}
-.load-more:hover {
-    background-color: #2980b9;
-    color: #fff;
-}
-
-.title-container {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #2980b9; 
-    border-radius: 10px; 
-    background: #f0f8ff; 
-    color: #2c3e50; 
-    font-weight: bold;
-    font-size: 1.25rem; 
-    text-align: center;
-    margin: 0 auto 25px auto; 
-}
-
-</style>
-
+<link rel="stylesheet" href="vrinstyle/css/estilos.css">
 </head>
 <body class="profile-page sidebar-collapse">
 {{navbar:template_navbar}}
@@ -137,6 +42,7 @@ body {
     <button class="load-more" id="load-more">CARGAR MÁS NOTICIAS</button>
 </div>
 <!-- Core JS Files -->
+ <script src="/vrinstyle/js/vrin.js"></script>
 <script src="../vrinstyle/js/core/jquery.min.js" type="text/javascript"></script>
 <script src="../vrinstyle/js/core/popper.min.js" type="text/javascript"></script>
 <script src="../vrinstyle/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
@@ -145,21 +51,5 @@ body {
 <script src="../vrinstyle/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <!-- Control Center for Material Kit -->
 <script src="../vrinstyle/js/material-kit.js" type="text/javascript"></script>
-<script>
-document.getElementById('load-more').addEventListener('click', function () {
-    const hiddenItems = document.querySelectorAll('.news-item.hidden');
-    const itemsToShow = 4; // Número de elementos a mostrar por clic
-
-    // Mostrar los siguientes elementos ocultos
-    for (let i = 0; i < itemsToShow && hiddenItems[i]; i++) {
-        hiddenItems[i].classList.remove('hidden');
-    }
-
-    // Si no quedan más elementos ocultos, oculta el botón
-    if (document.querySelectorAll('.news-item.hidden').length === 0) {
-        this.style.display = 'none';
-    }
-});
-</script>
 </body>
 </html>
