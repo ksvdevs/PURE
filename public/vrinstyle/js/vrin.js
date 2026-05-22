@@ -128,7 +128,9 @@
   /* ---------- 4. Sombra del header al scrollear ---------- */
   var siteHeader = document.getElementById('siteHeader');
   window.addEventListener('scroll', function () {
-    siteHeader.classList.toggle('scrolled', window.scrollY > 30);
+    if (siteHeader) {
+      siteHeader.classList.toggle('scrolled', window.scrollY > 30);
+    }
   }, { passive: true });
 
   /* ---------- 5. Marcar link activo según la URL ---------- */
@@ -662,72 +664,86 @@ zoom();
   window.addEventListener('load', _launch, { once: true });
 })();
 
-/* ========================================================================
-   ANIMACIÓN CONTADORES STATS
-   ======================================================================== */
+// Adding JavaScript for the new carousel functionality
 (function () {
-  'use strict';
+  const carousel = document.querySelector('#vrin-carousel .carousel-container');
+  const slides = document.querySelectorAll('#vrin-carousel .carousel-slide');
+  const prevButton = document.querySelector('#vrin-carousel .prev');
+  const nextButton = document.querySelector('#vrin-carousel .next');
 
-  var nums = document.querySelectorAll('.stat-num');
-  if (!nums.length) return;
+  // Guard to prevent script execution crash on pages without the carousel
+  if (!carousel || slides.length === 0 || !prevButton || !nextButton) return;
 
-  var animated = new Set();
+  let currentIndex = 0;
 
-  function parseTarget(el) {
-    return parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.display = i === index ? 'block' : 'none';
+    });
   }
 
-  function getPrefix(el) {
-    return el.textContent.trim().charAt(0) === '+' ? '+' : '';
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
   }
 
-  function animateCount(el) {
-    if (animated.has(el)) return;
-    animated.add(el);
-
-    var target   = parseTarget(el);
-    var prefix   = getPrefix(el);
-    var duration = 1600;
-    var startTs  = null;
-
-    function step(now) {
-      if (!startTs) startTs = now;
-      var p    = Math.min((now - startTs) / duration, 1);
-      var ease = 1 - Math.pow(1 - p, 4); /* easeOutQuart */
-      el.textContent = prefix + Math.floor(ease * target);
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = prefix + target;
-    }
-
-    requestAnimationFrame(step);
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
   }
 
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) animateCount(entry.target);
-      });
-    }, { threshold: 0.4 });
+  prevButton.addEventListener('click', prevSlide);
+  nextButton.addEventListener('click', nextSlide);
 
-    nums.forEach(function (el) { io.observe(el); });
-  } else {
-    /* Fallback: animar sin esperar scroll */
-    nums.forEach(animateCount);
-  }
+  // Auto-play functionality
+  setInterval(nextSlide, 5000);
+
+  // Initialize carousel
+  showSlide(currentIndex);
 })();
 
+/* ---------- 7. Pestañas de Líneas de Investigación & Acordeón ---------- */
+(function () {
+  'use strict';
+  
+  var tabButtons = document.querySelectorAll('.lineas-tab-btn');
+  var tabContents = document.querySelectorAll('.lineas-tab-content');
 
-document.getElementById('load-more').addEventListener('click', function () {
-    const hiddenItems = document.querySelectorAll('.news-item.hidden');
-    const itemsToShow = 4; // Número de elementos a mostrar por clic
+  tabButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetTab = btn.getAttribute('data-tab');
 
-    // Mostrar los siguientes elementos ocultos
-    for (let i = 0; i < itemsToShow && hiddenItems[i]; i++) {
-        hiddenItems[i].classList.remove('hidden');
+      tabButtons.forEach(function (b) { b.classList.remove('active'); });
+      tabContents.forEach(function (c) { c.classList.add('d-none'); });
+
+      btn.classList.add('active');
+      var targetContent = document.getElementById('tab-' + targetTab);
+      if (targetContent) {
+        targetContent.classList.remove('d-none');
+      }
+    });
+  });
+
+  window.toggleAccordion = function (header) {
+    var row = header.parentElement;
+    var isOpen = row.classList.contains('open');
+
+    // Cerrar todas las demás filas
+    var allRows = document.querySelectorAll('.accordion-row');
+    allRows.forEach(function (r) {
+      r.classList.remove('open');
+      var body = r.querySelector('.accordion-body');
+      if (body) {
+        body.style.maxHeight = null;
+      }
+    });
+
+    if (!isOpen) {
+      row.classList.add('open');
+      var body = row.querySelector('.accordion-body');
+      if (body) {
+        body.style.maxHeight = body.scrollHeight + "px";
+      }
     }
-
-    // Si no quedan más elementos ocultos, oculta el botón
-    if (document.querySelectorAll('.news-item.hidden').length === 0) {
-        this.style.display = 'none';
-    }
-});
+  };
+})();
