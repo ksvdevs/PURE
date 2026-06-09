@@ -438,27 +438,27 @@ zoom();
 (function () {
   'use strict';
 
-  var viewport      = document.getElementById('enlacesViewport');
-  var track         = document.getElementById('enlacesTrack');
+  var viewport = document.getElementById('enlacesViewport');
+  var track = document.getElementById('enlacesTrack');
   if (!viewport || !track) return;
 
   /* ---- Capturar ítems reales antes de clonar ---- */
   var realItems = Array.prototype.slice.call(track.querySelectorAll('.enlace-logo'));
-  var count     = realItems.length;
+  var count = realItems.length;
   if (count === 0) return;
 
-  var prevBtn       = document.getElementById('enlacesPrev');
-  var nextBtn       = document.getElementById('enlacesNext');
+  var prevBtn = document.getElementById('enlacesPrev');
+  var nextBtn = document.getElementById('enlacesNext');
   var dotsContainer = document.getElementById('enlacesDots');
 
-  var GAP         = 20;
-  var BUF         = 4;   /* clones a cada lado (>= max visibleN) */
+  var GAP = 20;
+  var BUF = 4;   /* clones a cada lado (>= max visibleN) */
   var AUTOPLAY_MS = 4500;
-  var autoTimer   = null;
-  var itemW       = 0;
-  var visibleN    = 4;
-  var domIdx      = BUF; /* índice DOM del ítem real 0 */
-  var hasDragged  = false;
+  var autoTimer = null;
+  var itemW = 0;
+  var visibleN = 4;
+  var domIdx = BUF; /* índice DOM del ítem real 0 */
+  var hasDragged = false;
 
   /* ---- Clonar: [BUF clones últimos | reales | BUF clones primeros] ---- */
   for (var i = 0; i < BUF; i++) {
@@ -533,9 +533,9 @@ zoom();
       dot.setAttribute('aria-label', 'Logo ' + (i + 1));
       dot.addEventListener('click', function () {
         var target = BUF + i;
-        var diff   = target - domIdx;
+        var diff = target - domIdx;
         /* camino más corto en el loop */
-        if (diff >  count / 2) diff -= count;
+        if (diff > count / 2) diff -= count;
         if (diff < -count / 2) diff += count;
         domIdx += diff;
         posAt(domIdx, true);
@@ -564,17 +564,17 @@ zoom();
   }
 
   /* ---- Arrastre con mouse ---- */
-  var dragging   = false;
+  var dragging = false;
   var dragStartX = 0;
-  var dragBaseX  = 0;
+  var dragBaseX = 0;
 
   function liveX() { return -(domIdx * (itemW + GAP)); }
 
   viewport.addEventListener('mousedown', function (e) {
-    dragging   = true;
+    dragging = true;
     hasDragged = false;
     dragStartX = e.clientX;
-    dragBaseX  = liveX();
+    dragBaseX = liveX();
     setTrans(false);
     viewport.classList.add('is-dragging');
     stopAutoplay();
@@ -592,11 +592,11 @@ zoom();
     if (!dragging) return;
     dragging = false;
     viewport.classList.remove('is-dragging');
-    var dx        = e.clientX - dragStartX;
+    var dx = e.clientX - dragStartX;
     var threshold = Math.max(40, itemW * 0.25);
-    if (hasDragged && dx < -threshold)     goNext();
+    if (hasDragged && dx < -threshold) goNext();
     else if (hasDragged && dx > threshold) goPrev();
-    else                                   posAt(domIdx, true);
+    else posAt(domIdx, true);
     startAutoplay();
     setTimeout(function () { hasDragged = false; }, 0);
   });
@@ -610,11 +610,11 @@ zoom();
     });
 
   /* ---- Swipe táctil ---- */
-  var touchX0   = 0;
+  var touchX0 = 0;
   var touchBase = 0;
 
   viewport.addEventListener('touchstart', function (e) {
-    touchX0   = e.changedTouches[0].screenX;
+    touchX0 = e.changedTouches[0].screenX;
     touchBase = liveX();
     setTrans(false);
     stopAutoplay();
@@ -705,9 +705,35 @@ zoom();
 /* ---------- 7. Pestañas de Líneas de Investigación & Acordeón ---------- */
 (function () {
   'use strict';
-  
+
   var tabButtons = document.querySelectorAll('.lineas-tab-btn');
   var tabContents = document.querySelectorAll('.lineas-tab-content');
+
+  // Función para activar la animación de entrada escalonada (staggered entrance)
+  function animateTabContent(container) {
+    if (!container) return;
+
+    var items = container.querySelectorAll('.table-historico tbody tr, .lineas-accordion .accordion-row');
+    items.forEach(function (item, index) {
+      item.classList.remove('animate-in');
+      item.style.transitionDelay = '';
+
+      // Forzar reflow para reiniciar la animación CSS
+      void item.offsetWidth;
+
+      // Retraso escalonado (45ms por fila/tarjeta) para un efecto fluido y premium
+      item.style.transitionDelay = (index * 45) + 'ms';
+      item.classList.add('animate-in');
+    });
+
+    // Reiniciar animación de crecimiento de las barras del gráfico de distribución
+    var chartBars = container.querySelectorAll('.chart-bar');
+    chartBars.forEach(function (bar) {
+      bar.style.animation = 'none';
+      void bar.offsetWidth; // Forzar reflow
+      bar.style.animation = '';
+    });
+  }
 
   tabButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -720,9 +746,18 @@ zoom();
       var targetContent = document.getElementById('tab-' + targetTab);
       if (targetContent) {
         targetContent.classList.remove('d-none');
+        animateTabContent(targetContent);
       }
     });
   });
+
+  // Ejecutar animación en la carga inicial sobre el tab activo por defecto
+  setTimeout(function () {
+    var activeTabContent = document.querySelector('.lineas-tab-content:not(.d-none)');
+    if (activeTabContent) {
+      animateTabContent(activeTabContent);
+    }
+  }, 150);
 
   window.toggleAccordion = function (header) {
     var row = header.parentElement;
@@ -746,4 +781,175 @@ zoom();
       }
     }
   };
+})();
+
+/* ---------- 8. Barra de Progreso de Lectura y Animaciones de Entrada ---------- */
+(function () {
+  'use strict';
+
+  var eventPage = document.querySelector('.evento-page');
+  if (!eventPage) return;
+
+  // Crear la barra de progreso dinámicamente al tope de la página
+  var progressBar = document.createElement('div');
+  progressBar.className = 'reading-progress-bar';
+  document.body.appendChild(progressBar);
+
+  window.addEventListener('scroll', function () {
+    var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+    progressBar.style.width = scrolled + "%";
+  }, { passive: true });
+
+  // Animación de entrada fluida y escalonada para los elementos de artículo
+  var animElements = eventPage.querySelectorAll('.evento-header, .evento-image-wrap, .evento-body');
+  animElements.forEach(function (el, index) {
+    el.classList.add('reveal-element');
+    setTimeout(function () {
+      el.classList.add('visible');
+    }, (index * 150) + 120);
+  });
+})();
+
+/* ---------- 9. Paginación y Filtros de Reglamentos ---------- */
+(function () {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const tableBody = document.querySelector('.reglamentos-table tbody');
+    if (!tableBody) return;
+
+    const rows = Array.from(tableBody.querySelectorAll('tr'));
+    const tabButtons = document.querySelectorAll('.reglamentos-tab');
+    const yearSelect = document.getElementById('reglamentos-year-select');
+    const paginationContainer = document.querySelector('.reglamentos-pagination');
+    const infoBar = document.querySelector('.reglamentos-info-bar');
+
+    let currentTab = 'reglamento';
+    let currentYear = '';
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    // Collect unique years
+    const years = new Set();
+    rows.forEach(row => {
+      const y = row.getAttribute('data-year');
+      if (y) years.add(y);
+    });
+
+    // Sort years descending and populate dropdown
+    const sortedYears = Array.from(years).sort((a, b) => b - a);
+    sortedYears.forEach(year => {
+      const opt = document.createElement('option');
+      opt.value = year;
+      opt.textContent = year;
+      yearSelect.appendChild(opt);
+    });
+
+    function updateList() {
+      const filteredRows = rows.filter(row => {
+        const typeMatch = row.getAttribute('data-type') === currentTab;
+        const yearMatch = currentYear === '' || row.getAttribute('data-year') === currentYear;
+        return typeMatch && yearMatch;
+      });
+
+      const totalItems = filteredRows.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+      // Hide all rows
+      rows.forEach(row => row.style.display = 'none');
+
+      // Show active page rows and re-index shown rows from 1 to N for pagination
+      filteredRows.slice(startIndex, endIndex).forEach((row, index) => {
+        row.style.display = '';
+        const numCell = row.querySelector('.reglamentos-cell-num');
+        if (numCell) {
+          numCell.textContent = startIndex + index + 1;
+        }
+      });
+
+      // Update text
+      if (totalItems > 0) {
+        infoBar.textContent = `MOSTRANDO REGISTROS DEL ${startIndex + 1} AL ${endIndex} DE UN TOTAL DE ${totalItems} REGISTRO(S)`;
+        infoBar.style.display = '';
+      } else {
+        infoBar.textContent = 'NO SE ENCONTRARON REGISTROS';
+      }
+
+      // Update pagination buttons
+      paginationContainer.innerHTML = '';
+      if (totalPages > 1) {
+        // Prev button
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'reglamentos-page-btn' + (currentPage === 1 ? ' disabled' : '');
+        prevBtn.innerHTML = '&laquo;';
+        prevBtn.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            updateList();
+            scrollToTable();
+          }
+        });
+        paginationContainer.appendChild(prevBtn);
+
+        // Page buttons
+        for (let i = 1; i <= totalPages; i++) {
+          const pageBtn = document.createElement('button');
+          pageBtn.className = 'reglamentos-page-btn' + (i === currentPage ? ' active' : '');
+          pageBtn.textContent = i;
+          pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            updateList();
+            scrollToTable();
+          });
+          paginationContainer.appendChild(pageBtn);
+        }
+
+        // Next button
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'reglamentos-page-btn' + (currentPage === totalPages ? ' disabled' : '');
+        nextBtn.innerHTML = '&raquo;';
+        nextBtn.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            updateList();
+            scrollToTable();
+          }
+        });
+        paginationContainer.appendChild(nextBtn);
+      }
+    }
+
+    function scrollToTable() {
+      const tableCard = document.querySelector('.reglamentos-table-card');
+      if (tableCard) {
+        tableCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.getAttribute('data-tab');
+        currentPage = 1;
+        updateList();
+      });
+    });
+
+    yearSelect.addEventListener('change', (e) => {
+      currentYear = e.target.value;
+      currentPage = 1;
+      updateList();
+    });
+
+    updateList();
+  });
 })();

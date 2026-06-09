@@ -7,4 +7,6 @@ orden: 3
 link_documento: /assets/resolucions/resolucion-n0-028-2025-cu-unamba.pdf
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
 updated_at: 1739936184
+fecha_publicacion: '2025-01-05'
+anio: 2025
 ---

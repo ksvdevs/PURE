@@ -23,7 +23,9 @@
 
             <header class="evento-header">
                 <h1 class="evento-title">{{ title }}</h1>
-                <time class="evento-date">{{ date }}</time>
+                <time class="evento-date">
+                    <i class="fa fa-calendar"></i> {{ date }}
+                </time>
             </header>
 
             {{ if imagen_principal }}
@@ -34,7 +36,9 @@
 
             <div class="evento-body">
                 {{ if direccion_o_vrin }}
-                <h2 class="evento-direction">{{ direccion_o_vrin }}</h2>
+                <h2 class="evento-direction">
+                    <i class="fa fa-bookmark"></i> {{ direccion_o_vrin }}
+                </h2>
                 {{ /if }}
                 <div class="evento-content">
                     {{ content }}
