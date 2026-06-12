@@ -6,7 +6,8 @@ reglamento_o_base: reglamento
 orden: 14
 link_documento: 'https://drive.google.com/file/d/1Hy3d8PVcuS9mE1g4k0KtRgn0cGzZkyug/view?usp=sharing'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1739937886
+updated_at: 1781099412
 fecha_publicacion: '2023-05-10'
 anio: 2023
+fecha_de_aprobacion: '2018-02-05'
 ---

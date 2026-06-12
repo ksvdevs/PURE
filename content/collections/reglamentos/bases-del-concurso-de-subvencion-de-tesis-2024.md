@@ -6,7 +6,8 @@ reglamento_o_base: base
 orden: 2
 link_documento: 'https://drive.google.com/file/d/1AMabG1LLaLffn5z4LE0J07sKgu78E5IG/view?usp=drive_link'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1739938300
+updated_at: 1781099145
 fecha_publicacion: '2024-05-25'
 anio: 2024
+fecha_de_aprobacion: '2024-01-08'
 ---

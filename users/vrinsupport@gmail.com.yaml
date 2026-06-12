@@ -42,6 +42,7 @@ preferences:
         - slug
         - status
         - orden
+      per_page: 100
   assets:
     assets:
       per_page: 100

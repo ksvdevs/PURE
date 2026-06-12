@@ -6,7 +6,8 @@ reglamento_o_base: reglamento
 orden: 9
 link_documento: 'https://drive.google.com/file/d/1MaKQLhJ8_SrWz0p9ZMLH6xcjGpGOBjij/view?usp=sharing'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1739937076
+updated_at: 1781099556
 fecha_publicacion: '2023-09-14'
 anio: 2023
+fecha_de_aprobacion: '2022-04-04'
 ---

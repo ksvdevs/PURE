@@ -822,29 +822,118 @@ zoom();
 
     const rows = Array.from(tableBody.querySelectorAll('tr'));
     const tabButtons = document.querySelectorAll('.reglamentos-tab');
-    const yearSelect = document.getElementById('reglamentos-year-select');
+    const customSelectWrapper = document.querySelector('.reglamentos-custom-select-wrapper');
     const paginationContainer = document.querySelector('.reglamentos-pagination');
     const infoBar = document.querySelector('.reglamentos-info-bar');
+
+    if (!customSelectWrapper) return;
+    const triggerBtn = customSelectWrapper.querySelector('.reglamentos-custom-select-trigger');
+    const selectedValueEl = triggerBtn.querySelector('.selected-value');
+    const customOptionsContainer = customSelectWrapper.querySelector('.reglamentos-custom-select-options');
 
     let currentTab = 'reglamento';
     let currentYear = '';
     let currentPage = 1;
     const itemsPerPage = 10;
 
-    // Collect unique years
+    // Spanish Date Formatter
+    function formatDateToSpanish(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.trim().split('-');
+      if (parts.length !== 3) return dateStr;
+      
+      const year = parts[0];
+      const monthVal = parseInt(parts[1], 10);
+      const dayVal = parseInt(parts[2], 10);
+      
+      if (isNaN(monthVal) || isNaN(dayVal) || monthVal < 1 || monthVal > 12) {
+        return dateStr;
+      }
+      
+      const months = [
+        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+      ];
+      
+      return `${dayVal} de ${months[monthVal - 1]} de ${year}`;
+    }
+
+    // Collect unique years and format all dates in rows to Spanish on load
     const years = new Set();
     rows.forEach(row => {
-      const y = row.getAttribute('data-year');
-      if (y) years.add(y);
+      const metaEl = row.querySelector('.reglamentos-doc-meta');
+      if (metaEl) {
+        const rawDate = metaEl.getAttribute('data-date');
+        if (rawDate) {
+          // Format date to Spanish
+          metaEl.textContent = 'Publicado: ' + formatDateToSpanish(rawDate);
+          
+          // Extract year from the publication date
+          const parts = rawDate.trim().split('-');
+          if (parts.length === 3) {
+            const year = parts[0];
+            if (year && year.length === 4 && !isNaN(year)) {
+              row.setAttribute('data-year', year);
+              years.add(year);
+            }
+          }
+        }
+      }
     });
 
-    // Sort years descending and populate dropdown
+    // Sort years descending
     const sortedYears = Array.from(years).sort((a, b) => b - a);
+
+    // Populate custom select options
+    const defaultOption = customOptionsContainer.querySelector('.reglamentos-custom-option');
+    customOptionsContainer.innerHTML = '';
+    customOptionsContainer.appendChild(defaultOption);
+
     sortedYears.forEach(year => {
-      const opt = document.createElement('option');
-      opt.value = year;
+      const opt = document.createElement('div');
+      opt.className = 'reglamentos-custom-option';
+      opt.setAttribute('data-value', year);
       opt.textContent = year;
-      yearSelect.appendChild(opt);
+      customOptionsContainer.appendChild(opt);
+    });
+
+    // Toggle dropdown open/close
+    triggerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      customSelectWrapper.classList.toggle('open');
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (!customSelectWrapper.contains(e.target)) {
+        customSelectWrapper.classList.remove('open');
+      }
+    });
+
+    // Handle option click (using event delegation)
+    customOptionsContainer.addEventListener('click', (e) => {
+      const option = e.target.closest('.reglamentos-custom-option');
+      if (!option) return;
+
+      const val = option.getAttribute('data-value');
+      const text = option.textContent;
+
+      currentYear = val;
+      currentPage = 1;
+
+      // Update trigger text
+      selectedValueEl.textContent = text;
+
+      // Update active option class
+      customOptionsContainer.querySelectorAll('.reglamentos-custom-option').forEach(opt => {
+        opt.classList.toggle('active', opt === option);
+      });
+
+      // Close dropdown
+      customSelectWrapper.classList.remove('open');
+
+      // Refresh list
+      updateList();
     });
 
     function updateList() {
@@ -939,17 +1028,184 @@ zoom();
         tabButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
+
+        // Reset year select to default "AÑO"
+        currentYear = '';
+        selectedValueEl.textContent = 'AÑO';
+        customOptionsContainer.querySelectorAll('.reglamentos-custom-option').forEach(opt => {
+          opt.classList.toggle('active', opt.getAttribute('data-value') === '');
+        });
+
         currentPage = 1;
         updateList();
       });
     });
 
-    yearSelect.addEventListener('change', (e) => {
-      currentYear = e.target.value;
-      currentPage = 1;
-      updateList();
-    });
-
     updateList();
+  });
+})();
+
+/* ========================================================================
+   SECCIÓN QUIÉNES SOMOS (NOSOTROS)
+   Módulo para gestionar la navegación del sidebar, las pestañas de
+   direcciones y la interactividad en la página Quiénes Somos.
+   ======================================================================== */
+(function () {
+  'use strict';
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Navegación del Sidebar
+    const sidebarItems = document.querySelectorAll('.nosotros-sidebar-item');
+    const sections = document.querySelectorAll('.nosotros-content-section');
+    
+    if (sidebarItems.length === 0 || sections.length === 0) return;
+    
+    sidebarItems.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Quitar active de todos los items del sidebar
+        sidebarItems.forEach(function (sib) {
+          sib.classList.remove('active');
+          const chevron = sib.querySelector('.nosotros-chevron');
+          if (chevron) {
+            chevron.className = 'fa fa-chevron-right nosotros-chevron';
+          }
+        });
+        
+        // Agregar active al item actual
+        item.classList.add('active');
+        const chevron = item.querySelector('.nosotros-chevron');
+        if (chevron) {
+          chevron.className = 'fa fa-chevron-down nosotros-chevron';
+        }
+        
+        // Ocultar todas las secciones
+        sections.forEach(function (sec) {
+          sec.style.display = 'none';
+        });
+        
+        // Mostrar la sección correspondiente
+        const targetId = item.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.style.display = 'block';
+        }
+      });
+    });
+    
+    // 2. Pestañas de Direcciones del VRIN
+    const dirTabBtns = document.querySelectorAll('.dir-tab-btn');
+    const dirPanes = document.querySelectorAll('.dir-tab-pane');
+    
+    if (dirTabBtns.length > 0 && dirPanes.length > 0) {
+      dirTabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          // Quitar active de todos los botones
+          dirTabBtns.forEach(function (b) { b.classList.remove('active'); });
+          // Ocultar todos los paneles
+          dirPanes.forEach(function (p) { p.classList.remove('active'); });
+          
+          // Activar el botón y panel correspondientes
+          btn.classList.add('active');
+          const targetSelector = btn.getAttribute('data-target');
+          const targetPane = document.querySelector(targetSelector);
+          if (targetPane) {
+            targetPane.classList.add('active');
+          }
+        });
+      });
+    }
+  });
+})();
+
+/* ========================================================================
+   SECCIÓN DIRECCIONES (SLIDERS & CAROUSELS)
+   ======================================================================== */
+(function () {
+  'use strict';
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Gallery Image Slider
+    const gallerySlides = document.querySelector('.dir-gallery-slides');
+    const galleryImgs = document.querySelectorAll('.dir-gallery-slides img');
+    const galleryDots = document.querySelectorAll('.dir-gallery-dot');
+    const prevBtn = document.querySelector('.dir-gallery-btn.prev');
+    const nextBtn = document.querySelector('.dir-gallery-btn.next');
+    
+    if (gallerySlides && galleryImgs.length > 0) {
+      let currentIndex = 0;
+      const totalSlides = galleryImgs.length;
+      
+      const updateGallery = (index) => {
+        currentIndex = (index + totalSlides) % totalSlides;
+        gallerySlides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        galleryDots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentIndex);
+        });
+      };
+      
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => updateGallery(currentIndex - 1));
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => updateGallery(currentIndex + 1));
+      }
+      
+      galleryDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => updateGallery(idx));
+      });
+      
+      // Auto play every 6 seconds
+      let autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
+      
+      const resetTimer = () => {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
+      };
+      
+      if (prevBtn) prevBtn.addEventListener('click', resetTimer);
+      if (nextBtn) nextBtn.addEventListener('click', resetTimer);
+      galleryDots.forEach(dot => dot.addEventListener('click', resetTimer));
+    }
+    
+    // 2. News Horizontal Slider
+    const newsTrack = document.querySelector('.dir-news-track');
+    const newsCards = document.querySelectorAll('.dir-news-card');
+    const newsPrev = document.getElementById('dir-news-prev');
+    const newsNext = document.getElementById('dir-news-next');
+    
+    if (newsTrack && newsCards.length > 0) {
+      let index = 0;
+      
+      const getCardsPerView = () => {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 992) return 2;
+        return 3;
+      };
+      
+      const slideNews = (dir) => {
+        const cardsPerView = getCardsPerView();
+        const maxIndex = Math.max(0, newsCards.length - cardsPerView);
+        
+        index += dir;
+        if (index < 0) index = maxIndex;
+        else if (index > maxIndex) index = 0;
+        
+        const cardWidth = newsCards[0].getBoundingClientRect().width;
+        const gap = 24; // matches gap in CSS
+        const offset = index * (cardWidth + gap);
+        newsTrack.style.transform = `translateX(-${offset}px)`;
+      };
+      
+      if (newsPrev) newsPrev.addEventListener('click', () => slideNews(-1));
+      if (newsNext) newsNext.addEventListener('click', () => slideNews(1));
+      
+      window.addEventListener('resize', () => {
+        index = 0;
+        newsTrack.style.transform = 'translateX(0)';
+      });
+    }
   });
 })();

@@ -9,49 +9,33 @@ tabs:
             field:
               type: text
               required: true
+              validate:
+                - required
           -
             handle: reglamento_o_base
             field:
               options:
                 reglamento: Reglamento
                 base: 'Base de concurso'
-              taggable: false
-              push_tags: false
-              multiple: false
-              clearable: false
-              searchable: true
-              cast_booleans: false
               type: select
               display: Reglamento_o_base
               instructions: 'Seleccione si subirá un Reglamento o Base de Concurso.'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: orden
             field:
               type: integer
               display: Orden
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: link_documento
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Link_documento
               instructions: 'Ingrese el link del documento que esta publicando.'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
+          -
+            handle: fecha_de_aprobacion
+            field:
+              type: date
+              display: 'Fecha de aprobación'
   sidebar:
     display: Sidebar
     sections:

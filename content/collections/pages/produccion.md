@@ -28,886 +28,298 @@ block_types:
     horario_ce: '8:00 a.m. – 1:00 pm. y 2:00 pm. – 3:30 pm.'
     template:
       code: |-
-        <div class="section">
-            <div class="row justify-content-center">
-                <div class="col-md-5 ">
-                    <div class="card-profile ">
-                        <div class=" card-header-image mr-auto ml-auto "><br>
-                            <img class="img rounded-circle" src="{{imagen_director}}" style="max-width:40%; height: 30%;">
-                        </div>
-                        <br>
-                        <div class="card-body ">
-                            <h4 class="card-title">{{nombre_director}} <br>
-                                {{cargo_director}}
-                            </h4>
-                            <br>
-                            <b>Correo: <small class="text-muted h6">bienesyservicios@unamba.edu.pe</small> <br>
-                            Oficina: <small class="text-muted h6">{{direccion_oficina}}</small><br>
-                            Horario: <small class="text-muted h6">8:00 a.m. – 1:00 pm. y 2:00 pm. – 3:30 pm.</small>
-                            </b>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-profile card-plain">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card-body">
-                                    <h5 class="description">
-                                        La Dirección de Producción de Bienes y Servicios es el órgano de línea dependiente del
-                                        Vicerrectorado de Investigación; responsable de dirigir, coordinar y apoyar la política
-                                        productiva de bienes y servicios que están relacionados con sus especialidades, áreas
-                                        académicas o trabajos de investigación; así también es responsable de la gestión de los
-                                        centros de producción y los centros experimentales.
-                                    </h5>
-                                    <h4 class="card-title">Funciones Dirección de Producción de Bienes y Servicios.</h4>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModalScrollable2">
-                                    VER FUNCIONES
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- seccion jefes de centros-->
-                <div class="cd-section " id="teams">
-                    <div class="team-2 " id="team-2">
-                        <div class="container">
-                            <h2 class="text-center">JEFES DE LOS CENTROS</h2>
-                            <div class="row justify-content-center">
-                                <div class="col-md-4">
-                                    <div class="card card-profile ">
-                                        <div class=" card-header-image mr-auto ml-auto">
-                                            <img class="img rounded-circle" src="{{imagen_ci}}">
-                                        </div>
-                                        <div class="card-body ">
-                                            <h5 class="card-title ">{{nombre_ci}}<br>
-                                                Jefe Centro de Idiomas
-                                            </h5>
-                                            <b>
-                                                Correo: 
-                                                <short class="text-muted ">centrodeidiomas@unamba.edu.pe</short>
-                                                <br>
-                                                Oficina: 
-                                                <short class="text-muted ">{{direccion_oficina_ci}}</short>
-                                                <br>
-                                                Horario: 
-                                                <short class="text-muted ">{{horario_ci}}</short>
-                                            </b>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card card-profile ">
-                                        <div class=" card-header-image mr-auto ml-auto">
-                                            <img class="img rounded-circle" src="{{imagen_cii}}">
-                                        </div>
-                                        <div class="card-body ">
-                                            <h5 class="card-title ">{{nombre_cii}}<br>
-                                                Jefe Centro de Informática e Internet
-                                            </h5>
-                                            <b>
-                                                Correo: 
-                                                <short class="text-muted ">cii@unamba.edu.pe</short>
-                                                <br>
-                                                Oficina: 
-                                                <short class="text-muted ">{{direccion_oficina_cii}}</short>
-                                                <br>
-                                                Horario: 
-                                                <short class="text-muted ">{{horario_cii}}</short>
-                                            </b>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card card-profile ">
-                                        <div class=" card-header-image mr-auto ml-auto">
-                                            <img class="img rounded-circle" src="{{imagen_ce}}">
-                                        </div>
-                                        <div class="card-body ">
-                                            <h5 class="card-title ">{{nombre_ce}}<br>
-                                                Jefe Centros Experimentales
-                                            </h5>
-                                            <b>
-                                                Correo: 
-                                                <short class="text-muted ">centrosexperimentales@unamba.edu.pe</short>
-                                                <br>
-                                                Oficina: 
-                                                <short class="text-muted ">{{direccion_oficina_ce}}</short>
-                                                <br>
-                                                Horario: 
-                                                <short class="text-muted ">{{horario_ce}}</short>
-                                            </b>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!---fin seccion jefes de centros-->
-                <h2>Paginas de los Centros de Producción de Bienes y Servicios</h2>
-                <!---inicio seccion pagina de centros-->
-                <div class="team">
-                    <div class="row">
-                        <div class="feat-item mb-md50 col-lg-3">
-                            <div class="text-center">
-                                <figure>
-                                    <a href="https://idiomas.unamba.edu.pe/" target="_blank">
-                                    <img src="/assets/direcciones/produccion/Centro-idiomas-logo.png" alt="">
-                                    </a>
-                                </figure>
-                                <h5 class="card-title">Centro de Idiomas</h5>
-                            </div>
-                        </div>
-                        <div class="feat-item active mb-md50 col-lg-3">
-                            <div class="text-center">
-                                <figure>
-                                    <a href="https://centrodeinformatica.unamba.edu.pe/" target="_blank">
-                                    <img src="/assets/direcciones/produccion/Centro-de-informatica-e.png" alt="">
-                                    </a>
-                                </figure>
-                                <h5 class="card-title">Centro de Informática e Internet</h5>
-                            </div>
-                        </div>
-                        <div class="feat-item mb-md50 col-lg-3">
-                            <div class="text-center">
-                                <figure>
-                                    <a href="/centro-experimental">
-                                    <img src="/assets/direcciones/produccion/Centro-experimental-logo.png" alt="">
-                                    </a>
-                                </figure>
-                                <h5 class="card-title">Centros experimentales</h5>
-                            </div>
-                        </div>
-                        <div class="feat-item mb-md50 col-lg-3">
-                            <div class="text-center">
-                                <figure>
-                                    <a href="https://cpu.unamba.edu.pe/" target="_blank">
-                                    <img src="/assets/direcciones/produccion/cpu-logo.png" alt="">
-                                    </a>
-                                </figure>
-                                <h5 class="card-title">Centro Pre Universitario</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!---fin seccion pagina de centros-->
-                </div>
+        <div class="dir-page-container">
+          <!-- Hero Section -->
+          <header class="dir-hero">
+            <div class="dir-hero-content">
+              <h1 class="dir-hero-title">Dirección de Producción de Bienes y Servicios</h1>
+              <p class="dir-hero-subtitle">Dirigiendo, coordinando y apoyando la producción de bienes y servicios relacionados con especialidades, áreas académicas y centros experimentales de la universidad.</p>
             </div>
-        </div>
-        <!--<style>
-                    .news-carousel {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        overflow: hidden;
-                        position: relative;
-                    }
+          </header>
 
-                    .news-carousel .carousel-container {
-                        display: flex;
-                        gap: 20px;
-                        transition: transform 0.5s ease-in-out;
-                    }
+          <!-- Main Layout Grid -->
+          <div class="dir-layout-grid container">
+            <!-- Left Column: About & Functions -->
+            <div class="dir-main-content">
+              <!-- Sobre la Oficina Card -->
+              <section class="dir-content-card">
+                <h2 class="dir-section-title">Sobre la Oficina</h2>
+                <div class="dir-section-body">
+                  <p>La Dirección de Producción de Bienes y Servicios es el órgano de línea dependiente del Vicerrectorado de Investigación; responsable de dirigir, coordinar y apoyar la política productiva de bienes y servicios que están relacionados con sus especialidades, áreas académicas o trabajos de investigación; así también es responsable de la gestión de los centros de producción y los centros experimentales.</p>
+                  <p>Nuestro enfoque se centra en la articulación de la producción científica con las necesidades regionales y nacionales, asegurando el respaldo institucional necesario para alcanzar estándares internacionales de competitividad.</p>
+                </div>
+              </section>
 
-                    .news-carousel .news-item{
-                        width: 400px;
-                        height: auto;
-                        flex: 0 0 30%; /* Mostrar 3 noticias */
-                        text-align: center;
-                        position: relative;
-                        transform: scale(1);
-                        transition: transform 0.3s ease;
-                        margin-bottom: 100px; /* Espacio extra para evitar superposición */
-                        margin-right: 10px;
-                        margin-left: 10px;
-                        margin-top: 30px;
-                    }
+              <!-- Funciones Principales Card -->
+              <section class="dir-content-card">
+                <h2 class="dir-section-title">Funciones Principales</h2>
+                <div class="dir-section-body">
+                  <ul class="dir-functions-list">
+                    <li>
+                      <span class="dir-func-letter">a</span>
+                      <span class="dir-func-text">Proponer al Vicerrectorado de Investigación las políticas, reglamentos y/o normas de funcionamiento de la Dirección de Producción de Bienes y Servicios.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">b</span>
+                      <span class="dir-func-text">Gestionar el desarrollo de los Centros Experimentales de la universidad vinculados con la actividad agropecuaria de la región.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">c</span>
+                      <span class="dir-func-text">Proponer y recomendar al Vicerrectorado de Investigación alianzas estratégicas con Instituciones públicas y privadas, nacionales y extranjeras, para la producción de bienes y servicios que generen recursos económicos.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">d</span>
+                      <span class="dir-func-text">Planificar, organizar y ejecutar acciones de asesoramiento y asistencia técnica para generar recursos.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">e</span>
+                      <span class="dir-func-text">Coordinar acciones conjuntas con los docentes, a fin de desarrollar programas de producción.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">f</span>
+                      <span class="dir-func-text">Promover la capacitación y especialización docentes y de estudiantes de la Facultad para dirigir las labores de asesoramiento y consultoría profesional.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">g</span>
+                      <span class="dir-func-text">Proponer proyectos de investigación orientados a la producción de bienes y servicios rentables, que puedan ejecutarse con criterios empresariales a nivel de la UNAMBA en coordinación con el Vicerrectorado de Investigación.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">h</span>
+                      <span class="dir-func-text">Proponer la creación de Centros de Producción de Bienes y Servicios.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">i</span>
+                      <span class="dir-func-text">Elaborar y presentar al Vicerrectorado de Investigación la información de la Dirección, para la Memoria Anual.</span>
+                    </li>
+                    <li>
+                      <span class="dir-func-letter">j</span>
+                      <span class="dir-func-text">Otras funciones que le asigne el Vicerrectorado de Investigación en el ámbito de su competencia.</span>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+            </div>
 
-                    .news-carousel .news-item:hover{
-                        transform: scale(1.1);
-                        z-index: 1; /* Asegurar que el elemento ampliado esté encima */
-                    }
-
-                    .news-item img-act {
-                        max-width: 1000px;
-                        height: auto;
-                        flex: 0 0 30%; /* Mostrar 3 noticias */
-                        text-align: center;
-                        position: relative;
-                        transform: scale(1);
-                        transition: transform 0.3s ease;
-                        margin-bottom: 100px; /* Espacio extra para evitar superposición */
-                        margin-right: 10px;
-                        margin-left: 10px;
-                        margin-top: 30px;    
-                    }
-
-                    .news-item img-act {
-                        transform: scale(1.1);
-                        z-index: 1; /* Asegurar que el elemento ampliado esté encima */
-                    }
-
-                    .news-carousel img {
-                        width: 100%;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    }
-
-                    .news-carousel .news-content {
-                        margin-top: 10px;
-                    }
-
-                    .news-carousel .news-content h4 {
-                        font-size: 18px;
-                        font-weight: bold;
-                        color: #2c3e50;
-                    }
-
-                    .news-carousel .news-content a {
-                        display: inline-block;
-                        margin-top: 10px;
-                        padding: 8px 15px;
-                        background-color: #2980b9;
-                        color: #fff;
-                        text-decoration: none;
-                        border-radius: 5px;
-                    }
-
-                    .news-carousel .news-content a:hover {
-                        background-color: #1a5276;
-                    }
-
-                    .news-carousel .arrow {
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        background-color: rgba(0, 0, 0, 0.5);
-                        color: white;
-                        border: none;
-                        padding: 10px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        z-index: 10;
-                    }
-
-                    .news-carousel .arrow.left {
-                        left: 10px;
-                    }
-
-                    .news-carousel .arrow.right {
-                        right: 10px;
-                    }
-
-                    .news-carousel .bottom-button {
-                        text-align: center;
-                        margin-top: 30px; /* Más espacio para separar el botón */
-                    }
-
-                    .news-carousel .bottom-button a {
-                        padding: 10px 20px;
-                        background-color: #2980b9;
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 5px;
-                    }
-                    
-                    /*TITULO*/
-                    .section-header {
-                        text-align: center;
-                        margin-bottom: 30px;
-                    }
-
-                    .section-header h2 {
-                        font-size: 2.5rem;
-                        color: #000;
-                        margin-bottom: 10px;
-                        margin-top: 30px;
-                        font-weight: bold;
-                    }
-
-                    .section-header p {
-                        font-size: 1rem;
-                        color: #555;
-                        margin: 0;
-                    }
-
-                    .section-header h2::after {
-                        content: '';
-                        display: block;
-                        width: 60px;
-                        height: 3px;
-                        background-color: #b22222;
-                        margin: 10px auto 0;
-                    }
-                      /* General Styles for the Carousel */
-                    .custom-carousel {
-                        overflow: hidden;
-                        position: relative;
-                        padding: 10px;
-                        max-width: 1100px;
-                        margin: auto;
-                    }
-
-                    .carousel-slide {
-                    display: flex;
-                    max-width: 1100px;
-
-                    }
-                    .carousel-slide img {
-                        width: 100%;
-                        height: 600px;
-                        object-fit: cover;
-                        margin-left: 100px
-                    }
-
-                    /* Navigation Buttons */
-                    .carousel-button {
-                        position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background-color: rgba(0, 0, 0, 0.5);
-                    color: #fff;
-                    border: none;
-                    border-radius: 50%;
-                    font-size: 24px;
-                    cursor: pointer;
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 10;
-                    }
-
-                    .custom-carousel .carousel-button.left {
-                        left: 15px;
-                    }
-
-                    .custom-carousel .carousel-button.right {
-                        right: 15px;
-                    }
-
-                    .custom-carousel .carousel-button:hover {
-                        background-color: rgba(0, 0, 0, 0.8);
-                    }
-
-                    /* Indicators */
-                    .custom-carousel .carousel-indicators {
-                        position: absolute;
-                        bottom: 20px;
-                        left: 50%;
-                        transform: translateY(-50%);                
-                        transform: translateX(-50%);
-                        display: flex;
-                        gap: 10px;
-                    }
-
-                    .custom-carousel .carousel-indicators button {
-                        width: 12px;
-                        height: 12px;
-                        background-color: rgba(255, 255, 255, 0.5);
-                        border: none;
-                        border-radius: 50%;
-                        cursor: pointer;
-                    }
-
-                    .custom-carousel .carousel-indicators button.active {
-                        background-color: white;
-                    }
-                    .section-header h2::after {
-                        content: '';
-                        display: block;
-                        width: 60px;
-                        height: 3px;
-                        background-color: #b22222;
-                        margin: 10px auto 0;
-                    }
-
-                    .direccion-section {
-                    padding: 40px 20px;
-                    /*background-color: #f9f9f9;*/
-                    background-color: #fff;
-                    }
-
-                    .direccion-container {
-                    max-width: 1200px;
-                    margin-top: 20px;;
-                    }
-
-                    .direccion-title {
-                    text-align: center;
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 40px;
-                    }
-
-                    .direccion-row {
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: space-between;
-                    }
-
-                    .direccion-image-wrapper {
-                    position: relative;
-                    flex: 1;
-                    max-width: 40%;
-                    text-align: center;
-                    }
-
-                    .direccion-image-background {
-                    position: absolute;
-                    bottom: 20px;
-                    left: 20px;
-                    width: 80%;
-                    height: 100%;
-                    background-color: #e6e6e6;
-                    border-radius: 8px;
-                    z-index: 1;
-                    }
-
-                    .direccion-image {
-                    position: relative;
-                    z-index: 2;
-                    /*max-width: 100%;
-                    height: auto;*/
-                    width: auto;
-                    max-height: 500px;
-                    border-radius: 8px;
-                    object-fit: cover;
-                    }
-
-                    .direccion-content {
-                    flex: 1;
-                    max-width: 55%;
-                    }
-
-                    .direccion-subtitle {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 20px;
-                    }
-
-                    .direccion-description {
-                    font-size: 16px;
-                    line-height: 1.6;
-                    color: #555;
-                    margin-bottom: 20px;
-                    }
-
-                    .direccion-contact {
-                    font-size: 14px;
-                    color: #555;
-                    margin-bottom: 30px;
-                    }
-
-                    .direccion-button {
-                    display: inline-block;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    color: #fff;
-                    background-color: #6a1b9a;
-                    text-decoration: none;
-                    border-radius: 5px;
-                    transition: background-color 0.3s ease;
-                    }
-
-                    .direccion-button:hover {
-                    background-color: #4a148c;
-                    color: white;
-                    }
-
-                    body, html {
-                    margin: 0; /* Elimina cualquier margen del cuerpo y del HTML */
-                    padding: 0; /* Elimina cualquier padding del cuerpo y del HTML */
-                    overflow-x: hidden; /* Evita que se pueda desplazar horizontalmente */
-                    }
-                   
-
-                    /* Estilos generales */
-                    .unidades-section {
-                    padding: 40px 20px;
-                    /*background-color: #e6e6e6;*/
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    position: relative;
-                    margin: 0 auto;
-                    }
-
-                    .unidades-title {
-                    text-align: center;
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 40px;
-                    }
-
-                    .unidades-carousel {
-                    display: flex;
-                    align-items: center;
-                    position: relative;
-                    max-width: 100%;
-                    overflow: hidden;
-                    }
-
-                    .unidades-container {
-                    display: flex;
-                    transition: transform 0.5s ease-in-out;
-                    gap: 20px;
-                    }
-
-                    .unidad-item {
-                    margin-left: 20px;
-                    display: flex;
-                    flex: 0 0 100%;
-                    justify-content: space-between;
-                    align-items: center;
-                    /*background-color: #e6e6e6;*/
-                    border-radius: 8px;
-                    padding: 20px;
-
-                    }
-
-                    .unidad-content {
-                    flex: 0 0 50%;
-                    padding-right: 20px;
-                    }
-
-                    .unidad-title {
-                    font-size: 20px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 10px;
-                    }
-
-                    .unidad-description {
-                    font-size: 16px;
-                    color: #555;
-                    margin-bottom: 20px;
-                    }
-
-                    .unidad-contact {
-                    font-size: 14px;
-                    color: #555;
-                    margin-bottom: 20px;
-                    }
-
-                    .unidad-button {
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    color: #fff;
-                    background-color: #6a1b9a;
-                    text-decoration: none;
-                    border-radius: 5px;
-                    }
-
-                    .unidad-button:hover {
-                    background-color: #4a148c;
-                    }
-
-                    .unidad-image-wrapper {
-                    flex: 0 0 50%;
-                    text-align: center;
-                    }
-
-                    .unidad-image {
-                    max-width: 100%;
-                    height: 400px;
-                    border-radius: 8px;
-                    object-fit: cover;
-                    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.15);
-                    }
-
-                    /* Botones de navegación */
-                    .unidades-arrow {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background-color: rgba(0, 0, 0, 0.5);
-                    color: #fff;
-                    border: none;
-                    padding: 10px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    z-index: 10;
-                    }
-
-                    .unidades-arrow.left {
-                    left: 10px;
-                    }
-
-                    .unidades-arrow.right {
-                    right: 10px;
-                    }
-
-                    .unidades-arrow:hover {
-                    background-color: rgba(0, 0, 0, 0.8);
-                    }
-
-              </style>-->
-
-              <!--<div style="font-size: 1.5rem; color: #000; margin-top: 40px; font-family: "Roboto", "Helvetica", "Arial", sans-serif; text-align: center;">
-                <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif;">Dirección de Innovación y Transferencia Tecnológica</h2>
+            <!-- Right Column: Director Profile Card -->
+            <div class="dir-sidebar">
+              <div class="dir-profile-card">
+                <div class="dir-profile-photo-wrap">
+                  <img src="/assets/{{imagen_director}}" alt="{{nombre_director}}" class="dir-profile-photo">
+                  <span class="dir-profile-badge"><i class="fa fa-graduation-cap"></i> INVESTIGADOR</span>
+                </div>
+                
+                <h3 class="dir-profile-name">{{nombre_director}}</h3>
+                <p class="dir-profile-role">{{cargo_director}}</p>
+                
+                <div class="dir-profile-resolution">
+                  <span class="dir-res-label">Resolución Rectoral</span>
+                  <span class="dir-res-value">R. Nº 6589-2023-UNAMBA</span>
+                </div>
+                
+                <div class="dir-profile-actions">
+                  <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=99489" target="_blank" class="dir-btn dir-btn-secondary">
+                    <i class="fa fa-external-link"></i> CTI Vitae (Concytec)
+                  </a>
+                  <a href="mailto:bienesyservicios@unamba.edu.pe" class="dir-btn dir-btn-primary">
+                    <i class="fa fa-envelope"></i> CONTACTAR DIRECCIÓN
+                  </a>
+                </div>
+                
+                <div class="dir-profile-meta">
+                  <div class="dir-meta-item">
+                    <i class="fa fa-envelope-o"></i>
+                    <div>
+                      <strong>Correo Institucional</strong>
+                      <span>bienesyservicios@unamba.edu.pe</span>
+                    </div>
+                  </div>
+                  <div class="dir-meta-item">
+                    <i class="fa fa-clock-o"></i>
+                    <div>
+                      <strong>Horario de Atención</strong>
+                      <span>8:00 a.m. – 1:00 pm. y 2:00 pm. – 3:30 pm.</span>
+                    </div>
+                  </div>
+                  <div class="dir-meta-item">
+                    <i class="fa fa-map-marker"></i>
+                    <div>
+                      <strong>Oficina</strong>
+                      <span>{{direccion_oficina}}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <hr>
-                <div class="custom-carousel">
-                    <div class="carousel-slide" id="carouselTrack">
-                    <img src="assets/fotos_vrin/mir_2188.jpg" alt="Slide 1">
-                    <img src="assets/fotos_vrin/mir_2052.jpg" alt="Slide 2" style="margin-left:180px;">
-                    <img src="assets/fotos_vrin/mir_2220.jpg" alt="Slide 3" style="margin-left:160px;">
-                    </div>
-                <button class="carousel-button left" onclick="moveSlide(-1)">❮</button>
-                <button class="carousel-button right" onclick="moveSlide(1)">❯</button>
+            </div>
+          </div>
 
+          <!-- Jefes de los Centros Section -->
+          <section class="dir-secondary-section">
+            <div class="container">
+              <div class="dir-section-header">
+                <h2>Jefes de los Centros de Producción</h2>
+                <p>Conoce a los responsables de liderar nuestros centros especializados y experimentales.</p>
+              </div>
+              
+              <div class="dir-units-grid">
+                <!-- Centro 1: Idiomas -->
+                <div class="dir-unit-card">
+                  <div class="dir-unit-photo-wrap">
+                    <img src="/assets/{{imagen_ci}}" alt="Jefe Centro de Idiomas" class="dir-unit-photo">
+                  </div>
+                  <div class="dir-unit-info">
+                    <h3 class="dir-unit-title">Centro de Idiomas</h3>
+                    <p class="dir-unit-desc">Encargado de promover la enseñanza y aprendizaje de idiomas extranjeros y lenguas originarias a la comunidad universitaria y sociedad.</p>
+                    <div class="dir-unit-contact">
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-user"></i>
+                        <span>{{nombre_ci}}</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>centrodeidiomas@unamba.edu.pe</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-map-marker"></i>
+                        <span>{{direccion_oficina_ci}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Centro 2: Informática -->
+                <div class="dir-unit-card">
+                  <div class="dir-unit-photo-wrap">
+                    <img src="/assets/{{imagen_cii}}" alt="Jefe Centro de Informática" class="dir-unit-photo">
+                  </div>
+                  <div class="dir-unit-info">
+                    <h3 class="dir-unit-title">Centro de Informática e Internet</h3>
+                    <p class="dir-unit-desc">Responsable de brindar capacitación y certificación en el uso de tecnologías de la información, herramientas de computación y desarrollo de software.</p>
+                    <div class="dir-unit-contact">
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-user"></i>
+                        <span>{{nombre_cii}}</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>cii@unamba.edu.pe</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-map-marker"></i>
+                        <span>{{direccion_oficina_cii}}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="direccion-section">
-                    <div class="direccion-container">
-                        
-                        <div class="direccion-row">
-
-                        <div class="direccion-image-wrapper">
-                            <div class="direccion-image-background"></div>
-                            <img src="{{imagen}}" alt="Director de Innovación" class="direccion-image">
-                        </div>
-
-                        <div class="direccion-content">
-                            <h3 class="direccion-subtitle">{{cargo_direccion}}</h3>
-                            <p class="direccion-description" style="font-size: 20px;">
-                            La Dirección de Innovación y Transferencia Tecnológica es el órgano de línea responsable de la gestión, evaluación, seguimiento y monitoreo de las investigaciones, innovaciones y transferencias tecnológicas, teniendo en cuenta las líneas de investigación establecidas por la universidad.
-                            </p>
-                            <p class="direccion-contact" style="font-size: 16px;">
-                            <b>Correo:</b> {{correo}}<br>
-                            <b>Oficina:</b> {{direccion_oficina}}<br>
-                            <b>Horario:</b> {{horario}}
-                            </p>
-                            <a href="#funciones" class="direccion-button" data-toggle="modal" data-target="#exampleModalScrollable1">Ver funciones</a>
-                        </div>
-                        </div>
+                <!-- Centro 3: Centros Experimentales -->
+                <div class="dir-unit-card">
+                  <div class="dir-unit-photo-wrap">
+                    <img src="/assets/{{imagen_ce}}" alt="Jefe Centros Experimentales" class="dir-unit-photo">
+                  </div>
+                  <div class="dir-unit-info">
+                    <h3 class="dir-unit-title">Centros Experimentales</h3>
+                    <p class="dir-unit-desc">Encargado de la gestión, mantenimiento y desarrollo de los fundos y centros agropecuarios experimentales para la investigación y producción.</p>
+                    <div class="dir-unit-contact">
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-user"></i>
+                        <span>{{nombre_ce}}</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <span>centrosexperimentales@unamba.edu.pe</span>
+                      </div>
+                      <div class="dir-unit-contact-item">
+                        <i class="fa fa-map-marker"></i>
+                        <span>{{direccion_oficina_ce}}</span>
+                      </div>
                     </div>
-                    </div>
-
-                    <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif;; font-size: 1.8rem;">Conoce nuestras Unidades</h2>
-                    <div class="unidades-section">
-                        
-                        <div class="unidades-carousel">
-                            <button class="unidades-arrow left" onclick="moveUnidades(-1)">❮</button>
-                                <div class="unidades-container">
-         
-                                <div class="unidad-item">
-                                    <div class="unidad-content">
-                                    <h3 class="unidad-title" style="margin-left: 20px; font-size: 24px;">Unidad de Repositorio Institucional</h3>
-                                    <p class="unidad-description" style="margin-left: 20px; font-size: 20px;">
-                                        Nos enfocamos en impulsar la gestión y preservación de los recursos académicos y científicos producidos en la universidad, garantizando el acceso abierto y la visibilidad global.
-                                    </p>
-                                    <p class="unidad-contact" style="margin-left: 20px; font-size: 16px;">
-                                        <b>Correo:</b> repositorio@unamba.edu.pe<br>
-                                        <b>Oficina:</b> Biblioteca General, 2° Piso
-                                    </p>
-                                    <a href="#funciones-unidad" class="unidad-button" data-toggle="modal" data-target="#exampleModalScrollableUnidad" style="margin-left: 20px; font-size: 16px;">Ver funciones</a>
-                                    </div>
-                                    <div class="unidad-image-wrapper">
-                                    <img src="/assets/fotos_vrin/mir_2098.jpg" alt="Jefe Unidad" class="unidad-image">
-                                    </div>
-                                </div>
-
-                                <div class="unidad-item">
-                                    <div class="unidad-content">
-                                    <h3 class="unidad-title" style="font-size: 24px;">Unidad de Propiedad Intelectual</h3>
-                                    <p class="unidad-description" style="font-size: 20px;">
-                                        Nos enfocamos en promover el registro de patentes y protección de propiedad intelectual de los investigadores; gestionar la protección intelectual y registro de patentes que se originen como resultado de las investigaciones.
-                                    </p>
-                                    <p class="unidad-contact" style="font-size: 16px;">
-                                        <b>Correo:</b> patentes@unamba.edu.pe<br>
-                                        <b>Oficina:</b> Biblioteca General, 2° Piso
-                                    </p>
-                                    <a href="#funciones-unidad" class="unidad-button" data-toggle="modal" data-target="#exampleModalScrollableUnidad" style="font-size: 16px;">Ver funciones</a>
-                                    </div>
-                                    <div class="unidad-image-wrapper">
-                                    <img src="/assets/fotos_vrin/mir_2091.jpg" alt="Jefe Unidad" class="unidad-image">
-                                    </div>
-                                </div>
-                                </div>
-                                <button class="unidades-arrow right" onclick="moveUnidades(1)">❯</button>
-                        </div>
-                        </div>
-
-                    <div class="container text-center">
-                        <br>
-                        <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif;; font-size: 1.8rem;">Nuestros Servicios</h2>
-                       
-
-                                      <div class="row">
-                                          <div class="col-md-4 ml-auto mr-auto text-center">
-                                              <div class="card card-profile">
-                                                  <br>
-                                                  <div class=" mr-auto ml-auto ">
-                                                      <img class="img" src="./assets/informacion-docente/nube.png">
-                                                  </div>
-                                                  <div class="card-body ">
-                                                      <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif; font-size: 1.8rem;">
-                                                      Turnitin</h4>
-                                                      <p class="Tim-note">
-                                                          PURE es una plataforma de gestión de investigación que recopila información sobre los
-                                                          resultados obtenidos por docentes e investigadores, incluyendo publicaciones, proyectos
-                                                          y más en un solo lugar.
-                                                      </p>
-                                                      <a class="unidad-button" href="https://pure.unamba.edu.pe/es/" target="_blank" style="background-color: #6a1b9a; border-radius: 5px;">Ver Página</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-4 ml-auto mr-auto text-center">
-                                              <div class="card card-profile">
-                                                  <br>
-                                                  <div class=" mr-auto ml-auto ">
-                                                      <img class="img" src="./assets/informacion-docente/repo.png">
-                                                  </div>
-                                                  <div class="card-body ">
-                                                      <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif;; font-size: 1.8rem;">
-                                                      My Loft</h4>
-                                                      <p class="Tim-note">
-                                                          El repositorio UNAMBA es una plataforma que contiene materiales académicos y científicos
-                                                          producidos por la comunidad universitaria, tales como tesis, artículos y libros, entre otros .
-                                                      </p>
-                                                      <a class="unidad-button" href="https://repositorio.unamba.edu.pe" target="_blank" style="background-color: #6a1b9a; border-radius: 5px;">Ver Página</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          
-                                      </div>
-                                  </div>
-                              </div>
-
-                        <hr>
-                        <div>
-                            <h2 style="font-weight: bold; text-align: center; font-family: "Roboto", "Helvetica", "Arial", sans-serif;; font-size: 1.8rem;">Actividades de la Dirección</h2>
-                            <p style="text-align: center;">Conoce todas las actividades realizadas por la Dirección de Innovación y Transferencia Tecnológica de la UNAMBA.</p>
-                        </div>  
-                      <div class="news-carousel" id="news-carousel">
-                        <button class="arrow left" onclick="moveCarousel(-1)">❮</button>
-                        <div class="carousel-container">
-                            {{ collection:noticias }}
-                            {{ if direccion_o_vrin == 'Dirección de Innovación y Transferencia Tecnológica' }}
-                            <div class="news-item">
-                                <img src="{{ imagen_principal | url }}" alt="{{ title }} class="img-act">
-                                <div class="news-content">
-                                    <h4>{{ title }}</h4>
-                                    <a href="{{ link }}" target="_blank">Ir a la publicación</a>
-                                </div>
-                            </div>
-                            {{ /if }}
-                            {{ /collection:noticias }}
-                        </div>
-                        <button class="arrow right" onclick="moveCarousel(1)">❯</button>
-                    </div>
-
+                  </div>
                 </div>
-               </div>-->
+              </div>
+            </div>
+          </section>
 
-                <!--<script>
-                /*let currentUnidadIndex = 0;
+          <!-- Páginas de los Centros Section -->
+          <section class="dir-services-section">
+            <div class="container">
+              <div class="dir-section-header">
+                <h2>Páginas de los Centros</h2>
+                <p>Accede directamente a los portales oficiales de nuestros centros de producción de bienes y servicios.</p>
+              </div>
+              
+              <div class="dir-services-grid">
+                <!-- Centro 1 -->
+                <div class="dir-service-card">
+                  <div class="dir-service-icon-wrap">
+                    <img src="/assets/direcciones/produccion/Centro-idiomas-logo.png" alt="Centro de Idiomas" style="max-height: 48px; max-width: 48px;">
+                  </div>
+                  <h3 class="dir-service-title">Centro de Idiomas</h3>
+                  <p class="dir-service-desc">Portal oficial con información sobre cursos de inglés, quechua, portugués, matrículas, notas y certificaciones.</p>
+                  <a href="https://idiomas.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                </div>
+                <!-- Centro 2 -->
+                <div class="dir-service-card">
+                  <div class="dir-service-icon-wrap">
+                    <img src="/assets/direcciones/produccion/Centro-de-informatica-e.png" alt="Centro de Informática" style="max-height: 48px; max-width: 48px;">
+                  </div>
+                  <h3 class="dir-service-title">Centro de Informática</h3>
+                  <p class="dir-service-desc">Portal oficial de informática con detalles sobre cursos de ofimática, lenguajes de programación, diseño y base de datos.</p>
+                  <a href="https://centrodeinformatica.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                </div>
+                <!-- Centro 3 -->
+                <div class="dir-service-card">
+                  <div class="dir-service-icon-wrap">
+                    <img src="/assets/direcciones/produccion/Centro-experimental-logo.png" alt="Centros Experimentales" style="max-height: 48px; max-width: 48px;">
+                  </div>
+                  <h3 class="dir-service-title">Centros Experimentales</h3>
+                  <p class="dir-service-desc">Información institucional sobre fundos experimentales agropecuarios destinados a la investigación de alumnos y docentes.</p>
+                  <a href="/centro-experimental" class="dir-service-btn">Ver Página</a>
+                </div>
+                <!-- Centro 4 -->
+                <div class="dir-service-card">
+                  <div class="dir-service-icon-wrap">
+                    <img src="/assets/direcciones/produccion/cpu-logo.png" alt="CPU" style="max-height: 48px; max-width: 48px;">
+                  </div>
+                  <h3 class="dir-service-title">Centro Pre Universitario</h3>
+                  <p class="dir-service-desc">Portal oficial del CPU UNAMBA con información sobre ciclos de preparación académica para el ingreso universitario directo.</p>
+                  <a href="https://cpu.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                function moveUnidades(direction) {
-                const unidadesContainer = document.querySelector('.unidades-container');
-                const unidadItems = document.querySelectorAll('.unidad-item');
-                const totalUnidades = unidadItems.length;
-
-                currentUnidadIndex = (currentUnidadIndex + direction + totalUnidades) % totalUnidades;
-
-                unidadesContainer.style.transform = `translateX(-${currentUnidadIndex * 100}%)`;
-                }
-                */
-                
-                let currentUnidadIndex = 0;
-
-                // Función para mover el carrusel
-                function moveUnidades(direction) {
-                const unidadesContainer = document.querySelector('.unidades-container');
-                const unidadItems = document.querySelectorAll('.unidad-item');
-                const totalUnidades = unidadItems.length;
-
-                // Calcula el nuevo índice
-                currentUnidadIndex = (currentUnidadIndex + direction + totalUnidades) % totalUnidades;
-
-                // Cambia la posición del contenedor
-                unidadesContainer.style.transform = `translateX(-${currentUnidadIndex * 100}%)`;
-                }
-
-                // Desplazamiento automático cada 5 segundos
-                setInterval(() => {
-                moveUnidades(1);
-                }, 5000);
-                
-
-                const carouselSlide = document.querySelector('.carousel-slide');
-                const slides = document.querySelectorAll('.carousel-slide img');
-                const indicators = document.querySelectorAll('.carousel-indicators button');
-
-                let currentIndex = 0;
-
-                function updateIndicators() {
-                    indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === currentIndex);
-                    });
-                }
-
-                function moveSlide(direction) {
-                    currentIndex = (currentIndex + direction + slides.length) % slides.length;
-                    carouselSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    updateIndicators();
-                }
-
-                function goToSlide(index) {
-                    currentIndex = index;
-                    carouselSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    updateIndicators();
-                }
-
-                // Optional: Auto-slide every 5 seconds
-                /*setInterval(() => {
-                    moveSlide(1);
-                }, 5000);*/
-                
-                /*const carousel = document.querySelector('.carousel-container');
-                let currentIndex = 0;
-                const itemsToShow = 3;
-                const totalItems = document.querySelectorAll('.news-item').length;
-
-                function moveCarousel(direction) {
-                    const itemWidth = document.querySelector('.news-item').offsetWidth + 20; // Width + gap
-                    const maxIndex = Math.ceil(totalItems / itemsToShow) - 1;
-
-                    currentIndex += direction;
-
-                    if (currentIndex < 0) {
-                        currentIndex = maxIndex;
-                    } else if (currentIndex > maxIndex) {
-                        currentIndex = 0;
-                    }
-
-                    carousel.style.transform = `translateX(-${currentIndex * itemWidth * itemsToShow}px)`;
-                }
-                // Slide Functionality
-                    let currentIndex = 0;
-
-                    function moveSlide(direction) {
-                        const slides = document.querySelectorAll('.image-carousel img');
-                        const totalSlides = slides.length;
-
-                        currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-
-                        slides.forEach((slide, index) => {
-                        slide.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        });
-                    }*/
-                </script>-->
+          <!-- Activities Section -->
+          <section class="dir-news-section">
+            <div class="container">
+              <div class="dir-section-header">
+                <h2>Actividades de la Dirección</h2>
+                <p>Mantente al día con las últimas noticias y eventos organizados por la Dirección de Producción de Bienes y Servicios.</p>
+              </div>
+              
+              <div class="dir-news-slider-wrap">
+                <button class="dir-news-nav-btn prev" id="dir-news-prev">❮</button>
+                <div class="dir-news-container">
+                  <div class="dir-news-track">
+                    {{ collection:noticias }}
+                    {{ if direccion_o_vrin == 'Dirección de Producción de Bienes y Servicios' }}
+                    <div class="dir-news-card">
+                      <div class="dir-news-img-wrap">
+                        <img src="{{ imagen_principal | url }}" alt="{{ title }}" class="dir-news-img">
+                      </div>
+                      <div class="dir-news-info">
+                        <h4 class="dir-news-title">{{ title }}</h4>
+                        <a href="{{ link }}" target="_blank" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right"></i></a>
+                      </div>
+                    </div>
+                    {{ /if }}
+                    {{ /collection:noticias }}
+                  </div>
+                </div>
+                <button class="dir-news-nav-btn next" id="dir-news-next">❯</button>
+              </div>
+            </div>
+          </section>
+        </div>
       mode: htmlmixed
     type: Director_jefes_produccion_bienes_y_servicios
     enabled: true
