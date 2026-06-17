@@ -15,6 +15,11 @@ block_types:
         <section id="convocatorias-relevantes" class="convocatorias-section"
                  aria-roledescription="carrusel" aria-label="Convocatorias destacadas">
 
+          <!-- Botón flotante de Facebook -->
+          <a href="https://www.facebook.com/unambaoficial" class="floating-social-facebook" target="_blank" aria-label="Síguenos en Facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+
           <div class="carousel-inner" aria-live="polite">
             {{ collection:blog filter="convocatoria:si" sort="date:desc" limit="3" }}
             <article class="carousel-item-conv {{ if {count} == 1 }}active{{ /if }}"
@@ -28,12 +33,12 @@ block_types:
               <div class="convocatoria-content">
                 <span class="conv-label">
                   <span class="conv-label-bar"></span>
-                  Convocatoria
+                  {{ if (title | lower | contains('curso')) or (title | lower | contains('taller')) or (title | lower | contains('capacit')) or (title | lower | contains('conversatorio')) or (title | lower | contains('simposio')) or (title | lower | contains('evento')) }}Evento{{ else }}Convocatoria{{ /if }}
                 </span>
                 <h2>{{ title }}</h2>
                 <p>{{ descripcion }}</p>
                 <a href="/blog/{{ slug }}" class="btn">
-                  Ver más <i class="fa fa-long-arrow-right"></i>
+                  Saber más <i class="fa fa-long-arrow-right"></i>
                 </a>
               </div>
             </article>

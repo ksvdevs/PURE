@@ -125,11 +125,15 @@
   setupAccordion('mobileInvTrigger', 'mobileInvDropdown');
   setupAccordion('mobileDirTrigger', 'mobileDirDropdown');
 
-  /* ---------- 4. Sombra del header al scrollear ---------- */
+  /* ---------- 4. Sombra del header al scrollear (Optimizado) ---------- */
   var siteHeader = document.getElementById('siteHeader');
+  var isScrolled = false;
   window.addEventListener('scroll', function () {
-    if (siteHeader) {
-      siteHeader.classList.toggle('scrolled', window.scrollY > 30);
+    if (!siteHeader) return;
+    var shouldScroll = window.scrollY > 30;
+    if (shouldScroll !== isScrolled) {
+      isScrolled = shouldScroll;
+      siteHeader.classList.toggle('scrolled', isScrolled);
     }
   }, { passive: true });
 
@@ -154,43 +158,47 @@
   window.addEventListener('resize', checkResponsiveRange, { passive: true });
 })();
 
-function reveal() {
-  var reveals = document.querySelectorAll(".reveal");
+/**
+ * Inicializa las animaciones al hacer scroll usando IntersectionObserver.
+ * Optimizado para transiciones más fluidas y rápidas (0.8s en CSS).
+ */
+function initScrollAnimations() {
+  var observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
 
-  for (var i = 0; i < reveals.length; i++) {
-    var windowHeight = window.innerHeight;
-    var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 100;
+  var animationObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        if (entry.target.classList.contains('reveal')) {
+          entry.target.classList.add('active1');
+        }
+        if (entry.target.classList.contains('zoom-in')) {
+          entry.target.classList.add('active2');
+        }
+      } else {
+        if (entry.target.classList.contains('reveal')) {
+          entry.target.classList.remove('active1');
+        }
+        if (entry.target.classList.contains('zoom-in')) {
+          entry.target.classList.remove('active2');
+        }
+      }
+    });
+  }, observerOptions);
 
-    if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add("active1");
-    } else {
-      reveals[i].classList.remove("active1");
-    }
-  }
+  document.querySelectorAll('.reveal, .zoom-in').forEach(function (el) {
+    animationObserver.observe(el);
+  });
 }
-window.addEventListener("scroll", reveal);
-// To check the scroll position on page load
-reveal();
 
-function zoom() {
-  var reveals = document.querySelectorAll(".zoom-in");
-
-  for (var i = 0; i < reveals.length; i++) {
-    var windowHeight = window.innerHeight;
-    var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 100;
-
-    if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add("active2");
-    } else {
-      reveals[i].classList.remove("active2");
-    }
-  }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
+} else {
+  initScrollAnimations();
 }
-window.addEventListener("scroll", zoom);
-// To check the scroll position on page load
-zoom();
 
 
 
@@ -1208,4 +1216,7 @@ zoom();
       });
     }
   });
+
+  // Active scroll animation effects for Unidades de Investigación cards
+  // Initiated automatically via document class elements
 })();
