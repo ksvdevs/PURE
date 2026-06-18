@@ -15,56 +15,39 @@ tabs:
             handle: imagen_director_unidades
             field:
               max_files: 1
-              mode: list
               container: assets
-              restrict: false
-              allow_uploads: true
-              show_filename: true
-              show_set_alt: true
               type: assets
               display: 'Imagen Director Unidades'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
             handle: nombre_director_unidades
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Nombre Director Unidades'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
             handle: correo
             field:
-              input_type: text
-              antlers: false
               type: text
               display: correo
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: direccion_oficina
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Dirección oficina'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
+          -
+            handle: oficina
+            field:
+              container: assets
+              type: assets
+              display: oficina
+          -
+            handle: link_ctvitae
+            field:
+              type: link
+              display: Link-CTVITAE
   sidebar:
     display: Sidebar
     sections:

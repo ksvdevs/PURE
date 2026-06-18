@@ -13,15 +13,19 @@ block_types:
     id: lkc86wjr
     nombre_completo: 'DR. Ecler Mamani Vilca'
     cargo_direccion: 'Director de Institutos de Investigación'
+    correo: INSTITUTOS@UNAMBA.EDU.PE
     direccion_oficina: '2° PISO BIBLIOTECA GENERAL.'
     horario: '8:00 A.M. – 1:00 PM. Y 2:00 PM. – 3:30 PM.'
     imagen: fotos_vrin_redimensionado/mir_2083.jpg
+    type: director_direcciones_vrin
+    enabled: true
     template: |-
       <div class="dir-page-container">
         <!-- Hero Section -->
         <header class="dir-hero">
           <div class="dir-hero-content">
             <h1 class="dir-hero-title">Dirección de Institutos de Investigación</h1>
+            <div class="dir-hero-divider"></div>
             <p class="dir-hero-subtitle">Coordinando, normando y evaluando la producción de nuestros Institutos de Investigación para lograr estándares internacionales de excelencia y competitividad.</p>
           </div>
         </header>
@@ -30,9 +34,9 @@ block_types:
         <div class="dir-layout-grid container">
           <!-- Left Column: About & Functions -->
           <div class="dir-main-content">
-            <!-- Sobre la Oficina Card -->
-            <section class="dir-content-card">
-              <h2 class="dir-section-title">Sobre la Oficina</h2>
+            <!-- Sobre la Oficina Section -->
+            <section class="dir-about-section">
+              <h2 class="dir-section-title title-green">Sobre la Oficina</h2>
               <div class="dir-section-body">
                 <p>El Instituto de Investigación es el órgano de línea dependiente del Vicerrectorado de Investigación, responsable de dirigir, coordinar y promover el desarrollo de investigaciones; en coordinación con las unidades de investigación.</p>
                 <p>Nuestro enfoque se centra en la articulación de la producción científica con las necesidades regionales y nacionales, asegurando que cada instituto cuente con el respaldo institucional necesario para alcanzar estándares internacionales de competitividad.</p>
@@ -40,8 +44,8 @@ block_types:
             </section>
 
             <!-- Funciones Principales Card -->
-            <section class="dir-content-card">
-              <h2 class="dir-section-title">Funciones Principales</h2>
+            <section class="dir-functions-card">
+              <h2 class="dir-section-title title-blue">Funciones Principales</h2>
               <div class="dir-section-body">
                 <ul class="dir-functions-list">
                   <li>
@@ -86,49 +90,72 @@ block_types:
             <div class="dir-profile-card">
               <div class="dir-profile-photo-wrap">
                 <img src="/assets/{{imagen}}" alt="{{nombre_completo}}" class="dir-profile-photo">
-                <span class="dir-profile-badge"><i class="fa fa-graduation-cap"></i> INVESTIGADOR</span>
               </div>
               
               <h3 class="dir-profile-name">{{nombre_completo}}</h3>
               <p class="dir-profile-role">{{cargo_direccion}}</p>
               
-              <div class="dir-profile-resolution">
-                <span class="dir-res-label">Resolución Rectoral</span>
-                <span class="dir-res-value">R. Nº 6589-2023-UNAMBA</span>
-              </div>
+              <hr class="dir-profile-divider">
               
-              <div class="dir-profile-actions">
-                <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=4885" target="_blank" class="dir-btn dir-btn-secondary">
-                  <i class="fa fa-external-link"></i> CTI Vitae (Concytec)
-                </a>
-                <a href="mailto:{{correo}}" class="dir-btn dir-btn-primary">
-                  <i class="fa fa-envelope"></i> CONTACTAR DIRECCIÓN
-                </a>
-              </div>
-              
-              <div class="dir-profile-meta">
-                <div class="dir-meta-item">
-                  <i class="fa fa-envelope-o"></i>
-                  <div>
-                    <strong>Correo Institucional</strong>
-                    <span>{{correo}}</span>
+              <div class="dir-profile-details">
+                <div class="dir-detail-item">
+                  <i class="fa fa-file-text-o dir-detail-icon"></i>
+                  <div class="dir-detail-content">
+                    <span class="dir-detail-label">Resolución Rectoral</span>
+                    <span class="dir-detail-value">R. Nº 6589-2023-UNAMBA</span>
                   </div>
                 </div>
-                <div class="dir-meta-item">
-                  <i class="fa fa-clock-o"></i>
-                  <div>
-                    <strong>Horario de Atención</strong>
-                    <span>{{horario}}</span>
+                <div class="dir-detail-item">
+                  <i class="fa fa-graduation-cap dir-detail-icon"></i>
+                  <div class="dir-detail-content">
+                    <span class="dir-detail-label">Investigador</span>
+                    <span class="dir-detail-value">
+                      <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=4885" target="_blank">CTI Vitae (Concytec)</a>
+                    </span>
                   </div>
                 </div>
-                <div class="dir-meta-item">
+                <div class="dir-detail-item">
+                  <i class="fa fa-envelope-o dir-detail-icon"></i>
+                  <div class="dir-detail-content">
+                    <span class="dir-detail-label">Correo Institucional</span>
+                    <span class="dir-detail-value">{{correo}}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <a href="mailto:{{correo}}" class="dir-contact-btn">
+                CONTACTAR DIRECCIÓN ▷
+              </a>
+            </div>
+
+            <!-- Info Card (Horario y Oficina) -->
+            <div class="dir-info-card">
+              <div class="dir-info-card-header">
+                <i class="fa fa-clock-o"></i>
+                <span class="dir-info-card-title">Horario de Atención</span>
+              </div>
+              
+              <p class="dir-info-card-subtitle">Lunes – Viernes</p>
+              <ul class="dir-schedule-list">
+                <li class="dir-schedule-item">
+                  <span class="dir-schedule-label"><span class="dir-bullet green"></span> Mañana</span>
+                  <span class="dir-schedule-time">08:00 a.m. – 01:00 p.m.</span>
+                </li>
+                <li class="dir-schedule-item">
+                  <span class="dir-schedule-label"><span class="dir-bullet orange"></span> Tarde</span>
+                  <span class="dir-schedule-time">02:00 p.m. – 03:30 p.m.</span>
+                </li>
+              </ul>
+
+              <div class="dir-info-location">
+                <p class="dir-location-header">Oficina</p>
+                <div class="dir-location-value">
                   <i class="fa fa-map-marker"></i>
-                  <div>
-                    <strong>Oficina</strong>
-                    <span>{{direccion_oficina}}</span>
-                  </div>
+                  <span>{{direccion_oficina}}</span>
                 </div>
               </div>
+              
+              <img src="/assets/direcciones/institutos/investigacion.jpg" alt="Oficina" class="dir-office-img">
             </div>
           </div>
         </div>

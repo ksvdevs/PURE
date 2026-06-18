@@ -28,121 +28,167 @@ block_types:
     id: ll8y8w9d
     template:
       code: |-
-        <style>
-        /* Estilo para el contenedor del título */
-        .title-container {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 2px solid #2980b9;
-            border-radius: 10px;
-            background: #f0f8ff;
-            color: #2c3e50;
-            font-weight: bold;
-            font-size: 1.25rem;
-            text-align: center;
-            margin: 0 auto 25px auto;
-        }
-
-        /* Estilo para las tarjetas de los grupos */
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #ffffff;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .contenido-card {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .contenido-card h4 {
-            font-size: 1.2rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .contenido-card p {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin: 5px 0;
-        }
-
-        .contenido-card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 15px;
-            background-color: #2980b9;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .contenido-card a:hover {
-            background-color: #1a5e85;
-        }
-
-        /* Estilo para el footer */
-        footer {
-            background-color: #2c3e50;
-            color: #ffffff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        footer a {
-            color: #1abc9c;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-        </style>
-
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h1 class="title-container">
-                    En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
-                </h1>
-            </div>
+        <div class="grupos-header text-center">
+            <h1 class="grupos-main-title">Grupos de Investigación</h1>
+            <p class="grupos-subtitle">
+                Los grupos de investigación son equipos de trabajo conformados por docentes investigadores que comparten líneas de investigación y desarrollan proyectos científicos en áreas específicas del conocimiento, contribuyendo al avance de la ciencia y la sociedad.
+            </p>
         </div>
 
-        <div class="section justify-content-center" style="margin-top: -100px;">
-            <div class="section col-md-12 ml-auto mr-auto">
-                <div class="row">
-                    {{collection:grupos_inv}}
-                    <div class="col-md-3">
-                        <br>
-                        <div class="card">
-                            <figure>
-                                <img src="./assets/grupos-investigacion/grupo2.jpeg" alt="Imagen del grupo">
-                            </figure>
-                            <div class="contenido-card">
-                                <h4><b>{{nombre_grupo}}</b></h4>
-                                <p><strong>Coordinador:</strong> {{jefe_grupo}}</p>
-                                <p><strong>Integrantes:</strong></p>
-                                <a href="#">{{integrantes}}</a>
+        <div class="container-fluid grupos-container-padding">
+            <div class="row">
+                <!-- Sidebar: Filtros -->
+                <aside class="col-lg-3 col-md-4 col-12 mb-4">
+                    <div class="filters-sidebar">
+                        <h3 class="sidebar-title">
+                            <i class="material-icons align-middle mr-2">filter_list</i> FILTROS
+                        </h3>
+                        <ul class="nav flex-column filter-list-items">
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn active" data-faculty="all">
+                                    Todos
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Administración">
+                                    Administración
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ciencia Política">
+                                    Ciencia Política
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería Civil">
+                                    Ingeniería Civil
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Departamento Académico de Humanidades">
+                                    Departamento Académico de Humanidades
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agroforestal e Intercultural Bilingüe">
+                                    Ingeniería Agroforestal e Intercultural Bilingüe
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agroforestal y Sostenibilidad">
+                                    Ingeniería Agroforestal y Sostenibilidad
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agronómica">
+                                    Ingeniería Agronómica
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería de Sistemas">
+                                    Ingeniería de Sistemas
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Ingeniería de Minas">
+                                    Ingeniería de Minas
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link filter-btn" data-faculty="Medicina Veterinaria y Zootecnia">
+                                    Medicina Veterinaria y Zootecnia
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- Main Content Area -->
+                <main class="col-lg-9 col-md-8 col-12">
+                    <!-- Top Controls: Year tabs + Search input -->
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-6 col-lg-7 col-md-12 mb-3 mb-lg-0">
+                            <div class="year-tabs-wrapper">
+                                <button class="year-tab-btn active" data-year="all">Todos</button>
+                                <button class="year-tab-btn" data-year="2024">2024</button>
+                                <button class="year-tab-btn" data-year="2023">2023</button>
+                                <button class="year-tab-btn" data-year="2022">2022</button>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-5 col-md-12">
+                            <div class="search-input-wrapper">
+                                <i class="material-icons search-icon">search</i>
+                                <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por nombre, código o facultad">
                             </div>
                         </div>
                     </div>
-                    {{/collection:grupos_inv}}
-                    <div class="col-md-1"></div>
-                </div>
+
+                    <!-- Grid of Cards -->
+                    <div class="row" id="gruposGrid">
+                        {{collection:grupos_inv}}
+                        <div class="col-xl-4 col-md-6 col-12 mb-4 grupo-card-container" 
+                             data-id="{{id}}"
+                             data-nombre="{{nombre_grupo}}"
+                             data-jefe="{{jefe_grupo}}"
+                             data-integrantes="{{integrantes | strip_tags}}">
+                            <div class="grupo-card">
+                                <div class="card-header-meta">
+                                    <h4 class="grupo-category-title">General</h4>
+                                    <span class="badge badge-code">GI</span>
+                                </div>
+                                <div class="card-body-content">
+                                    <span class="label-heading text-uppercase">Coordinador/a</span>
+                                    <h5 class="coordinador-name">{{jefe_grupo}}</h5>
+                                    
+                                    <div class="integrantes-section">
+                                        <div class="integrantes-label-wrapper">
+                                            <span class="integrantes-label">Integrantes</span>
+                                            <span class="integrantes-count">0</span>
+                                        </div>
+                                        <ul class="integrantes-list">
+                                            <!-- List populated by JavaScript -->
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Raw hidden integrantes list to be parsed by JavaScript -->
+                                    <div class="raw-integrantes-html" style="display:none;">
+                                        {{integrantes}}
+                                    </div>
+                                </div>
+                                <div class="card-footer-meta">
+                                    <span class="doc-date">
+                                        <i class="material-icons mr-1">calendar_today</i>
+                                        <span class="date-text">20 de May, 2024</span>
+                                    </span>
+                                    <a href="#" class="btn-ver-resolucion" target="_blank">
+                                        <i class="material-icons mr-1">description</i> Ver Resolución
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/collection:grupos_inv}}
+                    </div>
+
+                    <!-- No Results message -->
+                    <div id="noResults" class="text-center py-5 d-none">
+                        <i class="material-icons text-muted" style="font-size: 48px;">search_off</i>
+                        <p class="mt-3 text-muted">No se encontraron grupos de investigación con los filtros seleccionados.</p>
+                    </div>
+
+                    <!-- Pagination Row -->
+                    <div class="row align-items-center mt-4 mb-5" id="paginationRow">
+                        <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
+                            <span class="pagination-info-text" id="pageInfo">Página 1 de 3</span>
+                        </div>
+                        <div class="col-sm-6 text-center text-sm-right">
+                            <nav class="d-inline-block">
+                                <ul class="custom-pagination" id="paginationControls">
+                                    <!-- Dynamic pagination loaded by Javascript -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
 

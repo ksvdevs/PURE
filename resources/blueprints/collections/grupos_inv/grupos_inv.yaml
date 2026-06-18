@@ -15,45 +15,23 @@ tabs:
             handle: img_grupos
             field:
               max_files: 1
-              mode: list
               container: assets
-              restrict: false
-              allow_uploads: true
-              show_filename: true
-              show_set_alt: true
               type: assets
               display: 'Img grupos'
-              icon: assets
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: nombre_grupo
             field:
-              input_type: text
               antlers: true
               type: text
               display: 'Nombre Grupo'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
             handle: jefe_grupo
             field:
-              input_type: text
               antlers: true
               type: text
               display: 'Jefe Grupo'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
@@ -62,12 +40,140 @@ tabs:
               antlers: true
               type: textarea
               display: integrantes
-              icon: textarea
               listable: true
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               always_save: true
+          -
+            handle: carrera
+            field:
+              options:
+                -
+                  key: 1
+                  value: Administración
+                -
+                  key: 2
+                  value: 'Educación Inicial Intercultural Bilingüe'
+                -
+                  key: 3
+                  value: 'Ciencia Política y Gobernabilidad'
+                -
+                  key: 4
+                  value: 'Ingeniería Agroindustrial'
+                -
+                  key: 5
+                  value: 'Ingeniería de Minas'
+                -
+                  key: 6
+                  value: 'Ingeniería Informática y Sistemas'
+                -
+                  key: 7
+                  value: 'Ingeniería Civil'
+                -
+                  key: 8
+                  value: 'Ingeniería Agroecológica y Desarrollo Rural'
+                -
+                  key: 9
+                  value: 'Medicina Veterinaria y Zootecnia'
+                -
+                  key: 10
+                  value: 'Departamento Académico de Ciencias Básicas'
+                -
+                  key: 11
+                  value: 'Departamento Académico de Humanidades'
+                -
+                  key: 12
+                  value: 'Escuela de Posgrado'
+              max_items: 1
+              type: select
+              display: Carrera
+              instructions: 'Seleccione la carrera a la que pertenece el Grupo'
+              validate:
+                - required
+          -
+            handle: fecha
+            field:
+              type: date
+              display: Fecha
+          -
+            handle: link
+            field:
+              type: link
+              display: Link
+              validate:
+                - required
+          -
+            handle: lineas_de_investigacion
+            field:
+              options:
+                -
+                  key: 1
+                  value: 'Caracterización, desarrollo de procesos e innovación en la agroindustria.'
+                -
+                  key: 2
+                  value: 'Gestión empresarial.'
+                -
+                  key: 3
+                  value: 'Gestión pública.'
+                -
+                  key: 4
+                  value: 'Minería, procesamiento de minerales.'
+                -
+                  key: 5
+                  value: 'Geología, geotecnia y medio ambiente.'
+                -
+                  key: 6
+                  value: 'Educación incial, desarrollo infantil y gestión pedagógica.'
+                -
+                  key: 7
+                  value: 'Interculturalidad y cosmovisión andina.'
+                -
+                  key: 8
+                  value: 'Ingeniería de la construcción.'
+                -
+                  key: 9
+                  value: 'Ingeniería de materiales.'
+                -
+                  key: 10
+                  value: 'Ciencias veterinarias.'
+                -
+                  key: 11
+                  value: 'Ingeniería informática, industria y sociedad.'
+                -
+                  key: 12
+                  value: 'Ingeniería de software e innovación tecnológica.'
+                -
+                  key: 13
+                  value: 'Modelos de gestión y calidad educativa.'
+                -
+                  key: 14
+                  value: 'Agua, agricultura, silvicultura y pecuaria sostenible.'
+                -
+                  key: 15
+                  value: 'Biotecnología, fitomejoramiento y conservación de la biodiversidad.'
+                -
+                  key: 16
+                  value: 'Sistema político y gobernabilidad.'
+                -
+                  key: 17
+                  value: 'Teoría política y gobernabilidad.'
+                -
+                  key: 18
+                  value: 'Aplicación de la matemática, estadística, física, química y biología.'
+                -
+                  key: 19
+                  value: 'Desarrollo humano y calidad de vida.'
+                -
+                  key: 20
+                  value: 'Sociedad e identidad nacional, territorios y cambios climáticos.'
+                -
+                  key: null
+                  value: null
+              type: select
+              display: 'Lineas de investigacion'
+          -
+            handle: links
+            field:
+              type: link
+              display: Links
   sidebar:
     display: Sidebar
     sections:
@@ -78,4 +184,10 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate: 'max:200'
+  nueva_pestana:
+    display: 'Nueva pestaña'
+    sections:
+      -
+        display: 'Nueva sección'
 title: 'Grupos Inv'

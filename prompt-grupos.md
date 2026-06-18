@@ -2,17 +2,14 @@ Actúa como un Desarrollador Senior Frontend y Full Stack con experiencia en Lar
 
 Analiza y modifica los siguientes archivos:
 
-content/collections/pages/incubadora.md
-content/collections/pages/innovacion.md
-content/collections/pages/produccion.md
-content/collections/pages/institutos.md
+content/collections/pages/grupos-de-investigacion.md
 public/vrinstyle/css/estilos.css
 public/vrinstyle/js/vrin.js
 
+
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/incubadora.png
-public/assets/vrin/innovacion.png
+public/assets/vrin/GRUPOS.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.
@@ -26,6 +23,7 @@ Implementa diseño responsive para:
 Desktop (>1200px)
 Tablet (768px – 1199px)
 Móvil (<768px)
+Utiliza Material UI
 Utiliza CSS moderno:
 Flexbox
 CSS Grid cuando sea necesario
@@ -36,7 +34,6 @@ Optimiza el JavaScript existente evitando código duplicado.
 Conserva la semántica HTML generada desde el archivo Markdown.
 Agrega comentarios únicamente en las secciones complejas.
 Mantén una alta puntuación en Lighthouse (Performance, Accessibility y Best Practices).
-No elimines funcionalidades existentes que no estén relacionadas con la página "Quiénes Somos".
 
 Entregables:
 

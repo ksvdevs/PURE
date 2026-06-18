@@ -20,10 +20,10 @@ block_types:
       code: |-
         <div class="dir-page-container">
           <!-- Hero Section -->
-          <header class="unidades-hero">
-            <div class="unidades-hero-content">
-              <h1 class="unidades-hero-title">Unidades de Investigación</h1>
-              <p class="unidades-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
+          <header class="dir-hero">
+            <div class="dir-hero-content">
+              <h1 class="dir-hero-title">Unidades de Investigación</h1>
+              <p class="dir-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
             </div>
           </header>
 
@@ -80,10 +80,10 @@ block_types:
                 <div class="directorio-card reveal">
                   <h3 class="directorio-card-title">{{ title }}</h3>
                   <div class="directorio-author-block">
-                    <img src="/assets/unidades-investigacion/facultad-posgrado.png" alt="Mg. Esther Ruth Calzavud Watanabe" class="directorio-avatar">
+                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
                     <div class="directorio-author-text">
                       <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">Mg. Esther Ruth Calzavud Watanabe</span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
                     </div>
                   </div>
                   <div class="directorio-contact-list">
@@ -97,7 +97,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 PM | 2:00 PM – 5:30 PM</span>
+                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
                     </div>
                   </div>
                 </div>
@@ -107,10 +107,10 @@ block_types:
                 <div class="directorio-card reveal">
                   <h3 class="directorio-card-title">{{ title }}</h3>
                   <div class="directorio-author-block">
-                    <img src="/assets/unidades-investigacion/facultad-posgrado.png" alt="Mg. Esther Ruth Calzavud Watanabe" class="directorio-avatar">
+                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
                     <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">Mg. Esther Ruth Calzavud Watanabe</span>
+                      <span class="directorio-label">DIRECTOR</span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
                     </div>
                   </div>
                   <div class="directorio-contact-list">
@@ -124,7 +124,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 PM | 2:00 PM – 5:30 PM</span>
+                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
                     </div>
                   </div>
                 </div>
@@ -134,10 +134,10 @@ block_types:
                 <div class="directorio-card reveal">
                   <h3 class="directorio-card-title">{{ title }}</h3>
                   <div class="directorio-author-block">
-                    <img src="/assets/unidades-investigacion/facultad-posgrado.png" alt="Mg. Esther Ruth Calzavud Watanabe" class="directorio-avatar">
+                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
                     <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">Mg. Esther Ruth Calzavud Watanabe</span>
+                      <span class="directorio-label">DIRECTOR</span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
                     </div>
                   </div>
                   <div class="directorio-contact-list">
@@ -151,7 +151,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 PM | 2:00 PM – 5:30 PM</span>
+                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
                     </div>
                   </div>
                 </div>
@@ -161,10 +161,10 @@ block_types:
                 <div class="directorio-card reveal">
                   <h3 class="directorio-card-title">{{ title }}</h3>
                   <div class="directorio-author-block">
-                    <img src="/assets/unidades-investigacion/facultad-posgrado.png" alt="Mg. Esther Ruth Calzavud Watanabe" class="directorio-avatar">
+                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
                     <div class="directorio-author-text">
                       <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">Mg. Esther Ruth Calzavud Watanabe</span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
                     </div>
                   </div>
                   <div class="directorio-contact-list">
@@ -178,7 +178,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 PM | 2:00 PM – 5:30 PM</span>
+                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
                     </div>
                   </div>
                 </div>
@@ -188,10 +188,10 @@ block_types:
                 <div class="directorio-card reveal">
                   <h3 class="directorio-card-title">{{ title }}</h3>
                   <div class="directorio-author-block">
-                    <img src="/assets/unidades-investigacion/facultad-posgrado.png" alt="Mg. Esther Ruth Calzavud Watanabe" class="directorio-avatar">
+                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
                     <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">Mg. Esther Ruth Calzavud Watanabe</span>
+                      <span class="directorio-label">DIRECTOR</span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
                     </div>
                   </div>
                   <div class="directorio-contact-list">
@@ -205,7 +205,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 PM | 2:00 PM – 5:30 PM</span>
+                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
                     </div>
                   </div>
                 </div>

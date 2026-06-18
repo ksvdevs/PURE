@@ -12,48 +12,23 @@ tabs:
               validate:
                 - required
               instructions: 'Nombre de Investigador'
-              instructions_position: above
-              listable: hidden
-              visibility: visible
-              input_type: text
-              antlers: false
-              hide_display: false
           -
             handle: 'n'
             field:
               type: integer
               display: N°
-              icon: integer
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: grado_profesional
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Grado Profesional'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
             handle: departamento_academico
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Departamento Académico'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
@@ -62,51 +37,48 @@ tabs:
               type: markdown
               localizable: true
               display: 'Nombre Proyecto'
-              instructions_position: above
-              listable: hidden
-              visibility: visible
-              restrict: false
-              buttons:
-                - bold
-                - italic
-                - unorderedlist
-                - orderedlist
-                - quote
-                - link
-                - image
-                - table
-              automatic_line_breaks: true
-              automatic_links: false
-              escape_markup: false
-              heading_anchors: false
-              smartypants: false
-              table_of_contents: false
-              antlers: false
-              hide_display: false
               validate:
                 - required
           -
             handle: correo
             field:
-              input_type: text
-              antlers: false
               type: text
               display: correo
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: link
             field:
               type: link
               display: Link
-              icon: link
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
+          -
+            handle: nivel
+            field:
+              options:
+                -
+                  key: 1
+                  value: A
+                -
+                  key: 2
+                  value: B
+                -
+                  key: 3
+                  value: C
+              type: select
+              display: Nivel
+          -
+            handle: estado
+            field:
+              type: toggle
+              display: Estado
+          -
+            handle: resolucion
+            field:
+              type: text
+              display: Resolucion
+          -
+            handle: link_resolucion
+            field:
+              type: link
+              display: Link-resolucion
   sidebar:
     display: Sidebar
     sections:
@@ -117,6 +89,7 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate: 'max:200'
           -
             handle: date
             field:

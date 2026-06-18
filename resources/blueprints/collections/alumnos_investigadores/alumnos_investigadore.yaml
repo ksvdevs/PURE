@@ -14,63 +14,83 @@ tabs:
           -
             handle: responsable
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Responsable
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: asesor
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Asesor
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: proyecto
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Proyecto
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: escuela
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Escuela
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: monto
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Monto
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
+          -
+            handle: link_resolucion
+            field:
+              type: link
+              display: Link-resolucion
+          -
+            handle: concurso
+            field:
+              options:
+                -
+                  key: 1
+                  value: 'Concurso 2018'
+                -
+                  key: 2
+                  value: 'Concurso 2019-I'
+                -
+                  key: 3
+                  value: 'Concurso 2019-II'
+                -
+                  key: 4
+                  value: 'Concurso 2022-I'
+                -
+                  key: 5
+                  value: 'Concurso 2022-II'
+                -
+                  key: 6
+                  value: 'Concurso 2023-I'
+                -
+                  key: 7
+                  value: 'Concurso 2023-II'
+                -
+                  key: 8
+                  value: 'Concurso 2024-I'
+                -
+                  key: 9
+                  value: 'Concurso 2024-II'
+                -
+                  key: 10
+                  value: 'Concurso 2025-I'
+                -
+                  key: 11
+                  value: 'Concurso 2025-II'
+                -
+                  key: 12
+                  value: 'Concurso 2026-I'
+                -
+                  key: 13
+                  value: 'Concurso 2026-II'
+              type: select
+              display: Concurso
+          -
+            handle: estado
+            field:
+              type: toggle
+              display: estado
   sidebar:
     display: Sidebar
     sections:
@@ -81,4 +101,5 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate: 'max:200'
 title: 'Alumnos Inv.'

@@ -15,55 +15,28 @@ tabs:
             handle: imagen_docente
             field:
               max_files: 1
-              mode: list
               container: assets
-              restrict: false
-              allow_uploads: true
-              show_filename: true
-              show_set_alt: true
               type: assets
               display: 'Imagen docente'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             handle: link
             field:
               type: link
               display: Link
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
           -
             handle: nombre
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Nombre docente'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               validate:
                 - required
           -
             handle: gmail
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Gmail
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               validate:
                 - required
           -
@@ -79,23 +52,61 @@ tabs:
                 7: 'Ingeniería Civil'
                 8: 'Ingeniería Agroecológica y Desarrollo Rural'
                 9: 'Medicina Veterinaria y Zootecnia'
-              taggable: false
-              push_tags: false
-              multiple: false
               max_items: 1
-              clearable: false
-              searchable: true
-              cast_booleans: false
               type: select
               display: Carrera
               instructions: 'Seleccione la carrera a la que pertenece el Docente'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               validate:
                 - required
+          -
+            handle: estado
+            field:
+              type: toggle
+              display: Estado
+          -
+            handle: nivel
+            field:
+              options:
+                -
+                  key: 1
+                  value: I
+                -
+                  key: 2
+                  value: II
+                -
+                  key: 3
+                  value: III
+                -
+                  key: 4
+                  value: IV
+                -
+                  key: 5
+                  value: V
+                -
+                  key: 6
+                  value: VI
+                -
+                  key: 7
+                  value: VII
+              type: select
+              display: Nivel
+              validate:
+                - required
+          -
+            handle: resolucion
+            field:
+              type: text
+              display: Resolucion
+          -
+            handle: links_rel
+            field:
+              type: link
+              display: Links-rel
+          -
+            handle: codigo_renacyt
+            field:
+              type: text
+              display: Codigo-renacyt
   sidebar:
     display: Sidebar
     sections:

@@ -19,8 +19,17 @@ block_types:
     id: lkusbogn
     template:
       code: |-
-        <div class="section">
-                    <div class="container">
+        <div class="dir-page-container">
+            <!-- Hero Section -->
+            <header class="dir-hero">
+                <div class="dir-hero-content">
+                    <h1 class="dir-hero-title">Líneas de Investigación</h1>
+                    <p class="dir-hero-subtitle">Las líneas de investigación orientan el quehacer investigativo de la universidad y responden a las prioridades locales, regionales y nacionales de desarrollo.</p>
+                </div>
+            </header>
+
+            <div class="section" style="padding-top: 20px;">
+                <div class="container">
                         <!-- Barra de Navegación de Pestañas -->
                         <div class="lineas-tabs-container">
                             <button class="lineas-tab-btn active" data-tab="vigentes">
@@ -460,6 +469,7 @@ block_types:
                         </div>
                     </div>
                 </div>
+            </div>
       mode: htmlmixed
     type: template
     enabled: true
