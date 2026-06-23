@@ -18,7 +18,7 @@ data:
       <header class="site-header" id="siteHeader">
         <div class="navbar-inner">
          <a class="nav-brand" href="/">
-            <img src="/assets/vrin/logos.png" alt="Logo VRIN"
+            <img src="/assets/dorado_logo.png" alt="Logo VRIN"
                  onerror="this.style.display='none'">
             <div class="nav-brand-text">
               <span>VICERRECTORADO</span>

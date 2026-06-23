@@ -461,7 +461,7 @@ if (document.readyState === 'loading') {
 
   var GAP = 20;
   var BUF = 4;   /* clones a cada lado (>= max visibleN) */
-  var AUTOPLAY_MS = 4500;
+  var AUTOPLAY_MS = 8000;
   var autoTimer = null;
   var itemW = 0;
   var visibleN = 4;
@@ -481,7 +481,6 @@ if (document.readyState === 'loading') {
 
   var allItems = Array.prototype.slice.call(track.querySelectorAll('.enlace-logo'));
 
-  /* ---- Dimensiones ---- */
   function calcVN() {
     var vw = viewport.offsetWidth;
     return vw >= 900 ? 4 : vw >= 600 ? 3 : vw >= 380 ? 2 : 1;
@@ -533,31 +532,43 @@ if (document.readyState === 'loading') {
   function goNext() { step(1); }
   function goPrev() { step(-1); }
 
-  /* ---- Dots (un círculo por ítem real) ---- */
+  /* ---- Dots (un círculo por grupo) ---- */
   function buildDots() {
-    realItems.forEach(function (_, i) {
-      var dot = document.createElement('button');
-      dot.className = 'enlace-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Logo ' + (i + 1));
-      dot.addEventListener('click', function () {
-        var target = BUF + i;
-        var diff = target - domIdx;
-        /* camino más corto en el loop */
-        if (diff > count / 2) diff -= count;
-        if (diff < -count / 2) diff += count;
-        domIdx += diff;
-        posAt(domIdx, true);
-        syncDots();
-        stopAutoplay(); startAutoplay();
-      });
-      dotsContainer.appendChild(dot);
-    });
+    for (var i = 0; i < 3; i++) {
+      (function (dotIdx) {
+        var dot = document.createElement('button');
+        dot.className = 'enlace-dot' + (dotIdx === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Grupo de enlaces ' + (dotIdx + 1));
+        dot.addEventListener('click', function () {
+          var target;
+          if (dotIdx === 0) target = BUF + 0;
+          else if (dotIdx === 1) target = BUF + 3;
+          else target = BUF + 5;
+
+          var diff = target - domIdx;
+          /* camino más corto en el loop */
+          if (diff > count / 2) diff -= count;
+          if (diff < -count / 2) diff += count;
+          domIdx += diff;
+          posAt(domIdx, true);
+          syncDots();
+          stopAutoplay(); startAutoplay();
+        });
+        dotsContainer.appendChild(dot);
+      })(i);
+    }
   }
 
   function syncDots() {
     var ri = realOf(domIdx);
-    dotsContainer.querySelectorAll('.enlace-dot').forEach(function (d, i) {
-      d.classList.toggle('active', i === ri);
+    var targetDotIdx = 0;
+    if (ri >= 0 && ri <= 2) targetDotIdx = 0;
+    else if (ri === 3 || ri === 4) targetDotIdx = 1;
+    else targetDotIdx = 2; // ri === 5 || ri === 6
+
+    var dots = dotsContainer.querySelectorAll('.enlace-dot');
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === targetDotIdx);
     });
   }
 

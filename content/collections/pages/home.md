@@ -106,7 +106,7 @@ block_types:
                   <img src="{{icono_articulos_publicados}}" alt="Artículos Científicos">
                 </a>
               </div>
-              <span class="stat-num stat-num-green">+{{contador_articulos_cientificos}}</span>
+              <span class="stat-num">+{{contador_articulos_cientificos}}</span>
               <span class="stat-desc">Artículos Científicos</span>
             </div>
 
@@ -116,7 +116,7 @@ block_types:
                   <img src="{{icono_docentes_renacyt}}" alt="Docentes RENACYT">
                 </a>
               </div>
-              <span class="stat-num">{{contador_docentes_renacyt}}</span>
+              <span class="stat-num stat-num-green">{{contador_docentes_renacyt}}</span>
               <span class="stat-desc">Docentes RENACYT</span>
             </div>
 
