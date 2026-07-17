@@ -1,20 +1,21 @@
 Actúa como un Desarrollador Senior Frontend y Full Stack con experiencia en Laravel, HTML5, CSS3, JavaScript, UX/UI y diseño web institucional.
 
+Analiza el siguiente archivo
+content/collections/dir_unidades
+
 Analiza y modifica los siguientes archivos:
 
-content/collections/pages/quienes-somos.md
+content/collections/pages/unidades-de-investigacion.md
 public/vrinstyle/css/estilos.css
 public/vrinstyle/js/vrin.js
 
+
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/NOSOTROS.png
-public/assets/vrin/AUTORIDADES.png
-public/assets/vrin/DIRECCIONES.png
-public/assets/vrin/ORGANIGRAMA.png
+public/assets/vrin/UNIDADES.png
 
 Objetivo:
-Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.
+Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.que el diseño se igual a la imagen que te estoy enviando
 
 Requisitos técnicos:
 
@@ -25,17 +26,18 @@ Implementa diseño responsive para:
 Desktop (>1200px)
 Tablet (768px – 1199px)
 Móvil (<768px)
+Utiliza Material UI
 Utiliza CSS moderno:
 Flexbox
 CSS Grid cuando sea necesario
 Variables CSS
 Transiciones suaves
 Buenas prácticas de accesibilidad
+Optimiza el CSS existente evitando código duplicado.
 Optimiza el JavaScript existente evitando código duplicado.
 Conserva la semántica HTML generada desde el archivo Markdown.
 Agrega comentarios únicamente en las secciones complejas.
 Mantén una alta puntuación en Lighthouse (Performance, Accessibility y Best Practices).
-No elimines funcionalidades existentes que no estén relacionadas con la página "Quiénes Somos".
 
 Entregables:
 
@@ -53,4 +55,4 @@ Responsividad.
 Rendimiento.
 Accesibilidad.
 
-Trabaja como un desarrollador senior 
+Trabaja como un desarrollador senior

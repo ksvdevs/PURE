@@ -6,6 +6,9 @@ imagen_director_unidades: unidades-investigacion/facultad-posgrado.png
 nombre_director_unidades: 'Mg. Esther Ruth Calzavud Watanabe'
 direccion_oficina: '1er piso del edificio del campus universitario'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1708488380
+updated_at: 1782484367
 correo: investigacion@posgrado.unamba.edu.pe
+link_ctvitae: 'https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=104554'
+oficina:
+  - ubicacionn.jpg
 ---

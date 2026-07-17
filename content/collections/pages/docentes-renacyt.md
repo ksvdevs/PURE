@@ -106,12 +106,12 @@ block_types:
 
             <!-- Tabla de Docentes -->
             <div class="table-responsive-wrapper shadow-sm">
-                <table class="table table-hover table-renacyt">
+                 <table class="table table-hover table-renacyt">
                     <thead>
                         <tr>
                             <th>CÓDIGO RENACYT</th>
                             <th>INVESTIGADOR</th>
-                            <th>RESOLUCIÓN VRI</th>
+                            <th>CORREO</th>
                             <th>FACULTAD</th>
                             <th>NIVEL</th>
                             <th>ESTADO</th>
@@ -134,7 +134,7 @@ block_types:
                             <td class="col-investigador">
                                 <span class="investigador-name">{{nombre}}</span>
                             </td>
-                            <td class="col-resolucion">{{ if resolucion }}{{ resolucion }}{{ else }}Cargando...{{ /if }}</td>
+                            <td class="col-correo">{{ if gmail }}<a href="mailto:{{ gmail }}" class="renacyt-email-link">{{ gmail }}</a>{{ else }}-{{ /if }}</td>
                             <td class="col-facultad">{{carrera:label}}</td>
                             <td class="col-nivel">
                                 <span class="badge-nivel">{{ if nivel:label }}{{ nivel:label }}{{ else }}I{{ /if }}</span>

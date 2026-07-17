@@ -8,5 +8,6 @@ link_documento: 'https://drive.google.com/file/d/1p8JsdJKyQdzNTV_-isq6YgSpC1uSNA
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
 updated_at: 1739938083
 fecha_publicacion: '2022-11-16'
+fecha_de_aprobacion: '2022-11-16'
 anio: 2022
 ---

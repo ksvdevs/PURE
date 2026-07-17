@@ -18,14 +18,71 @@ block_types:
     id: lkuttke4
     template:
       code: |-
-        <div class="dir-page-container">
+        <div class="unidades-page-container">
           <!-- Hero Section -->
-          <header class="dir-hero">
-            <div class="dir-hero-content">
-              <h1 class="dir-hero-title">Unidades de Investigación</h1>
-              <p class="dir-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
+          <div class="unidades-container">
+            <header class="unidades-hero text-center">
+              <div class="unidades-hero-content">
+                <h1 class="unidades-hero-title">Unidades de Investigación</h1>
+                <p class="unidades-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
+              </div>
+            </header>
+          </div>
+
+          <!-- Directorio Section -->
+          <section class="directorio-section">
+            <div class="unidades-container">
+              <h2 class="directorio-title-main">Comité Directivo de Investigación</h2>
+              <p class="directorio-subtitle-main">Conoce a las autoridades encargadas de dirigir y promover la investigación en cada una de nuestras unidades académicas.</p>
+              
+              <!-- Grid containing all 5 cards, flowing into 3 columns (Row 1: 3 cards, Row 2: 2 cards centered) -->
+              <div class="directorio-grid-mixed">
+                {{ collection:dir_unidades sort="title:asc" }}
+                <div class="directorio-card reveal">
+                  <h3 class="directorio-card-title">{{ title }}</h3>
+                  <div class="directorio-author-block">
+                    <img src="{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
+                    <div class="directorio-author-text">
+                      <span class="directorio-label">
+                        {{ if nombre_director_unidades | contains('Esther') or nombre_director_unidades | contains('Silvia') }}DIRECTORA{{ else }}DIRECTOR{{ /if }}
+                      </span>
+                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
+                    </div>
+                  </div>
+                  <div class="directorio-contact-list">
+                    {{ if link_ctvitae }}
+                    <div class="directorio-contact-item">
+                      <i class="fa fa-id-card-o"></i>
+                      <a href="{{ link_ctvitae }}" target="_blank" class="directorio-action-link">Ver CTI Vitae</a>
+                    </div>
+                    {{ /if }}
+                    <div class="directorio-contact-item">
+                      <i class="fa fa-envelope"></i>
+                      <a href="mailto:{{ correo }}">{{ correo }}</a>
+                    </div>
+                    <div class="directorio-contact-item">
+                      <i class="fa fa-clock-o"></i>
+                      <span><strong>Horario de atención:</strong> 8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
+                    </div>
+                  </div>
+                  <div class="directorio-office-section">
+                    <div class="directorio-contact-item directorio-office-text">
+                      <i class="fa fa-map-marker"></i>
+                      <span><strong>Ubicación:</strong> {{ direccion_oficina }}</span>
+                    </div>
+                    {{ if oficina }}
+                      {{ oficina }}
+                      <div class="directorio-office-map-container mt-2">
+                        <img src="{{ url }}" alt="Croquis de Oficina" class="directorio-office-map-img zoomable-map" data-zoom-src="{{ url }}" title="Click para ampliar croquis">
+                      </div>
+                      {{ /oficina }}
+                    {{ /if }}
+                  </div>
+                </div>
+                {{ /collection:dir_unidades }}
+              </div>
             </div>
-          </header>
+          </section>
 
           <!-- Funciones Section -->
           <div class="funciones-section unidades-container">
@@ -67,155 +124,7 @@ block_types:
               </div>
             </div>
           </div>
-
-          <!-- Directorio Section -->
-          <section class="directorio-section">
-            <div class="unidades-container">
-              <h2 class="directorio-title-main">Comité Directivo de Investigación</h2>
-              <p class="directorio-subtitle-main">Conoce a las autoridades encargadas de dirigir y promover la investigación en cada una de nuestras unidades académicas.</p>
-              
-              <!-- Grid containing all 5 cards, flowing into 3 columns (Row 1: 3 cards, Row 2: 2 cards centered) -->
-              <div class="directorio-grid-mixed">
-                {{ entry id="2c936a98-9d67-4bde-8233-ddaa237e9867" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ direccion_oficina }}</span>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
-                    </div>
-                  </div>
-                </div>
-                {{ /entry }}
-
-                {{ entry id="e06a302c-f0d6-4722-8e6c-341635cb9c0c" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTOR</span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ direccion_oficina }}</span>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
-                    </div>
-                  </div>
-                </div>
-                {{ /entry }}
-
-                {{ entry id="0442eee1-1b10-44d5-a1e0-d363cf59f755" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTOR</span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ direccion_oficina }}</span>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
-                    </div>
-                  </div>
-                </div>
-                {{ /entry }}
-
-                {{ entry id="65cc41bc-b45f-4c54-9a00-323ad42f6964" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTORA</span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ direccion_oficina }}</span>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
-                    </div>
-                  </div>
-                </div>
-                {{ /entry }}
-
-                {{ entry id="a5c7b05e-3866-4ece-b3c5-66d98ba96bd0" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="/assets/{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">DIRECTOR</span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-map-marker"></i>
-                      <span>{{ direccion_oficina }}</span>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span>8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
-                    </div>
-                  </div>
-                </div>
-                {{ /entry }}
-              </div>
-
-            </div>
-          </section>
         </div>
       mode: htmlmixed
     type: template
     enabled: true
----

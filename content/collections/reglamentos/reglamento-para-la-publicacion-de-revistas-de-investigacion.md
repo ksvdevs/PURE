@@ -8,5 +8,6 @@ link_documento: 'https://drive.google.com/file/d/1nSPw9QPiQYHSCkZ4fADWKSRnIQTPjo
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
 updated_at: 1739938159
 fecha_publicacion: '2023-06-23'
+fecha_de_aprobacion: '2023-06-23'
 anio: 2023
 ---

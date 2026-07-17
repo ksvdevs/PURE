@@ -11,7 +11,7 @@ modal:
   code: null
   mode: htmlmixed
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1781558105
+updated_at: 1782323546
 block_types:
   -
     id: m7bwuhre
@@ -38,13 +38,13 @@ block_types:
                                     </button>
                                     <button class="nosotros-sidebar-item" data-target="dependencias">
                                         <span class="nosotros-sidebar-item-label">
-                                            <i class="fa fa-sitemap"></i> Direcciones del VRIN
+                                            <i class="fa fa-th-large"></i> Direcciones del VRIN
                                         </span>
                                         <i class="fa fa-chevron-right nosotros-chevron"></i>
                                     </button>
                                     <button class="nosotros-sidebar-item" data-target="organigrama">
                                         <span class="nosotros-sidebar-item-label">
-                                            <i class="fa fa-layer-group"></i> Organigrama
+        								   <i class="fa fa-sitemap"></i>Organigrama
                                         </span>
                                         <i class="fa fa-chevron-right nosotros-chevron"></i>
                                     </button>
@@ -125,7 +125,7 @@ block_types:
                                             </div>
                                             <h4 class="vicerrector-name">{{ nombre }}</h4>
                                             <div class="vicerrector-details">
-                                                <a href="#" class="vicerrector-link font-weight-bold d-block">Resolución R. N° 9731-2021-UNAMBA</a>
+                                                <a href="#" class="vicerrector-link font-weight-bold d-block">Resolución R. N° 9731-2021-UNFV</a>
                                                 <a href="{{ ficha_cti_vitae }}" target="_blank" class="vicerrector-link d-block">Ficha de Registro CTI Vitae</a>
                                                 <a href="mailto:{{ correo }}" class="vicerrector-link d-block">{{ correo }}</a>
                                             </div>
@@ -136,7 +136,7 @@ block_types:
                                     <hr class="my-5" style="border-top: 1px solid #e8eaf0;">
                                     
                                     <!-- Directores -->
-                                    <h3 class="text-center font-weight-bold mb-4" style="color: #002253; font-family: 'Roboto Slab', serif; font-size: 1.5rem;">Autoridades por Dirección</h3>
+                                    <h3 class="text-center mb-4">Autoridades por Dirección</h3>
                                     
                                     <div class="director-list">
                                         <!-- Director de Incubadora de Empresas -->

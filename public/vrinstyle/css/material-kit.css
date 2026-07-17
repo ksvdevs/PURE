@@ -12,6 +12,11 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
+:root {
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-family-title: 'Outfit', 'Inter', sans-serif;
+}
+
 /*     brand Colors              */
 .carousel.carousel-full-navigation .left {
   cursor: url("../../img/arrow-left.png"), url("../../img/arrow-left.cur"), default !important;
@@ -60,7 +65,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-family-body);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -481,7 +486,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-family-body);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -5895,7 +5900,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-family-body);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6020,7 +6025,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-family-body);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -11600,7 +11605,7 @@ legend {
 }
 
 .serif-font {
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: var(--font-family-title);
 }
 
 * {
@@ -12901,7 +12906,7 @@ fieldset[disabled] .is-focused .switch label:focus {
 
 .form-control,
 .is-focused .form-control {
-  background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  /*background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);*/
 }
 
 .form-control:invalid {
@@ -15367,7 +15372,7 @@ h6,
 .h2,
 .h3,
 .h4 {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-family-title);
   font-weight: 300;
   line-height: 1.5em;
 }
@@ -15458,7 +15463,7 @@ small,
 .footer-big h4,
 .media .media-heading {
   font-weight: 700;
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: var(--font-family-title);
 }
 
 .title,

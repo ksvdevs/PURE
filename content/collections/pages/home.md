@@ -5,7 +5,7 @@ title: Home
 template: home
 author: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1778617661
+updated_at: 1782310294
 block_types:
   -
     id: m7ap00pr
@@ -86,7 +86,7 @@ block_types:
                   <img src="{{icono_lineas_de_investigacion}}" alt="Líneas de Investigación">
                 </a>
               </div>
-              <span class="stat-num">+{{contador_lineas_de_investigacion}}</span>
+              <span class="stat-num">{{contador_lineas_de_investigacion}}</span>
               <span class="stat-desc">Líneas de Investigación</span>
             </div>
 
@@ -918,25 +918,25 @@ block_types:
                       <div class="enlaces-viewport" id="enlacesViewport">
                         <div class="enlaces-track" id="enlacesTrack">
                           <a href="https://www.lareferencia.info/es/" target="_blank" class="enlace-logo">
-                            <img src="/assets/la_referencia.png" alt="LA Referencia" draggable="false">
+                            <img src="/assets/vrin/la_referencia.png" alt="LA Referencia" draggable="false">
                           </a>
                           <a href="https://www.gob.pe/concytec" target="_blank" class="enlace-logo">
-                            <img src="/assets/concytec.png" alt="CONCYTEC" draggable="false">
+                            <img src="/assets/vrin/concytec.png" alt="CONCYTEC" draggable="false">
                           </a>
                           <a href="https://renati.sunedu.gob.pe" target="_blank" class="enlace-logo">
-                            <img src="/assets/renati.jpg" alt="RENATI" draggable="false">
+                            <img src="/assets/vrin/renati.jpg" alt="RENATI" draggable="false">
                           </a>
                           <a href="https://alicia.concytec.gob.pe/vufind/" target="_blank" class="enlace-logo">
-                            <img src="/assets/alicia.png" alt="ALICIA" draggable="false">
+                            <img src="/assets/vrin/alicia.png" alt="ALICIA" draggable="false">
                           </a>
                           <a href="https://scielo.org/es/" target="_blank" class="enlace-logo">
-                            <img src="/assets/scielo.png" alt="Scielo" draggable="false">
+                            <img src="/assets/vrin/scielo.png" alt="Scielo" draggable="false">
                           </a>
                           <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/" target="_blank" class="enlace-logo">
-                            <img src="/assets/cti_vitae.jpg" alt="CTI Vitae" draggable="false">
+                            <img src="/assets/vrin/cti_vitae.jpg" alt="CTI Vitae" draggable="false">
                           </a>
                           <a href="https://www.scopus.com/home.uri" target="_blank" class="enlace-logo">
-                            <img src="/assets/scopus-2.png" alt="Scopus" draggable="false">
+                            <img src="/assets/vrin/scopus-2.png" alt="Scopus" draggable="false">
                           </a>
                         </div>
                       </div>

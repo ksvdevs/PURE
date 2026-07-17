@@ -534,6 +534,7 @@ if (document.readyState === 'loading') {
 
   /* ---- Dots (un círculo por grupo) ---- */
   function buildDots() {
+    if (!dotsContainer) return;
     for (var i = 0; i < 3; i++) {
       (function (dotIdx) {
         var dot = document.createElement('button');
@@ -560,6 +561,7 @@ if (document.readyState === 'loading') {
   }
 
   function syncDots() {
+    if (!dotsContainer) return;
     var ri = realOf(domIdx);
     var targetDotIdx = 0;
     if (ri >= 0 && ri <= 2) targetDotIdx = 0;
@@ -670,13 +672,15 @@ if (document.readyState === 'loading') {
   /* Diferir la inicialización hasta que el viewport tenga dimensiones reales.
      RAF asegura que el browser ya calculó el layout; si aún es 0 (ej. fuentes
      web bloqueando), el evento 'load' actúa como respaldo garantizado. */
-  var _launched = false;
+  var _autoplayStarted = false;
 
   function _launch() {
-    if (_launched || !viewport.offsetWidth) return;
-    _launched = true;
+    if (!viewport.offsetWidth) return;
     setup();
-    startAutoplay();
+    if (!_autoplayStarted) {
+      _autoplayStarted = true;
+      startAutoplay();
+    }
   }
 
   requestAnimationFrame(_launch);
@@ -728,7 +732,12 @@ if (document.readyState === 'loading') {
   var tabButtons = document.querySelectorAll('.lineas-tab-btn');
   var tabContents = document.querySelectorAll('.lineas-tab-content');
 
-  // Función para activar la animación de entrada escalonada (staggered entrance)
+  /**
+   * Triggers staggered fade-in animations on tab content rows/accordion items.
+   * Also resets the grow animation on distribution chart bars.
+   * 
+   * @param {HTMLElement} container The tab content container element.
+   */
   function animateTabContent(container) {
     if (!container) return;
 
@@ -737,30 +746,33 @@ if (document.readyState === 'loading') {
       item.classList.remove('animate-in');
       item.style.transitionDelay = '';
 
-      // Forzar reflow para reiniciar la animación CSS
+      // Force layout reflow to restart CSS keyframe/transition animations
       void item.offsetWidth;
 
-      // Retraso escalonado (45ms por fila/tarjeta) para un efecto fluido y premium
+      // Staggered delay (45ms per row) for a premium, smooth transition effect
       item.style.transitionDelay = (index * 45) + 'ms';
       item.classList.add('animate-in');
     });
 
-    // Reiniciar animación de crecimiento de las barras del gráfico de distribución
+    // Reset growth animations of distribution bar charts
     var chartBars = container.querySelectorAll('.chart-bar');
     chartBars.forEach(function (bar) {
       bar.style.animation = 'none';
-      void bar.offsetWidth; // Forzar reflow
+      void bar.offsetWidth; // Force reflow
       bar.style.animation = '';
     });
   }
 
+  // Bind tab switching events
   tabButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var targetTab = btn.getAttribute('data-tab');
 
+      // Clear active states on buttons and hide all contents
       tabButtons.forEach(function (b) { b.classList.remove('active'); });
       tabContents.forEach(function (c) { c.classList.add('d-none'); });
 
+      // Activate current tab and show target content
       btn.classList.add('active');
       var targetContent = document.getElementById('tab-' + targetTab);
       if (targetContent) {
@@ -770,7 +782,7 @@ if (document.readyState === 'loading') {
     });
   });
 
-  // Ejecutar animación en la carga inicial sobre el tab activo por defecto
+  // Execute staggered animation on initial page load for the active tab
   setTimeout(function () {
     var activeTabContent = document.querySelector('.lineas-tab-content:not(.d-none)');
     if (activeTabContent) {
@@ -778,11 +790,17 @@ if (document.readyState === 'loading') {
     }
   }, 150);
 
+  /**
+   * Toggles the accordion row for lines of investigation, closing other rows.
+   * Uses scrollHeight calculation for smooth, dynamic CSS height transitions.
+   * 
+   * @param {HTMLElement} header The accordion header that was clicked.
+   */
   window.toggleAccordion = function (header) {
     var row = header.parentElement;
     var isOpen = row.classList.contains('open');
 
-    // Cerrar todas las demás filas
+    // Close all other accordion rows to maintain a clean layout
     var allRows = document.querySelectorAll('.accordion-row');
     allRows.forEach(function (r) {
       if (r !== row) {
@@ -798,13 +816,14 @@ if (document.readyState === 'loading') {
     if (body) {
       if (isOpen) {
         body.style.maxHeight = body.scrollHeight + 'px';
-        void body.offsetWidth; // Force reflow
+        void body.offsetWidth; // Force layout recalculation
         row.classList.remove('open');
         body.style.maxHeight = null;
       } else {
         row.classList.add('open');
         body.style.maxHeight = body.scrollHeight + "px";
         
+        // Clean up inline max-height after transition to allow responsive content adjustments
         var onTransitionEnd = function (e) {
           if (e.propertyName === 'max-height' && row.classList.contains('open')) {
             body.style.maxHeight = 'none';
@@ -859,6 +878,7 @@ if (document.readyState === 'loading') {
     const customSelectWrapper = document.querySelector('.reglamentos-custom-select-wrapper');
     const paginationContainer = document.querySelector('.reglamentos-pagination');
     const infoBar = document.querySelector('.reglamentos-info-bar');
+    const searchInput = document.getElementById('reglamentos-search-input');
 
     if (!customSelectWrapper) return;
     const triggerBtn = customSelectWrapper.querySelector('.reglamentos-custom-select-trigger');
@@ -870,39 +890,117 @@ if (document.readyState === 'loading') {
     let currentPage = 1;
     const itemsPerPage = 10;
 
-    // Spanish Date Formatter
-    function formatDateToSpanish(dateStr) {
+    // DD/MM/YYYY Date Formatter
+    function formatDate(dateStr) {
       if (!dateStr) return '';
       const parts = dateStr.trim().split('-');
       if (parts.length !== 3) return dateStr;
       
       const year = parts[0];
-      const monthVal = parseInt(parts[1], 10);
-      const dayVal = parseInt(parts[2], 10);
+      const month = parts[1];
+      const day = parts[2];
       
-      if (isNaN(monthVal) || isNaN(dayVal) || monthVal < 1 || monthVal > 12) {
-        return dateStr;
-      }
-      
-      const months = [
-        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-      ];
-      
-      return `${dayVal} de ${months[monthVal - 1]} de ${year}`;
+      return `${day}/${month}/${year}`;
     }
 
-    // Collect unique years and format all dates in rows to Spanish on load
+    // Format text to Title Case while keeping Roman numerals and acronyms uppercase
+    function formatTitleToProfessional(titleStr) {
+      if (!titleStr) return '';
+      // If it's already mixed case, keep it
+      if (titleStr !== titleStr.toUpperCase()) return titleStr;
+      
+      const prepositions = ['de', 'para', 'la', 'el', 'los', 'las', 'en', 'y', 'con', 'del', 'a', 'o', 'al', 'un', 'una', 'por', 'sobre', 'e', 'u'];
+      const acronyms = ['unamba', 'vrin', 'pdf', 'cti', 'unsa', 'uni', 'unam'];
+      const romanNumerals = /^(x|v|i)+$/i;
+      
+      let words = titleStr.toLowerCase().split(/\s+/);
+      words = words.map((word, index) => {
+        // Remove punctuation for checking acronyms
+        const cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+        
+        // If it's a roman numeral (e.g. II, III, IV) or acronym, uppercase it
+        if (romanNumerals.test(cleanWord) || acronyms.includes(cleanWord)) {
+          return word.toUpperCase();
+        }
+        
+        // Always capitalize first word
+        if (index === 0) {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+        
+        // If it's a preposition, keep lowercase
+        if (prepositions.includes(cleanWord)) {
+          return word;
+        }
+        
+        // Otherwise, capitalize
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      });
+      
+      return words.join(' ');
+    }
+
+    // Convert Google Drive view URL to direct download URL
+    function convertToGoogleDriveDownloadLink(url) {
+      if (!url) return '';
+      
+      // Check if it's a Google Drive URL
+      if (url.includes('drive.google.com')) {
+        let fileId = '';
+        
+        // Pattern 1: /file/d/[FILE_ID]/view
+        if (url.includes('/file/d/')) {
+          const parts = url.split('/file/d/');
+          if (parts.length > 1) {
+            fileId = parts[1].split('/')[0];
+          }
+        } 
+        // Pattern 2: ?id=[FILE_ID] or &id=[FILE_ID]
+        else if (url.includes('?id=') || url.includes('&id=')) {
+          try {
+            const urlObj = new URL(url);
+            fileId = urlObj.searchParams.get('id');
+          } catch(e) {
+            // Fallback parsing if URL constructor fails
+            const match = url.match(/[?&]id=([^&#]+)/);
+            if (match) fileId = match[1];
+          }
+        }
+        
+        if (fileId) {
+          return `https://drive.google.com/uc?export=download&id=${fileId}`;
+        }
+      }
+      
+      return url;
+    }
+
+    // Collect unique years, format titles and dates on load
     const years = new Set();
     rows.forEach(row => {
+      // Format Title to professional casing
+      const titleEl = row.querySelector('.reglamentos-doc-title');
+      if (titleEl) {
+        titleEl.textContent = formatTitleToProfessional(titleEl.textContent);
+      }
+
+      // Convert Google Drive viewer link to direct download link
+      const downloadBtn = row.querySelector('.reglamentos-btn-descargar');
+      if (downloadBtn) {
+        const originalHref = downloadBtn.getAttribute('href');
+        if (originalHref) {
+          downloadBtn.setAttribute('href', convertToGoogleDriveDownloadLink(originalHref));
+        }
+      }
+
       const metaEl = row.querySelector('.reglamentos-doc-meta');
       if (metaEl) {
         const rawDate = metaEl.getAttribute('data-date');
         if (rawDate) {
-          // Format date to Spanish
-          metaEl.textContent = 'Publicado: ' + formatDateToSpanish(rawDate);
+          // Format date
+          metaEl.textContent = 'Aprobado: ' + formatDate(rawDate);
           
-          // Extract year from the publication date
+          // Extract year from the approval date
           const parts = rawDate.trim().split('-');
           if (parts.length === 3) {
             const year = parts[0];
@@ -970,11 +1068,29 @@ if (document.readyState === 'loading') {
       updateList();
     });
 
+    // Handle live search input
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentPage = 1;
+        updateList();
+      });
+    }
+
     function updateList() {
+      const searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
       const filteredRows = rows.filter(row => {
         const typeMatch = row.getAttribute('data-type') === currentTab;
         const yearMatch = currentYear === '' || row.getAttribute('data-year') === currentYear;
-        return typeMatch && yearMatch;
+        
+        let searchMatch = true;
+        if (searchQuery !== '') {
+          const titleEl = row.querySelector('.reglamentos-doc-title');
+          const titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
+          searchMatch = titleText.includes(searchQuery);
+        }
+
+        return typeMatch && yearMatch && searchMatch;
       });
 
       const totalItems = filteredRows.length;
@@ -1022,18 +1138,43 @@ if (document.readyState === 'loading') {
         });
         paginationContainer.appendChild(prevBtn);
 
-        // Page buttons
-        for (let i = 1; i <= totalPages; i++) {
+        // Page buttons (with responsive smart ranges and ellipses)
+        const createPageButton = (pageNumber) => {
           const pageBtn = document.createElement('button');
-          pageBtn.className = 'reglamentos-page-btn' + (i === currentPage ? ' active' : '');
-          pageBtn.textContent = i;
+          pageBtn.className = 'reglamentos-page-btn' + (pageNumber === currentPage ? ' active' : '');
+          pageBtn.textContent = pageNumber;
           pageBtn.addEventListener('click', () => {
-            currentPage = i;
+            currentPage = pageNumber;
             updateList();
             scrollToTable();
           });
           paginationContainer.appendChild(pageBtn);
+        };
+
+        const range = [];
+        const delta = window.innerWidth < 480 ? 1 : 2;
+        
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+            range.push(i);
+          }
         }
+        
+        let lastNum;
+        range.forEach(i => {
+          if (lastNum) {
+            if (i - lastNum === 2) {
+              createPageButton(lastNum + 1);
+            } else if (i - lastNum > 2) {
+              const ellipsis = document.createElement('span');
+              ellipsis.className = 'reglamentos-pagination-ellipsis';
+              ellipsis.textContent = '...';
+              paginationContainer.appendChild(ellipsis);
+            }
+          }
+          createPageButton(i);
+          lastNum = i;
+        });
 
         // Next button
         const nextBtn = document.createElement('button');
@@ -1047,6 +1188,19 @@ if (document.readyState === 'loading') {
           }
         });
         paginationContainer.appendChild(nextBtn);
+
+        // Optional "Siguiente" text button as in mockup
+        const nextTextBtn = document.createElement('button');
+        nextTextBtn.className = 'reglamentos-page-btn-text' + (currentPage === totalPages ? ' disabled' : '');
+        nextTextBtn.textContent = 'Siguiente';
+        nextTextBtn.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            updateList();
+            scrollToTable();
+          }
+        });
+        paginationContainer.appendChild(nextTextBtn);
       }
     }
 
@@ -1063,9 +1217,12 @@ if (document.readyState === 'loading') {
         btn.classList.add('active');
         currentTab = btn.getAttribute('data-tab');
 
-        // Reset year select to default "AÑO"
+        // Reset search input
+        if (searchInput) searchInput.value = '';
+
+        // Reset year select to default "Año"
         currentYear = '';
-        selectedValueEl.textContent = 'AÑO';
+        selectedValueEl.textContent = 'Año';
         customOptionsContainer.querySelectorAll('.reglamentos-custom-option').forEach(opt => {
           opt.classList.toggle('active', opt.getAttribute('data-value') === '');
         });
@@ -1087,7 +1244,7 @@ if (document.readyState === 'loading') {
 (function () {
   'use strict';
   
-  document.addEventListener('DOMContentLoaded', function () {
+  function initNosotros() {
     // 1. Navegación del Sidebar
     const sidebarItems = document.querySelectorAll('.nosotros-sidebar-item');
     const sections = document.querySelectorAll('.nosotros-content-section');
@@ -1150,7 +1307,13 @@ if (document.readyState === 'loading') {
         });
       });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNosotros);
+  } else {
+    initNosotros();
+  }
 })();
 
 /* ========================================================================
@@ -1704,7 +1867,7 @@ if (document.readyState === 'loading') {
   /* ========================================================================
      MÓDULO DE INTERACTIVIDAD PARA DOCENTES RENACYT
      ======================================================================== */
-  document.addEventListener('DOMContentLoaded', function () {
+  function initRenacyt() {
     const tableBody = document.getElementById('docentesTableBody');
     if (!tableBody) return;
 
@@ -2150,8 +2313,6 @@ if (document.readyState === 'loading') {
             const nombreCell = row.querySelector('.investigador-name');
             const nombre = nombreCell ? nombreCell.textContent.trim() : '';
             const gmail = row.getAttribute('data-gmail') || '';
-            const resolucionCell = row.querySelector('.col-resolucion');
-            const resolucion = resolucionCell ? resolucionCell.textContent.trim() : '';
             const facultadCell = row.querySelector('.col-facultad');
             const facultad = facultadCell ? facultadCell.textContent.trim() : '';
             const nivelCell = row.querySelector('.badge-nivel');
@@ -2164,7 +2325,6 @@ if (document.readyState === 'loading') {
                 <td style="font-weight: bold; text-align: center; border: 1px solid #cbd5e1; padding: 8px;">${codigo}</td>
                 <td style="text-transform: uppercase; border: 1px solid #cbd5e1; padding: 8px;">${nombre}</td>
                 <td style="border: 1px solid #cbd5e1; padding: 8px;">${gmail}</td>
-                <td style="border: 1px solid #cbd5e1; padding: 8px;">${resolucion}</td>
                 <td style="border: 1px solid #cbd5e1; padding: 8px;">${facultad}</td>
                 <td style="text-align: center; font-weight: bold; border: 1px solid #cbd5e1; padding: 8px;">${nivel}</td>
                 <td style="text-align: center; border: 1px solid #cbd5e1; padding: 8px;">${estado}</td>
@@ -2203,8 +2363,7 @@ if (document.readyState === 'loading') {
             <colgroup>
               <col style="width: 140px; min-width: 140px;" />
               <col style="width: 280px; min-width: 280px;" />
-              <col style="width: 220px; min-width: 220px;" />
-              <col style="width: 220px; min-width: 220px;" />
+              <col style="width: 280px; min-width: 280px;" />
               <col style="width: 280px; min-width: 280px;" />
               <col style="width: 90px; min-width: 90px;" />
               <col style="width: 110px; min-width: 110px;" />
@@ -2214,7 +2373,6 @@ if (document.readyState === 'loading') {
                 <th style="text-align: center; padding: 8px; border: 1px solid #0f3073;">CÓDIGO RENACYT</th>
                 <th style="padding: 8px; border: 1px solid #0f3073;">INVESTIGADOR</th>
                 <th style="padding: 8px; border: 1px solid #0f3073;">CORREO</th>
-                <th style="padding: 8px; border: 1px solid #0f3073;">RESOLUCIÓN VRI</th>
                 <th style="padding: 8px; border: 1px solid #0f3073;">FACULTAD</th>
                 <th style="text-align: center; padding: 8px; border: 1px solid #0f3073;">NIVEL</th>
                 <th style="text-align: center; padding: 8px; border: 1px solid #0f3073;">ESTADO</th>
@@ -2243,7 +2401,13 @@ if (document.readyState === 'loading') {
 
     // Inicialización
     filterAndPaginate();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRenacyt);
+  } else {
+    initRenacyt();
+  }
 })();
 
 (function () {
@@ -3270,4 +3434,76 @@ if (document.readyState === 'loading') {
 
     filterAndPaginate();
   });
+})();
+
+/* ========================================================================
+   MÓDULO LIGHTBOX / MODAL DE IMÁGENES ZOOMABLES (SENIOR UX/UI)
+   ======================================================================== */
+(function () {
+  'use strict';
+
+  function initImageLightbox() {
+    document.addEventListener('click', function (e) {
+      const target = e.target.closest('.zoomable-map');
+      if (!target) return;
+
+      e.preventDefault();
+      const src = target.getAttribute('data-zoom-src') || target.src;
+      const alt = target.alt || 'Imagen ampliada';
+
+      let lightbox = document.getElementById('globalLightboxModal');
+      if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'globalLightboxModal';
+        lightbox.className = 'lightbox-modal';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+        lightbox.innerHTML = `
+          <div class="lightbox-content">
+            <div class="lightbox-header">
+              <span class="lightbox-title">Croquis de Ubicación</span>
+              <button class="lightbox-close" aria-label="Cerrar modal">&times;</button>
+            </div>
+            <div class="lightbox-body">
+              <img class="lightbox-img" src="" alt="">
+            </div>
+          </div>
+        `;
+        document.body.appendChild(lightbox);
+
+        lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function (event) {
+          if (event.target === lightbox || event.target.closest('.lightbox-content') === null) {
+            closeLightbox();
+          }
+        });
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+          }
+        });
+      }
+
+      const img = lightbox.querySelector('.lightbox-img');
+      img.src = src;
+      img.alt = alt;
+      
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('globalLightboxModal');
+      if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImageLightbox);
+  } else {
+    initImageLightbox();
+  }
 })();
