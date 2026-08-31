@@ -1421,443 +1421,588 @@ if (document.readyState === 'loading') {
     const grid = document.getElementById('gruposGrid');
     if (!grid) return;
 
-    // Metadata de mapeo para los 20 grupos (códigos, facultades, fechas, resoluciones)
-    const groupsMetadata = {
-      '56e2b583-7959-4624-8eb4-f6ed71fcf13a': {
-        code: 'GI-MA',
-        faculty: 'Ingeniería de Sistemas',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 045-2024-VRIN-UNAMBA'
-      },
-      'f0b02137-15e1-4dc9-86cb-76491221b62d': {
-        code: 'COVUSBA',
-        faculty: 'Medicina Veterinaria y Zootecnia',
-        date: '25 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 048-2024-VRIN-UNAMBA'
-      },
-      '909dac78-1d7a-4d77-ae7b-80e736a76864': {
-        code: 'CAMESUO',
-        faculty: 'Medicina Veterinaria y Zootecnia',
-        date: '25 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 049-2024-VRIN-UNAMBA'
-      },
-      'e1513719-c76e-4196-bb92-5ef7f0bad0cd': {
-        code: 'GI-ENF-E',
-        faculty: 'Departamento Académico de Humanidades',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 042-2024-VRIN-UNAMBA'
-      },
-      'e7cb6c67-7b58-4707-8fc3-2a73d40da933': {
-        code: 'GIMAJ',
-        faculty: 'Ingeniería Agronómica',
-        date: '18 de Abr, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 124-2023-VRIN-UNAMBA'
-      },
-      'b0acff00-a3b2-476f-9a45-91053065627f': {
-        code: 'IDEA',
-        faculty: 'Ingeniería Agroforestal y Sostenibilidad',
-        date: '12 de Ago, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 182-2023-VRIN-UNAMBA'
-      },
-      '19eacf67-ec4a-444b-b6c9-39f9e2e648c4': {
-        code: 'GI-BCA',
-        faculty: 'Medicina Veterinaria y Zootecnia',
-        date: '15 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 038-2024-VRIN-UNAMBA'
-      },
-      '446871a7-c2e5-4ff3-a48b-1d1d23b518e2': {
-        code: 'EPCSI',
-        faculty: 'Administración',
-        date: '10 de Nov, 2022',
-        year: '2022',
-        resolucion: 'Res. N° 294-2022-VRIN-UNAMBA'
-      },
-      'de513f20-abc1-46f7-8649-516514295bbd': {
-        code: 'GI-ADM-B',
-        faculty: 'Administración',
-        date: '12 de Ago, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 185-2023-VRIN-UNAMBA'
-      },
-      '1f3863df-66bd-4736-8fc4-31b2dad6831b': {
-        code: 'GI-SIST-B',
-        faculty: 'Ingeniería de Sistemas',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 041-2024-VRIN-UNAMBA'
-      },
-      '778e1ddb-aa99-4c8e-a392-c64ef93f6bae': {
-        code: 'BIRNEC',
-        faculty: 'Ingeniería de Minas',
-        date: '14 de Sep, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 201-2023-VRIN-UNAMBA'
-      },
-      '283ba324-7628-49be-b5c8-c01fc7c08b99': {
-        code: 'GI-VET-C',
-        faculty: 'Medicina Veterinaria y Zootecnia',
-        date: '25 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 050-2024-VRIN-UNAMBA'
-      },
-      '90cff412-8646-496c-9999-e2b00e6deb19': {
-        code: 'GI-POL-A',
-        faculty: 'Ciencia Política',
-        date: '05 de Jun, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 145-2023-VRIN-UNAMBA'
-      },
-      '0a2b44b7-906f-4582-a3de-4ba7e9a05db1': {
-        code: 'GI-AGRO-A',
-        faculty: 'Ingeniería Agroforestal e Intercultural Bilingüe',
-        date: '12 de Ago, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 189-2023-VRIN-UNAMBA'
-      },
-      '9bc96518-fe99-4706-a056-607a5b46f50c': {
-        code: 'GI-HUM-B',
-        faculty: 'Departamento Académico de Humanidades',
-        date: '14 de Mar, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 015-2024-VRIN-UNAMBA'
-      },
-      'c299d75f-0f78-41a7-b4ac-1a4e0473a7f7': {
-        code: 'GIHUMAN',
-        faculty: 'Departamento Académico de Humanidades',
-        date: '12 de Ago, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 181-2023-VRIN-UNAMBA'
-      },
-      '9f693a4d-3473-4633-81cc-a80562a0ce2e': {
-        code: 'ZAMZA',
-        faculty: 'Medicina Veterinaria y Zootecnia',
-        date: '18 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 039-2024-VRIN-UNAMBA'
-      },
-      '6e96bbe6-e160-47db-9905-f5b2779fefea': {
-        code: 'GI-SIST-C',
-        faculty: 'Ingeniería de Sistemas',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 043-2024-VRIN-UNAMBA'
-      },
-      '0c8eec08-8406-40ca-8b2a-a6a2f42aa76d': {
-        code: 'GI-MIN-A',
-        faculty: 'Ingeniería de Minas',
-        date: '12 de Ago, 2023',
-        year: '2023',
-        resolucion: 'Res. N° 180-2023-VRIN-UNAMBA'
-      },
-      'a3c24e73-9b7b-40a3-b6ea-dcbd6c41dec7': {
-        code: 'GIYS',
-        faculty: 'Ingeniería Civil',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Res. N° 040-2024-VRIN-UNAMBA'
-      }
+    const cards = Array.from(grid.querySelectorAll('.grupo-card-container'));
+    if (!cards.length) return;
+
+    /* ----------------------------------------------------------------------
+       Mapeos de datos
+       ---------------------------------------------------------------------- */
+    const carreraMap = {
+      1: 'Administración',
+      2: 'Educación Inicial Intercultural Bilingüe',
+      3: 'Ciencia Política y Gobernabilidad',
+      4: 'Ingeniería Agroindustrial',
+      5: 'Ingeniería de Minas',
+      6: 'Ingeniería Informática y Sistemas',
+      7: 'Ingeniería Civil',
+      8: 'Ingeniería Agroecológica y Desarrollo Rural',
+      9: 'Medicina Veterinaria y Zootecnia',
+      10: 'Departamento Académico de Ciencias Básicas',
+      11: 'Departamento Académico de Humanidades',
+      12: 'Escuela de Posgrado'
     };
 
-    const cards = Array.from(grid.querySelectorAll('.grupo-card-container'));
+    const lineaMap = {
+      1: 'Caracterización, desarrollo de procesos e innovación en la agroindustria.',
+      2: 'Gestión empresarial.',
+      3: 'Gestión pública.',
+      4: 'Minería, procesamiento de minerales.',
+      5: 'Geología, geotecnia y medio ambiente.',
+      6: 'Educación incial, desarrollo infantil y gestión pedagógica.',
+      7: 'Interculturalidad y cosmovisión andina.',
+      8: 'Ingeniería de la construcción.',
+      9: 'Ingeniería de materiales.',
+      10: 'Ciencias veterinarias.',
+      11: 'Ingeniería informática, industria y sociedad.',
+      12: 'Ingeniería de software e innovación tecnológica.',
+      13: 'Modelos de gestión y calidad educativa.',
+      14: 'Agua, agricultura, silvicultura y pecuaria sostenible.',
+      15: 'Biotecnología, fitomejoramiento y conservación de la biodiversidad.',
+      16: 'Sistema político y gobernabilidad.',
+      17: 'Teoría política y gobernabilidad.',
+      18: 'Aplicación de la matemática, estadística, física, química y biología.',
+      19: 'Desarrollo humano y calidad de vida.',
+      20: 'Sociedad e identidad nacional, territorios y cambios climáticos.'
+    };
 
-    // Procesar información inicial de cada tarjeta
-    cards.forEach(function (card) {
-      const id = card.getAttribute('data-id');
-      const meta = groupsMetadata[id] || {
-        code: 'GI',
-        faculty: 'General',
-        date: '20 de May, 2024',
-        year: '2024',
-        resolucion: 'Resolución Rectoral'
-      };
+    const monthNames = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
-      // Guardar meta en atributos de datos de la tarjeta para búsquedas/filtros más fáciles
-      card.setAttribute('data-faculty-meta', meta.faculty);
-      card.setAttribute('data-year-meta', meta.year);
+    // Fallback de metadatos para grupos sin fecha/link completos en la plantilla
+    const groupsMetadata = {
+      '56e2b583-7959-4624-8eb4-f6ed71fcf13a': { date: '20 de mayo de 2024', year: '2024', resolution: 'Res. N° 045-2024-VRIN-UNAMBA' },
+      'f0b02137-15e1-4dc9-86cb-76491221b62d': { date: '25 de mayo de 2024', year: '2024', resolution: 'Res. N° 048-2024-VRIN-UNAMBA' },
+      '909dac78-1d7a-4d77-ae7b-80e736a76864': { date: '25 de mayo de 2024', year: '2024', resolution: 'Res. N° 049-2024-VRIN-UNAMBA' },
+      'e1513719-c76e-4196-bb92-5ef7f0bad0cd': { date: '20 de mayo de 2024', year: '2024', resolution: 'Res. N° 042-2024-VRIN-UNAMBA' },
+      'e7cb6c67-7b58-4707-8fc3-2a73d40da933': { date: '18 de abril de 2023', year: '2023', resolution: 'Res. N° 124-2023-VRIN-UNAMBA' },
+      'b0acff00-a3b2-476f-9a45-91053065627f': { date: '12 de agosto de 2023', year: '2023', resolution: 'Res. N° 182-2023-VRIN-UNAMBA' },
+      '19eacf67-ec4a-444b-b6c9-39f9e2e648c4': { date: '15 de mayo de 2024', year: '2024', resolution: 'Res. N° 038-2024-VRIN-UNAMBA' },
+      '446871a7-c2e5-4ff3-a48b-1d1d23b518e2': { date: '10 de noviembre de 2022', year: '2022', resolution: 'Res. N° 294-2022-VRIN-UNAMBA' },
+      'de513f20-abc1-46f7-8649-516514295bbd': { date: '12 de agosto de 2023', year: '2023', resolution: 'Res. N° 185-2023-VRIN-UNAMBA' },
+      '1f3863df-66bd-4736-8fc4-31b2dad6831b': { date: '20 de mayo de 2024', year: '2024', resolution: 'Res. N° 041-2024-VRIN-UNAMBA' },
+      '778e1ddb-aa99-4c8e-a392-c64ef93f6bae': { date: '14 de septiembre de 2023', year: '2023', resolution: 'Res. N° 201-2023-VRIN-UNAMBA' },
+      '283ba324-7628-49be-b5c8-c01fc7c08b99': { date: '25 de mayo de 2024', year: '2024', resolution: 'Res. N° 050-2024-VRIN-UNAMBA' },
+      '90cff412-8646-496c-9999-e2b00e6deb19': { date: '05 de junio de 2023', year: '2023', resolution: 'Res. N° 145-2023-VRIN-UNAMBA' },
+      '0a2b44b7-906f-4582-a3de-4ba7e9a05db1': { date: '12 de agosto de 2023', year: '2023', resolution: 'Res. N° 189-2023-VRIN-UNAMBA' },
+      '9bc96518-fe99-4706-a056-607a5b46f50c': { date: '14 de marzo de 2024', year: '2024', resolution: 'Res. N° 015-2024-VRIN-UNAMBA' },
+      'c299d75f-0f78-41a7-b4ac-1a4e0473a7f7': { date: '12 de agosto de 2023', year: '2023', resolution: 'Res. N° 181-2023-VRIN-UNAMBA' },
+      '9f693a4d-3473-4633-81cc-a80562a0ce2e': { date: '18 de mayo de 2024', year: '2024', resolution: 'Res. N° 039-2024-VRIN-UNAMBA' },
+      '6e96bbe6-e160-47db-9905-f5b2779fefea': { date: '20 de mayo de 2024', year: '2024', resolution: 'Res. N° 043-2024-VRIN-UNAMBA' },
+      '0c8eec08-8406-40ca-8b2a-a6a2f42aa76d': { date: '12 de agosto de 2023', year: '2023', resolution: 'Res. N° 180-2023-VRIN-UNAMBA' },
+      'a3c24e73-9b7b-40a3-b6ea-dcbd6c41dec7': { date: '20 de mayo de 2024', year: '2024', resolution: 'Res. N° 040-2024-VRIN-UNAMBA' }
+    };
 
-      // Actualizar elementos visuales de la tarjeta
-      const nameText = card.getAttribute('data-nombre').trim();
-      const cleanedName = nameText.replace(/\s*\([^)]+\)$/, ''); // Eliminar el (GIMAJ) del final
-      card.querySelector('.grupo-category-title').textContent = cleanedName;
-
-      // Determinar qué poner en la pastilla azul (badge-code)
-      // Si el nombre es igual al código, mostramos la facultad. Si no, mostramos el código.
-      let badgeText = meta.code;
-      if (cleanedName.toLowerCase() === meta.code.toLowerCase()) {
-        badgeText = meta.faculty;
-      }
-      card.querySelector('.badge-code').textContent = badgeText;
-      card.querySelector('.date-text').textContent = meta.date;
-
-      const resolBtn = card.querySelector('.btn-ver-resolucion');
-      resolBtn.title = meta.resolucion;
-      resolBtn.href = '#';
-      resolBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Resolución del grupo ' + meta.code + ': ' + meta.resolucion);
-      });
-
-      // Formatear la lista de integrantes (máximo 3 con opción Ver más)
-      const rawDiv = card.querySelector('.raw-integrantes-html');
-      if (rawDiv) {
-        const rawHtml = rawDiv.innerHTML;
-        const cleanedHtml = rawHtml.replace(/<!--[\s\S]*?-->/g, '');
-        const members = cleanedHtml.split(/<br\s*\/?>|\n/gi)
-                              .map(function(item) {
-                                return item.replace(/<\/?[^>]+(>|$)/g, "").trim();
-                              })
-                              .filter(function(item) {
-                                return item.length > 0;
-                              });
-
-        card.querySelector('.integrantes-count').textContent = members.length;
-
-        const listUl = card.querySelector('.integrantes-list');
-        listUl.innerHTML = '';
-        
-        // Renderizar los primeros 3 integrantes
-        const first3 = members.slice(0, 3);
-        first3.forEach(function (member) {
-          const li = document.createElement('li');
-          li.textContent = member;
-          listUl.appendChild(li);
-        });
-
-        // Limpiar cualquier botón o contenedor previo
-        const bodyContent = card.querySelector('.integrantes-section');
-        const oldBtn = bodyContent.querySelector('.ver-mas-btn');
-        if (oldBtn) oldBtn.remove();
-        const oldExtra = bodyContent.querySelector('.extra-members');
-        if (oldExtra) oldExtra.remove();
-
-        // Si hay más de 3 integrantes, crear colapsable de "Ver más"
-        if (members.length > 3) {
-          const extraContainer = document.createElement('div');
-          extraContainer.className = 'extra-members';
-          extraContainer.style.maxHeight = '0px';
-          extraContainer.style.overflow = 'hidden';
-          extraContainer.style.transition = 'max-height 0.3s ease-out';
-          
-          const extraUl = document.createElement('ul');
-          extraUl.className = 'integrantes-list extra-list-style';
-          
-          const extras = members.slice(3);
-          extras.forEach(function (member) {
-            const li = document.createElement('li');
-            li.textContent = member;
-            extraUl.appendChild(li);
-          });
-          
-          extraContainer.appendChild(extraUl);
-          bodyContent.appendChild(extraContainer);
-
-          const verMasBtn = document.createElement('button');
-          verMasBtn.type = 'button';
-          verMasBtn.className = 'ver-mas-btn';
-          verMasBtn.innerHTML = `<span>+ Ver más (${extras.length} más)</span> <i class="material-icons ml-1">keyboard_arrow_down</i>`;
-          
-          verMasBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const isExpanded = extraContainer.classList.toggle('expanded');
-            verMasBtn.classList.toggle('expanded', isExpanded);
-            if (isExpanded) {
-              extraContainer.style.maxHeight = extraContainer.scrollHeight + 'px';
-              verMasBtn.innerHTML = `<span>Ver menos</span> <i class="material-icons ml-1">keyboard_arrow_up</i>`;
-            } else {
-              extraContainer.style.maxHeight = '0px';
-              verMasBtn.innerHTML = `<span>+ Ver más (${extras.length} más)</span> <i class="material-icons ml-1">keyboard_arrow_down</i>`;
-            }
-          });
-          
-          bodyContent.appendChild(verMasBtn);
-        }
-      }
-    });
-
-    // Estado de filtros
-    let currentFaculty = 'all';
-    let currentYear = 'all';
-    let searchQuery = '';
-    let currentPage = 1;
-    const itemsPerPage = 9;
-
-    // Elementos de UI
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const yearButtons = document.querySelectorAll('.year-tab-btn');
+    /* ----------------------------------------------------------------------
+       Referencias de UI
+       ---------------------------------------------------------------------- */
     const searchField = document.getElementById('grupoSearch');
     const paginationControls = document.getElementById('paginationControls');
     const pageInfo = document.getElementById('pageInfo');
     const noResults = document.getElementById('noResults');
     const paginationRow = document.getElementById('paginationRow');
+    const sidebar = document.querySelector('.filters-sidebar');
 
-    function filterAndPaginate() {
-      // 1. Filtrar tarjetas
-      const filtered = cards.filter(function (card) {
-        const name = card.getAttribute('data-nombre').toLowerCase();
-        const coordinator = card.getAttribute('data-jefe').toLowerCase();
-        const members = card.getAttribute('data-integrantes').toLowerCase();
-        const faculty = card.getAttribute('data-faculty-meta');
-        const year = card.getAttribute('data-year-meta');
-
-        const matchesFaculty = (currentFaculty === 'all' || faculty === currentFaculty);
-        const matchesYear = (currentYear === 'all' || year === currentYear);
-
-        const matchesSearch = searchQuery === '' ||
-                              name.includes(searchQuery) ||
-                              coordinator.includes(searchQuery) ||
-                              members.includes(searchQuery) ||
-                              faculty.toLowerCase().includes(searchQuery);
-
-        return matchesFaculty && matchesYear && matchesSearch;
-      });
-
-      // 2. Controlar visibilidad del mensaje "Sin resultados"
-      if (filtered.length === 0) {
-        noResults.classList.remove('d-none');
-        grid.classList.add('d-none');
-        paginationRow.classList.add('d-none');
-        return;
-      } else {
-        noResults.classList.add('d-none');
-        grid.classList.remove('d-none');
-        paginationRow.classList.remove('d-none');
-      }
-
-      // 3. Paginar resultados
-      const totalItems = filtered.length;
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-      // Asegurar que la página actual está en rango
-      if (currentPage > totalPages) currentPage = totalPages;
-      if (currentPage < 1) currentPage = 1;
-
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-
-      // Ocultar todas las tarjetas primero
-      cards.forEach(function(card) {
-        card.style.display = 'none';
-        card.classList.remove('grupo-fade-in');
-      });
-
-      // Mostrar las tarjetas de la página actual con animación
-      filtered.slice(startIndex, endIndex).forEach(function (card) {
-        card.style.display = 'block';
-        card.classList.add('grupo-fade-in');
-      });
-
-      // 4. Renderizar controles de paginación
-      updatePaginationControls(totalPages, totalItems);
+    const modal = document.getElementById('grupoModal');
+    // Mover el modal al final de <body> para evitar problemas de z-index/stacking context
+    // con el navbar u otros elementos sticky/fixed.
+    if (modal && modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
     }
 
-    function updatePaginationControls(totalPages, totalItems) {
-      pageInfo.textContent = `Página ${currentPage} de ${totalPages} (Total: ${totalItems} grupos)`;
+    const modalTitle = document.getElementById('grupoModalTitle');
+    const modalCarrera = document.getElementById('modalCarrera');
+    const modalLinea = document.getElementById('modalLinea');
+    const modalAvatar = document.getElementById('modalAvatar');
+    const modalCoordinator = document.getElementById('modalCoordinator');
+    const modalIntegrantesCount = document.getElementById('modalIntegrantesCount');
+    const modalIntegrantes = document.getElementById('modalIntegrantes');
+    const modalDescripcionSection = document.getElementById('modalDescripcionSection');
+    const modalDescripcion = document.getElementById('modalDescripcion');
+    const modalObjetivosSection = document.getElementById('modalObjetivosSection');
+    const modalObjetivos = document.getElementById('modalObjetivos');
+    const modalFecha = document.getElementById('modalFecha');
+    const modalResolucion = document.getElementById('modalResolucion');
+    const modalClose = modal ? modal.querySelector('.grupo-modal__close') : null;
+    const modalBackdrop = modal ? modal.querySelector('.grupo-modal__backdrop') : null;
+    const modalBtnCerrar = modal ? modal.querySelector('.grupo-modal__btn-cerrar') : null;
+
+    let filtered = cards.slice();
+    let currentPage = 1;
+    const itemsPerPage = 9;
+    let lastFocused = null;
+    let searchDebounce = null;
+
+    /* ----------------------------------------------------------------------
+       Helpers
+       ---------------------------------------------------------------------- */
+    function normalizeText(str) {
+      if (str == null) return '';
+      return String(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function getInitials(name) {
+      if (!name) return 'GI';
+      const clean = String(name)
+        .replace(/\b(?:Lic\.|Mg\.|Dr\.|Dra\.|Ing\.|M\.Sc\.|Ph\.D\.|PhD|MSc|Bach\.|Tec\.|Prof\.|Mtro\.|Mtra\.|M\.sc\.|Msc\.)\b/gi, '')
+        .trim();
+      const parts = clean.split(/\s+/).filter(Boolean);
+      if (parts.length === 0) return 'GI';
+      if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+      return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+    }
+
+    function parseMembers(rawHtml, rawText) {
+      let source = rawHtml || '';
+      if (!source && rawText) {
+        source = rawText.replace(/\n/g, '<br>').replace(/,/g, '<br>');
+      }
+      if (!source) return [];
+
+      const tmp = document.createElement('div');
+      tmp.innerHTML = source
+        .replace(/<\/p>/gi, '</p>\n')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<li>/gi, '\n<li>');
+
+      let text = tmp.textContent || tmp.innerText || '';
+      text = text.replace(/\u00A0/g, ' ');
+
+      return text
+        .split(/\n|(?:,\s*(?=[A-ZÁÉÍÓÚÑ][a-záéíóúñ]|\w{2,}))/g)
+        .map(function (s) { return s.replace(/[•\-–—]/g, '').trim(); })
+        .filter(function (s) { return s.length > 2; });
+    }
+
+    function formatDate(value, fallback) {
+      if (!value && fallback) value = fallback;
+      if (!value) return { text: '—', year: '' };
+
+      const str = String(value).trim();
+      if (/[a-zA-Z]/.test(str)) {
+        const yearMatch = str.match(/\b(20\d{2})\b/);
+        return { text: str, year: yearMatch ? yearMatch[1] : '' };
+      }
+
+      let m = str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+      if (!m) {
+        m = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+        if (m) m = [m[0], m[3], m[2], m[1]];
+      }
+      if (m) {
+        const year = m[1];
+        const monthIndex = parseInt(m[2], 10) - 1;
+        const day = parseInt(m[3], 10);
+        return { text: day + ' de ' + monthNames[monthIndex] + ' de ' + year, year: year };
+      }
+
+      const yearMatch = str.match(/\b(20\d{2})\b/);
+      return { text: str, year: yearMatch ? yearMatch[1] : '' };
+    }
+
+    function getMapLabel(map, key) {
+      if (key == null) return '';
+      return map[String(key).trim()] || '';
+    }
+
+    function getMultiMapLabels(map, keysStr) {
+      if (!keysStr) return [];
+      return String(keysStr)
+        .split(',')
+        .map(function (s) { return s.trim(); })
+        .filter(Boolean)
+        .map(function (k) { return map[k] || ''; })
+        .filter(Boolean);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    /* ----------------------------------------------------------------------
+       Inicialización de cada tarjeta
+       ---------------------------------------------------------------------- */
+    function initCard(card) {
+      const id = card.getAttribute('data-id') || '';
+      const meta = groupsMetadata[id] || {};
+      const nombre = (card.getAttribute('data-nombre') || '').trim();
+      const jefe = (card.getAttribute('data-jefe') || '').trim();
+      const carreraKey = (card.getAttribute('data-carrera') || '').trim();
+      const lineaKey = (card.getAttribute('data-linea') || '').trim();
+      const rawFecha = card.getAttribute('data-fecha');
+      const rawLink = card.getAttribute('data-link');
+
+      // Fecha y año (data-fecha tiene prioridad; si no, fallback de metadata)
+      const dateInfo = formatDate(rawFecha, meta.date);
+      const year = dateInfo.year || meta.year || new Date().getFullYear().toString();
+      card.setAttribute('data-year', year);
+      card.setAttribute('data-date', dateInfo.text);
+
+      // El título se renderiza directamente desde Antlers; no se sobrescribe con JS
+      // para evitar que cualquier problema de ejecución lo oculte.
+
+      // Línea y Carrera como texto plano con etiqueta
+      const lineaValue = card.querySelector('.grupo-card__meta-value--linea');
+      const carreraValue = card.querySelector('.grupo-card__meta-value:not(.grupo-card__meta-value--linea)');
+      const lineaLabel = getMapLabel(lineaMap, lineaKey.split(',')[0]) || 'Línea de investigación';
+      const carreraLabel = getMapLabel(carreraMap, carreraKey) || 'Carrera';
+      if (lineaValue) lineaValue.textContent = lineaLabel;
+      if (carreraValue) carreraValue.textContent = carreraLabel;
+
+      // Avatar, nombre y correo del coordinador
+      const avatarEl = card.querySelector('.coordinator-avatar');
+      if (avatarEl) avatarEl.textContent = getInitials(jefe);
+      const coordNameEl = card.querySelector('.coordinator-name');
+      if (coordNameEl) coordNameEl.textContent = jefe || 'Sin coordinador';
+      const emailEl = card.querySelector('.coordinator-email');
+      const email = (card.getAttribute('data-email') || '').trim();
+      if (emailEl) emailEl.textContent = email;
+
+      // Fecha en footer: mostrar solo el año en la tarjeta
+      const dateTextEl = card.querySelector('.date-text');
+      if (dateTextEl) dateTextEl.textContent = year;
+
+      // Estado: Activo por defecto; respeta data-estado (true/1/activo = activo; false/0/inactivo = inactivo)
+      const estadoRaw = (card.getAttribute('data-estado') || '').trim().toLowerCase();
+      const isInactive = estadoRaw === 'inactivo' || estadoRaw === 'false' || estadoRaw === '0';
+      const estadoLabel = isInactive ? 'Inactivo' : 'Activo';
+      const statusText = card.querySelector('.status-text');
+      const statusDot = card.querySelector('.status-dot');
+      if (statusText) statusText.textContent = estadoLabel;
+      if (statusDot) {
+        statusDot.classList.remove('status-active', 'status-inactive');
+        statusDot.classList.add(isInactive ? 'status-inactive' : 'status-active');
+      }
+
+      // Integrantes
+      const rawDiv = card.querySelector('.raw-integrantes-html');
+      const rawHtml = rawDiv ? rawDiv.innerHTML : '';
+      const rawText = card.getAttribute('data-integrantes') || '';
+      const members = parseMembers(rawHtml, rawText);
+      card.setAttribute('data-members-count', members.length);
+      card.setAttribute('data-members-list', members.join('|'));
+
+      // Descripción y objetivos para el modal
+      const descripcionRaw = (card.getAttribute('data-descripcion') || '').trim();
+      card.setAttribute('data-descripcion', descripcionRaw);
+
+      const objetivosRaw = (card.getAttribute('data-objetivos') || '').trim();
+      const objetivosList = objetivosRaw
+        .split(/\n|<br\s*\/?>/i)
+        .map(function (s) { return s.replace(/[•\-–—]/g, '').trim(); })
+        .filter(function (s) { return s.length > 2; });
+      card.setAttribute('data-objetivos-list', objetivosList.join('|'));
+
+      // Texto indexable para búsqueda
+      const searchable = normalizeText([
+        nombre,
+        jefe,
+        rawText,
+        carreraLabel,
+        getMultiMapLabels(lineaMap, lineaKey).join(' '),
+        year,
+        descripcionRaw,
+        objetivosRaw
+      ].join(' '));
+      card.setAttribute('data-searchable', searchable);
+
+      // Enlace a resolución (data-link primero; luego metadata; si no hay, vacío)
+      const link = (rawLink && rawLink.trim() !== '#' && rawLink.trim() !== '') ? rawLink.trim() : (meta.link || '');
+      card.setAttribute('data-resolution-link', link);
+      card.setAttribute('data-resolution-text', meta.resolution || '');
+    }
+
+    /* ----------------------------------------------------------------------
+       Filtros y paginación
+       ---------------------------------------------------------------------- */
+    function getFilterState() {
+      const yearInput = document.querySelector('input[name="filter-year"]:checked');
+      const lineas = Array.from(document.querySelectorAll('input[name="filter-linea"]:checked')).map(function (i) { return i.value; });
+      const carreras = Array.from(document.querySelectorAll('input[name="filter-carrera"]:checked')).map(function (i) { return i.value; });
+      return {
+        year: yearInput ? yearInput.value : 'all',
+        lineas: lineas,
+        carreras: carreras
+      };
+    }
+
+    function filterCards() {
+      const state = getFilterState();
+      const query = normalizeText(searchField ? searchField.value : '');
+
+      filtered = cards.filter(function (card) {
+        const cardLineas = (card.getAttribute('data-linea') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        const cardCarreras = (card.getAttribute('data-carrera') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        const year = card.getAttribute('data-year') || '';
+        const searchable = card.getAttribute('data-searchable') || '';
+
+        const yearMatch = state.year === 'all' || year === state.year;
+        const lineaMatch = state.lineas.length === 0 || state.lineas.some(function (v) { return cardLineas.includes(v); });
+        const carreraMatch = state.carreras.length === 0 || state.carreras.some(function (v) { return cardCarreras.includes(v); });
+        const searchMatch = !query || searchable.includes(query);
+
+        return yearMatch && lineaMatch && carreraMatch && searchMatch;
+      });
+
+      if (filtered.length === 0) {
+        if (noResults) noResults.classList.remove('d-none');
+        grid.classList.add('d-none');
+        if (paginationRow) paginationRow.classList.add('d-none');
+        return;
+      }
+
+      if (noResults) noResults.classList.add('d-none');
+      grid.classList.remove('d-none');
+      if (paginationRow) paginationRow.classList.remove('d-none');
+
+      const totalPages = Math.ceil(filtered.length / itemsPerPage);
+      if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+      if (currentPage < 1) currentPage = 1;
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      cards.forEach(function (c) {
+        c.style.display = 'none';
+        c.classList.remove('grupo-fade-in');
+      });
+      filtered.slice(start, end).forEach(function (c) {
+        c.style.display = 'block';
+        c.classList.add('grupo-fade-in');
+      });
+
+      renderPagination(totalPages, filtered.length);
+    }
+
+    function renderPagination(totalPages, totalItems) {
+      if (!pageInfo || !paginationControls) return;
+
+      pageInfo.textContent = 'Página ' + currentPage + ' de ' + totalPages + ' (Total: ' + totalItems + ' grupos)';
       paginationControls.innerHTML = '';
 
       if (totalPages <= 1) {
-        paginationRow.classList.add('d-none');
+        if (paginationRow) paginationRow.classList.add('d-none');
         return;
       }
-      paginationRow.classList.remove('d-none');
+      if (paginationRow) paginationRow.classList.remove('d-none');
 
-      // Botón Anterior
-      const prevLi = document.createElement('li');
-      if (currentPage === 1) {
-        prevLi.className = 'disabled';
-        prevLi.innerHTML = `<span><i class="material-icons">chevron_left</i></span>`;
-      } else {
-        const prevA = document.createElement('a');
-        prevA.innerHTML = `<i class="material-icons">chevron_left</i>`;
-        prevA.addEventListener('click', function (e) {
-          e.preventDefault();
-          currentPage--;
-          window.scrollTo({ top: grid.offsetTop - 120, behavior: 'smooth' });
-          filterAndPaginate();
-        });
-        prevLi.appendChild(prevA);
-      }
-      paginationControls.appendChild(prevLi);
-
-      // Páginas numeradas
-      for (let i = 1; i <= totalPages; i++) {
-        const pageLi = document.createElement('li');
-        if (i === currentPage) {
-          pageLi.className = 'active';
-          pageLi.innerHTML = `<span>${i}</span>`;
+      function createItem(content, page, disabled) {
+        const li = document.createElement('li');
+        if (disabled) {
+          li.className = 'disabled';
+          li.innerHTML = '<span>' + content + '</span>';
+        } else if (page === currentPage) {
+          li.className = 'active';
+          li.innerHTML = '<span>' + content + '</span>';
         } else {
-          const pageA = document.createElement('a');
-          pageA.textContent = i;
-          pageA.addEventListener('click', function (e) {
-            e.preventDefault();
-            currentPage = i;
-            window.scrollTo({ top: grid.offsetTop - 120, behavior: 'smooth' });
-            filterAndPaginate();
-          });
-          pageLi.appendChild(pageA);
+          const a = document.createElement('a');
+          a.href = '#';
+          a.setAttribute('data-page', page);
+          a.innerHTML = content;
+          li.appendChild(a);
         }
-        paginationControls.appendChild(pageLi);
+        return li;
       }
 
-      // Botón Siguiente
-      const nextLi = document.createElement('li');
-      if (currentPage === totalPages) {
-        nextLi.className = 'disabled';
-        nextLi.innerHTML = `<span><i class="material-icons">chevron_right</i></span>`;
-      } else {
-        const nextA = document.createElement('a');
-        nextA.innerHTML = `<i class="material-icons">chevron_right</i>`;
-        nextA.addEventListener('click', function (e) {
-          e.preventDefault();
-          currentPage++;
-          window.scrollTo({ top: grid.offsetTop - 120, behavior: 'smooth' });
-          filterAndPaginate();
-        });
-        nextLi.appendChild(nextA);
+      paginationControls.appendChild(createItem('<i class="material-icons">chevron_left</i>', currentPage - 1, currentPage === 1));
+      for (let i = 1; i <= totalPages; i++) {
+        paginationControls.appendChild(createItem(String(i), i, false));
       }
-      paginationControls.appendChild(nextLi);
+      paginationControls.appendChild(createItem('<i class="material-icons">chevron_right</i>', currentPage + 1, currentPage === totalPages));
     }
 
-    // Eventos para Sidebar de Facultades
-    filterButtons.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
+    /* ----------------------------------------------------------------------
+       Eventos de filtros y búsqueda
+       ---------------------------------------------------------------------- */
+    if (sidebar) {
+      sidebar.addEventListener('click', function (e) {
+        const toggle = e.target.closest('.filter-group__toggle');
+        if (!toggle) return;
         e.preventDefault();
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFaculty = btn.getAttribute('data-faculty');
-        currentPage = 1;
-        filterAndPaginate();
+        const content = document.getElementById(toggle.getAttribute('aria-controls'));
+        const expanded = toggle.getAttribute('aria-expanded') !== 'false';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        if (content) content.classList.toggle('open');
       });
-    });
 
-    // Eventos para Tabs de Años
-    yearButtons.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
+      sidebar.addEventListener('change', function (e) {
+        if (e.target.matches('input[name^="filter-"]')) {
+          currentPage = 1;
+          filterCards();
+        }
+      });
+    }
+
+    if (searchField) {
+      searchField.addEventListener('input', function () {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(function () {
+          currentPage = 1;
+          filterCards();
+        }, 200);
+      });
+    }
+
+    if (paginationControls) {
+      paginationControls.addEventListener('click', function (e) {
+        const a = e.target.closest('a[data-page]');
+        if (!a) return;
         e.preventDefault();
-        yearButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentYear = btn.getAttribute('data-year');
-        currentPage = 1;
-        filterAndPaginate();
+        const page = parseInt(a.getAttribute('data-page'), 10);
+        if (!isNaN(page) && page !== currentPage) {
+          currentPage = page;
+          window.scrollTo({ top: grid.offsetTop - 120, behavior: 'smooth' });
+          filterCards();
+        }
       });
-    });
+    }
 
-    // Eventos para el campo de búsqueda
-    searchField.addEventListener('input', function () {
-      searchQuery = searchField.value.trim().toLowerCase();
-      currentPage = 1;
-      filterAndPaginate();
-    });
+    /* ----------------------------------------------------------------------
+       Modal de detalles
+       ---------------------------------------------------------------------- */
+    function openModal(card) {
+      if (!modal) return;
 
-    // Carga inicial
-    filterAndPaginate();
+      const nombre = (card.getAttribute('data-nombre') || '').trim();
+      const jefe = card.getAttribute('data-jefe') || '';
+      const carreraKey = card.getAttribute('data-carrera') || '';
+      const lineaKey = card.getAttribute('data-linea') || '';
+      const dateText = card.getAttribute('data-date') || '—';
+      const link = card.getAttribute('data-resolution-link') || '';
+      const resolutionText = card.getAttribute('data-resolution-text') || 'Ver Resolución';
+      const members = (card.getAttribute('data-members-list') || '').split('|').filter(Boolean);
+      const descripcion = card.getAttribute('data-descripcion') || '';
+      const objetivos = (card.getAttribute('data-objetivos-list') || '').split('|').filter(Boolean);
+
+      if (modalTitle) modalTitle.textContent = nombre || 'Grupo de Investigación';
+      if (modalCarrera) modalCarrera.textContent = 'Carrera: ' + (getMapLabel(carreraMap, carreraKey) || '—');
+      if (modalLinea) modalLinea.textContent = 'Línea: ' + (getMapLabel(lineaMap, lineaKey.split(',')[0]) || '—');
+      if (modalAvatar) modalAvatar.textContent = getInitials(jefe);
+      if (modalCoordinator) modalCoordinator.textContent = jefe || 'Sin coordinador';
+      if (modalFecha) modalFecha.textContent = (dateText && dateText !== '—') ? 'Fecha de Resolución: ' + dateText : '—';
+
+      if (modalIntegrantesCount) modalIntegrantesCount.textContent = String(members.length);
+      if (modalIntegrantes) {
+        modalIntegrantes.innerHTML = members.map(function (m) {
+          return '<li>' + escapeHtml(m) + '</li>';
+        }).join('');
+      }
+
+      if (modalDescripcionSection && modalDescripcion) {
+        if (descripcion.trim()) {
+          // Preservar saltos de línea como <br> para mantener párrafos
+          modalDescripcion.innerHTML = escapeHtml(descripcion).replace(/\n/g, '<br>');
+          modalDescripcionSection.hidden = false;
+        } else {
+          modalDescripcionSection.hidden = true;
+        }
+      }
+
+      if (modalObjetivosSection && modalObjetivos) {
+        if (objetivos.length) {
+          modalObjetivos.innerHTML = objetivos.map(function (o) {
+            return '<li>' + escapeHtml(o) + '</li>';
+          }).join('');
+          modalObjetivosSection.hidden = false;
+        } else {
+          modalObjetivosSection.hidden = true;
+        }
+      }
+
+      if (modalResolucion) {
+        if (link && link !== '#') {
+          modalResolucion.href = link;
+          modalResolucion.title = resolutionText;
+          modalResolucion.style.display = '';
+        } else {
+          modalResolucion.href = '#';
+          modalResolucion.title = 'Enlace no disponible';
+          modalResolucion.style.display = 'none';
+        }
+      }
+
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      document.body.classList.add('modal-open');
+      document.addEventListener('keydown', trapFocus);
+      requestAnimationFrame(function () {
+        modal.classList.add('grupo-modal--open');
+      });
+      if (modalClose) modalClose.focus();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('grupo-modal--open');
+      setTimeout(function () {
+        if (!modal.classList.contains('grupo-modal--open')) {
+          modal.hidden = true;
+        }
+      }, 300);
+      document.body.classList.remove('modal-open');
+      document.removeEventListener('keydown', trapFocus);
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+      lastFocused = null;
+    }
+
+    /* ----------------------------------------------------------------------
+       Focus trap para accesibilidad del modal
+       ---------------------------------------------------------------------- */
+    function getFocusableElements() {
+      if (!modal) return [];
+      return Array.from(modal.querySelectorAll(
+        'a[href]:not([href="#"]), button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(function (el) {
+        return el.offsetParent !== null && el.tabIndex >= 0;
+      });
+    }
+
+    function trapFocus(e) {
+      if (e.key !== 'Tab' || !modal || modal.hidden) return;
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    if (grid) {
+      grid.addEventListener('click', function (e) {
+        const card = e.target.closest('.grupo-card-container');
+        if (!card) return;
+        openModal(card);
+      });
+    }
+
+    if (modal) {
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+      if (modalBtnCerrar) modalBtnCerrar.addEventListener('click', closeModal);
+      if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden && modal.classList.contains('grupo-modal--open')) {
+          closeModal();
+        }
+      });
+    }
+
+    /* ----------------------------------------------------------------------
+       Carga inicial
+       ---------------------------------------------------------------------- */
+    cards.forEach(initCard);
+    filterCards();
   });
 })();
 

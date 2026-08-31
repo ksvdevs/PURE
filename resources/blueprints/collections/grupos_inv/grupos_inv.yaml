@@ -9,39 +9,87 @@ tabs:
             field:
               type: text
               required: true
-              validate:
-                - required
           -
-            handle: img_grupos
+            handle: estado
             field:
-              max_files: 1
-              container: assets
-              type: assets
-              display: 'Img grupos'
+              type: toggle
+              display: estado
           -
             handle: nombre_grupo
             field:
-              antlers: true
               type: text
-              display: 'Nombre Grupo'
               validate:
                 - required
+              display: 'nombre grupo'
           -
-            handle: jefe_grupo
+            handle: lineas_de_investigacion
             field:
-              antlers: true
-              type: text
-              display: 'Jefe Grupo'
-              validate:
-                - required
-          -
-            handle: integrantes
-            field:
-              antlers: true
-              type: textarea
-              display: integrantes
-              listable: true
-              always_save: true
+              options:
+                -
+                  key: 1
+                  value: 'Caracterización, desarrollo de procesos e innovación en la agroindustria'
+                -
+                  key: 2
+                  value: 'Gestión empresarial'
+                -
+                  key: 3
+                  value: 'Gestión pública'
+                -
+                  key: 4
+                  value: 'Minería, procesamiento de minerales'
+                -
+                  key: 5
+                  value: 'Geología, geotecnia y medio ambiente'
+                -
+                  key: 6
+                  value: 'Educación incial, desarrollo infantil y gestión pedagógica'
+                -
+                  key: 7
+                  value: 'Interculturalidad y cosmovisión andina'
+                -
+                  key: 8
+                  value: 'Ingeniería de la construcción'
+                -
+                  key: 9
+                  value: 'Ingeniería de materiales'
+                -
+                  key: 10
+                  value: 'Ciencias veterinarias'
+                -
+                  key: 11
+                  value: 'Ingeniería informática, industria y sociedad'
+                -
+                  key: 12
+                  value: 'Ingeniería de software e innovación tecnológica'
+                -
+                  key: 13
+                  value: 'Modelos de gestión y calidad educativa'
+                -
+                  key: 14
+                  value: 'Agua, agricultura, silvicultura y pecuaria sostenible'
+                -
+                  key: 15
+                  value: 'Biotecnología, fitomejoramiento y conservación de la biodiversidad'
+                -
+                  key: 16
+                  value: 'Sistema político y gobernabilidad'
+                -
+                  key: 17
+                  value: 'Teoría política y gobernabilidad'
+                -
+                  key: 18
+                  value: 'Aplicación de la matemática, estadística, física, química y biología'
+                -
+                  key: 19
+                  value: 'Desarrollo humano y calidad de vida'
+                -
+                  key: 20
+                  value: 'Sociedad e identidad nacional, territorios y cambios climáticos'
+                -
+                  key: null
+                  value: null
+              type: select
+              display: 'lineas de investigacion'
           -
             handle: carrera
             field:
@@ -84,96 +132,65 @@ tabs:
                   value: 'Escuela de Posgrado'
               max_items: 1
               type: select
-              display: Carrera
+              display: carrera
               instructions: 'Seleccione la carrera a la que pertenece el Grupo'
               validate:
                 - required
           -
+            handle: jefe_grupo
+            field:
+              antlers: true
+              type: text
+              display: coordinador
+              validate:
+                - required
+          -
+            handle: integrantes
+            field:
+              antlers: true
+              type: textarea
+              display: integrantes
+              listable: true
+              always_save: true
+          -
+            handle: descripcion
+            field:
+              type: textarea
+              display: descripcion
+          -
+            handle: img_grupos
+            field:
+              max_files: 1
+              container: assets
+              type: assets
+              display: 'img grupos'
+          -
             handle: fecha
             field:
               type: date
-              display: Fecha
+              display: 'fecha de resolucion'
           -
             handle: link
             field:
               type: link
-              display: Link
+              display: link
               validate:
                 - required
-          -
-            handle: lineas_de_investigacion
-            field:
-              options:
-                -
-                  key: 1
-                  value: 'Caracterización, desarrollo de procesos e innovación en la agroindustria.'
-                -
-                  key: 2
-                  value: 'Gestión empresarial.'
-                -
-                  key: 3
-                  value: 'Gestión pública.'
-                -
-                  key: 4
-                  value: 'Minería, procesamiento de minerales.'
-                -
-                  key: 5
-                  value: 'Geología, geotecnia y medio ambiente.'
-                -
-                  key: 6
-                  value: 'Educación incial, desarrollo infantil y gestión pedagógica.'
-                -
-                  key: 7
-                  value: 'Interculturalidad y cosmovisión andina.'
-                -
-                  key: 8
-                  value: 'Ingeniería de la construcción.'
-                -
-                  key: 9
-                  value: 'Ingeniería de materiales.'
-                -
-                  key: 10
-                  value: 'Ciencias veterinarias.'
-                -
-                  key: 11
-                  value: 'Ingeniería informática, industria y sociedad.'
-                -
-                  key: 12
-                  value: 'Ingeniería de software e innovación tecnológica.'
-                -
-                  key: 13
-                  value: 'Modelos de gestión y calidad educativa.'
-                -
-                  key: 14
-                  value: 'Agua, agricultura, silvicultura y pecuaria sostenible.'
-                -
-                  key: 15
-                  value: 'Biotecnología, fitomejoramiento y conservación de la biodiversidad.'
-                -
-                  key: 16
-                  value: 'Sistema político y gobernabilidad.'
-                -
-                  key: 17
-                  value: 'Teoría política y gobernabilidad.'
-                -
-                  key: 18
-                  value: 'Aplicación de la matemática, estadística, física, química y biología.'
-                -
-                  key: 19
-                  value: 'Desarrollo humano y calidad de vida.'
-                -
-                  key: 20
-                  value: 'Sociedad e identidad nacional, territorios y cambios climáticos.'
-                -
-                  key: null
-                  value: null
-              type: select
-              display: 'Lineas de investigacion'
           -
             handle: links
             field:
               type: link
-              display: Links
+              display: links
+          -
+            handle: correo_electronico
+            field:
+              type: text
+              display: correo-electronico
+          -
+            handle: celular
+            field:
+              type: text
+              display: celular
   sidebar:
     display: Sidebar
     sections:

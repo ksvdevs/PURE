@@ -345,7 +345,7 @@ block_types:
                                         El Vicerrectorado de Investigación cuenta con una estructura organizacional diseñada para gestionar eficientemente las actividades de investigación, innovación y transferencia tecnológica de la universidad. El organigrama muestra las cuatro direcciones principales que conforman el VRIN, así como las unidades de apoyo que contribuyen al logro de los objetivos institucionales.
                                     </p>
                                     <div class="organigrama-container text-center mt-4">
-                                        <img src="/assets/organigrama.png" alt="Organigrama del VRIN" class="img-fluid organigrama-img">
+                                        <img src="/assets/organigramas.png" alt="Organigrama del VRIN" class="img-fluid organigrama-img">
                                     </div>
                                 </div>
                             </section>

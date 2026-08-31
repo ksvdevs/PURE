@@ -42,6 +42,11 @@ tabs:
               type: template
               display: Template
               localizable: true
+          -
+            handle: estado
+            field:
+              type: toggle
+              display: estado
   sidebar:
     display: Sidebar
     sections:

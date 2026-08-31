@@ -41,130 +41,180 @@ block_types:
                 <aside class="col-lg-3 col-md-4 col-12 mb-4">
                     <div class="filters-sidebar">
                         <h3 class="sidebar-title">
-                            <i class="material-icons align-middle mr-2">filter_list</i> FILTROS
+                            <i class="material-icons align-middle mr-2">filter_list</i> Filtros
                         </h3>
-                        <ul class="nav flex-column filter-list-items">
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn active" data-faculty="all">
-                                    Todos
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Administración">
-                                    Administración
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ciencia Política">
-                                    Ciencia Política
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería Civil">
-                                    Ingeniería Civil
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Departamento Académico de Humanidades">
-                                    Departamento Académico de Humanidades
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agroforestal e Intercultural Bilingüe">
-                                    Ingeniería Agroforestal e Intercultural Bilingüe
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agroforestal y Sostenibilidad">
-                                    Ingeniería Agroforestal y Sostenibilidad
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería Agronómica">
-                                    Ingeniería Agronómica
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería de Sistemas">
-                                    Ingeniería de Sistemas
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Ingeniería de Minas">
-                                    Ingeniería de Minas
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link filter-btn" data-faculty="Medicina Veterinaria y Zootecnia">
-                                    Medicina Veterinaria y Zootecnia
-                                </button>
-                            </li>
-                        </ul>
+
+                        <!-- Filtro por Año -->
+                        <div class="filter-group">
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterYear">
+                                <i class="material-icons">calendar_today</i>
+                                <span>Año</span>
+                                <i class="material-icons filter-group__chevron">expand_less</i>
+                            </button>
+                            <div class="filter-group__content open" id="filterYear">
+                                <label class="filter-checkbox">
+                                    <input type="radio" name="filter-year" value="all" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Todos</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="radio" name="filter-year" value="2025">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">2025</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="radio" name="filter-year" value="2024">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">2024</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="radio" name="filter-year" value="2023">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">2023</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="radio" name="filter-year" value="2022">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">2022</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Filtro por Líneas de Investigación -->
+                        <div class="filter-group">
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterLineas">
+                                <i class="material-icons">lightbulb</i>
+                                <span>Líneas de Investigación</span>
+                                <i class="material-icons filter-group__chevron">expand_less</i>
+                            </button>
+                            <div class="filter-group__content open" id="filterLineas">
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="10">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ciencias veterinarias</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="11">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería informática, industria y sociedad</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="19">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Desarrollo humano y calidad de vida</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="7">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Interculturalidad y cosmovisión andina</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="4">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Minería, procesamiento de minerales</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Filtro por Carrera -->
+                        <div class="filter-group">
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterCarrera">
+                                <i class="material-icons">school</i>
+                                <span>Carrera</span>
+                                <i class="material-icons filter-group__chevron">expand_less</i>
+                            </button>
+                            <div class="filter-group__content open" id="filterCarrera">
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="9">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Medicina Veterinaria y Zootecnia</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="6">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería Informática y Sistemas</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="4">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería Agroindustrial</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="2">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Educación Inicial Intercultural Bilingüe</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
                 <!-- Main Content Area -->
                 <main class="col-lg-9 col-md-8 col-12">
-                    <!-- Top Controls: Year tabs + Search input -->
-                    <div class="row align-items-center mb-4">
-                        <div class="col-xl-6 col-lg-7 col-md-12 mb-3 mb-lg-0">
-                            <div class="year-tabs-wrapper">
-                                <button class="year-tab-btn active" data-year="all">Todos</button>
-                                <button class="year-tab-btn" data-year="2024">2024</button>
-                                <button class="year-tab-btn" data-year="2023">2023</button>
-                                <button class="year-tab-btn" data-year="2022">2022</button>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-5 col-md-12">
-                            <div class="search-input-wrapper">
-                                <i class="material-icons search-icon">search</i>
-                                <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por nombre, código o facultad">
-                            </div>
+                    <!-- Top Controls: Search input -->
+                    <div class="grupos-topbar">
+                        <div class="search-input-wrapper">
+                            <i class="material-icons search-icon">search</i>
+                            <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por grupo o coordinador" aria-label="Buscar por grupo o coordinador">
                         </div>
                     </div>
 
                     <!-- Grid of Cards -->
                     <div class="row" id="gruposGrid">
                         {{collection:grupos_inv}}
-                        <div class="col-xl-4 col-md-6 col-12 mb-4 grupo-card-container" 
+                        <div class="col-xl-4 col-md-6 col-12 mb-4 grupo-card-container"
                              data-id="{{id}}"
-                             data-nombre="{{nombre_grupo}}"
+                             data-nombre="{{nombre_grupo ?? title}}"
+                             data-estado="{{ estado ? 'activo' : 'inactivo' }}"
                              data-jefe="{{jefe_grupo}}"
-                             data-integrantes="{{integrantes | strip_tags}}">
-                            <div class="grupo-card">
-                                <div class="card-header-meta">
-                                    <h4 class="grupo-category-title">General</h4>
-                                    <span class="badge badge-code">GI</span>
+                             data-integrantes="{{integrantes | strip_tags}}"
+                             data-carrera="{{carrera}}"
+                             data-linea="{{lineas_de_investigacion}}"
+                             data-fecha="{{fecha}}"
+                             data-link="{{link}}"
+                             data-email="{{correo_electronico}}"
+                             data-descripcion="{{descripcion | strip_tags}}"
+                             data-objetivos="{{objetivos | strip_tags}}">
+                            <article class="grupo-card">
+                                <div class="grupo-card__status">
+                                    <span class="status-dot status-active" aria-hidden="true"></span>
+                                    <span class="status-text">Activo</span>
                                 </div>
-                                <div class="card-body-content">
-                                    <span class="label-heading text-uppercase">Coordinador/a</span>
-                                    <h5 class="coordinador-name">{{jefe_grupo}}</h5>
-                                    
-                                    <div class="integrantes-section">
-                                        <div class="integrantes-label-wrapper">
-                                            <span class="integrantes-label">Integrantes</span>
-                                            <span class="integrantes-count">0</span>
-                                        </div>
-                                        <ul class="integrantes-list">
-                                            <!-- List populated by JavaScript -->
-                                        </ul>
-                                    </div>
-                                    
-                                    <!-- Raw hidden integrantes list to be parsed by JavaScript -->
-                                    <div class="raw-integrantes-html" style="display:none;">
-                                        {{integrantes}}
+                                <h3 class="grupo-card__title">{{nombre_grupo ?? title}}</h3>
+                                <div class="grupo-card__coordinator">
+                                    <div class="coordinator-avatar" aria-hidden="true">GI</div>
+                                    <div class="coordinator-info">
+                                        <span class="coordinator-label">Coordinador/a</span>
+                                        <span class="coordinator-name">{{jefe_grupo}}</span>
+                                        <span class="coordinator-email" data-email=""></span>
                                     </div>
                                 </div>
-                                <div class="card-footer-meta">
-                                    <span class="doc-date">
-                                        <i class="material-icons mr-1">calendar_today</i>
-                                        <span class="date-text">20 de May, 2024</span>
+                                <div class="grupo-card__meta">
+                                    <div class="grupo-card__meta-row">
+                                        <span class="grupo-card__meta-label">Línea</span>
+                                        <span class="grupo-card__meta-value grupo-card__meta-value--linea" data-linea-key="{{lineas_de_investigacion}}">Línea de investigación</span>
+                                    </div>
+                                    <div class="grupo-card__meta-row">
+                                        <span class="grupo-card__meta-label">Carrera</span>
+                                        <span class="grupo-card__meta-value" data-carrera-key="{{carrera}}">Carrera</span>
+                                    </div>
+                                </div>
+                                <div class="grupo-card__footer">
+                                    <span class="grupo-date">
+                                        <i class="material-icons" aria-hidden="true">calendar_today</i>
+                                        <span class="date-text">—</span>
                                     </span>
-                                    <a href="#" class="btn-ver-resolucion" target="_blank">
-                                        <i class="material-icons mr-1">description</i> Ver Resolución
-                                    </a>
+                                    <button type="button" class="btn-ver-detalles" aria-label="Ver detalles de {{nombre_grupo}}">
+                                        Ver Detalles
+                                        <i class="material-icons" aria-hidden="true">arrow_forward</i>
+                                    </button>
                                 </div>
-                            </div>
+
+                                <!-- Raw hidden data for JS parsing -->
+                                <div class="raw-integrantes-html" hidden>
+                                    {{integrantes}}
+                                </div>
+                            </article>
                         </div>
                         {{/collection:grupos_inv}}
                     </div>
@@ -178,10 +228,10 @@ block_types:
                     <!-- Pagination Row -->
                     <div class="row align-items-center mt-4 mb-5" id="paginationRow">
                         <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
-                            <span class="pagination-info-text" id="pageInfo">Página 1 de 3</span>
+                            <span class="pagination-info-text" id="pageInfo">Página 1 de 1</span>
                         </div>
                         <div class="col-sm-6 text-center text-sm-right">
-                            <nav class="d-inline-block">
+                            <nav class="d-inline-block" aria-label="Paginación de grupos">
                                 <ul class="custom-pagination" id="paginationControls">
                                     <!-- Dynamic pagination loaded by Javascript -->
                                 </ul>
@@ -189,6 +239,67 @@ block_types:
                         </div>
                     </div>
                 </main>
+            </div>
+        </div>
+
+        <!-- Modal de Detalles del Grupo -->
+        <div class="grupo-modal" id="grupoModal" role="dialog" aria-modal="true" aria-labelledby="grupoModalTitle" hidden>
+            <div class="grupo-modal__backdrop"></div>
+            <div class="grupo-modal__container">
+                <div class="grupo-modal__header">
+                    <div>
+                        <span class="grupo-modal__eyebrow">Información del grupo</span>
+                        <h2 class="grupo-modal__title" id="grupoModalTitle">Nombre del Grupo</h2>
+                        <div class="grupo-modal__badges">
+                            <span class="grupo-modal__badge" id="modalCarrera">Carrera</span>
+                            <span class="grupo-modal__badge grupo-modal__badge--outline" id="modalLinea">Línea de investigación</span>
+                        </div>
+                    </div>
+                    <button type="button" class="grupo-modal__close" aria-label="Cerrar detalles">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="grupo-modal__body">
+                    <div class="grupo-modal__columns">
+                        <div class="grupo-modal__column">
+                            <span class="grupo-modal__label">Coordinador/a</span>
+                            <div class="grupo-modal__coordinator">
+                                <div class="coordinator-avatar" id="modalAvatar" aria-hidden="true">GI</div>
+                                <span class="coordinator-name" id="modalCoordinator">Nombre del coordinador</span>
+                            </div>
+                        </div>
+                        <div class="grupo-modal__column">
+                            <span class="grupo-modal__label">Integrantes <span class="integrantes-count" id="modalIntegrantesCount">0</span></span>
+                            <ul class="grupo-modal__integrantes" id="modalIntegrantes">
+                                <!-- Populated by JS -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grupo-modal__section" id="modalDescripcionSection" hidden>
+                        <span class="grupo-modal__label">Descripción</span>
+                        <p class="grupo-modal__text" id="modalDescripcion"></p>
+                    </div>
+
+                    <div class="grupo-modal__section" id="modalObjetivosSection" hidden>
+                        <span class="grupo-modal__label">Objetivos</span>
+                        <ol class="grupo-modal__list" id="modalObjetivos"></ol>
+                    </div>
+
+                    <div class="grupo-modal__footer-meta">
+                        <span class="grupo-date">
+                            <i class="material-icons" aria-hidden="true">calendar_today</i>
+                            <span id="modalFecha">—</span>
+                        </span>
+                        <a href="#" id="modalResolucion" class="btn-ver-resolucion" target="_blank" rel="noopener noreferrer">
+                            <i class="material-icons" aria-hidden="true">description</i>
+                            Ver Resolución
+                        </a>
+                    </div>
+                </div>
+                <div class="grupo-modal__actions">
+                    <button type="button" class="grupo-modal__btn-cerrar">Cerrar</button>
+                </div>
             </div>
         </div>
 

@@ -12,7 +12,7 @@ modal:
   code: null
   mode: htmlmixed
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1781726333
+updated_at: 1786649527
 block_types:
   -
     id: lkuttke4
@@ -62,7 +62,7 @@ block_types:
                     </div>
                     <div class="directorio-contact-item">
                       <i class="fa fa-clock-o"></i>
-                      <span><strong>Horario de atención:</strong> 8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 5:30 p.m.</span>
+                      <span><strong>Horario de atención:</strong> 8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 3:30 p.m.</span>
                     </div>
                   </div>
                   <div class="directorio-office-section">
@@ -128,3 +128,4 @@ block_types:
       mode: htmlmixed
     type: template
     enabled: true
+---
