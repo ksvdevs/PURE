@@ -28,28 +28,56 @@ block_types:
     id: ll8y8w9d
     template:
       code: |-
-        <div class="grupos-header text-center">
-            <h1 class="grupos-main-title">Grupos de Investigación</h1>
-            <p class="grupos-subtitle">
-                Los grupos de investigación son equipos de trabajo conformados por docentes investigadores que comparten líneas de investigación y desarrollan proyectos científicos en áreas específicas del conocimiento, contribuyendo al avance de la ciencia y la sociedad.
-            </p>
-        </div>
+        <!-- Breadcrumb -->
+        <nav class="grupos-breadcrumb" aria-label="Migas de pan">
+            <ol class="grupos-breadcrumb__list">
+                <li class="grupos-breadcrumb__item"><a href="/">Inicio</a></li>
+                <li class="grupos-breadcrumb__item"><a href="/investigacion">Investigación</a></li>
+                <li class="grupos-breadcrumb__item" aria-current="page">Grupos de Investigación</li>
+            </ol>
+        </nav>
 
         <div class="container-fluid grupos-container-padding">
+            <!-- Header + Topbar en la misma fila -->
+            <div class="row align-items-end grupos-top-section">
+                <div class="col-lg-8 col-md-12 mb-3 mb-lg-0">
+                    <header class="grupos-header">
+                        <h1 class="grupos-main-title">Grupos de Investigación</h1>
+                        <p class="grupos-subtitle">
+                            Los grupos de investigación son equipos de trabajo conformados por docentes investigadores que comparten líneas de investigación y desarrollan proyectos científicos en áreas específicas del conocimiento, contribuyendo al avance de la ciencia y la sociedad.
+                        </p>
+                    </header>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <!-- Topbar: búsqueda + exportar -->
+                    <div class="grupos-topbar">
+                        <div class="search-input-wrapper">
+                            <i class="material-icons search-icon" aria-hidden="true">search</i>
+                            <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por grupo o coordinador..." aria-label="Buscar por grupo o coordinador">
+                        </div>
+                        <button type="button" id="btnExportarLista" class="btn-exportar-lista" aria-label="Exportar lista de grupos a CSV">
+                            <i class="material-icons" aria-hidden="true">download</i>
+                            <span>Exportar Lista</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <!-- Sidebar: Filtros -->
                 <aside class="col-lg-3 col-md-4 col-12 mb-4">
                     <div class="filters-sidebar">
                         <h3 class="sidebar-title">
-                            <i class="material-icons align-middle mr-2">filter_list</i> Filtros
+                            <i class="material-icons" aria-hidden="true">filter_list</i>
+                            <span>Filtros</span>
                         </h3>
 
                         <!-- Filtro por Año -->
                         <div class="filter-group">
-                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterYear">
-                                <i class="material-icons">calendar_today</i>
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterYear" type="button">
+                                <i class="material-icons" aria-hidden="true">calendar_today</i>
                                 <span>Año</span>
-                                <i class="material-icons filter-group__chevron">expand_less</i>
+                                <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterYear">
                                 <label class="filter-checkbox">
@@ -82,10 +110,10 @@ block_types:
 
                         <!-- Filtro por Líneas de Investigación -->
                         <div class="filter-group">
-                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterLineas">
-                                <i class="material-icons">lightbulb</i>
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterLineas" type="button">
+                                <i class="material-icons" aria-hidden="true">lightbulb</i>
                                 <span>Líneas de Investigación</span>
-                                <i class="material-icons filter-group__chevron">expand_less</i>
+                                <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterLineas">
                                 <label class="filter-checkbox">
@@ -118,10 +146,10 @@ block_types:
 
                         <!-- Filtro por Carrera -->
                         <div class="filter-group">
-                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterCarrera">
-                                <i class="material-icons">school</i>
+                            <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterCarrera" type="button">
+                                <i class="material-icons" aria-hidden="true">school</i>
                                 <span>Carrera</span>
-                                <i class="material-icons filter-group__chevron">expand_less</i>
+                                <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterCarrera">
                                 <label class="filter-checkbox">
@@ -151,14 +179,6 @@ block_types:
 
                 <!-- Main Content Area -->
                 <main class="col-lg-9 col-md-8 col-12">
-                    <!-- Top Controls: Search input -->
-                    <div class="grupos-topbar">
-                        <div class="search-input-wrapper">
-                            <i class="material-icons search-icon">search</i>
-                            <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por grupo o coordinador" aria-label="Buscar por grupo o coordinador">
-                        </div>
-                    </div>
-
                     <!-- Grid of Cards -->
                     <div class="row" id="gruposGrid">
                         {{collection:grupos_inv}}
@@ -174,29 +194,39 @@ block_types:
                              data-link="{{link}}"
                              data-email="{{correo_electronico}}"
                              data-descripcion="{{descripcion | strip_tags}}"
-                             data-objetivos="{{objetivos | strip_tags}}">
+                             data-objetivos="{{objetivos | strip_tags}}"
+                             tabindex="0"
+                             role="button"
+                             aria-label="Ver detalles de {{nombre_grupo ?? title}}">
                             <article class="grupo-card">
-                                <div class="grupo-card__status">
-                                    <span class="status-dot status-active" aria-hidden="true"></span>
+                                <span class="grupo-card__status">
+                                    <span class="status-dot" aria-hidden="true"></span>
                                     <span class="status-text">Activo</span>
-                                </div>
+                                </span>
                                 <h3 class="grupo-card__title">{{nombre_grupo ?? title}}</h3>
                                 <div class="grupo-card__coordinator">
                                     <div class="coordinator-avatar" aria-hidden="true">GI</div>
                                     <div class="coordinator-info">
                                         <span class="coordinator-label">Coordinador/a</span>
                                         <span class="coordinator-name">{{jefe_grupo}}</span>
-                                        <span class="coordinator-email" data-email=""></span>
+                                        <span class="coordinator-email" data-email="">
+                                            <i class="material-icons" aria-hidden="true">email</i>
+                                            <span class="email-text"></span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="grupo-card__meta">
-                                    <div class="grupo-card__meta-row">
-                                        <span class="grupo-card__meta-label">Línea</span>
-                                        <span class="grupo-card__meta-value grupo-card__meta-value--linea" data-linea-key="{{lineas_de_investigacion}}">Línea de investigación</span>
+                                    <div class="grupo-card__meta-row grupo-card__meta-row--linea">
+                                        <span class="grupo-card__meta-label">Línea de investigación</span>
+                                        <span class="grupo-card__meta-value grupo-card__meta-value--linea" data-linea-key="{{lineas_de_investigacion}}">
+                                            Línea de investigación
+                                        </span>
                                     </div>
                                     <div class="grupo-card__meta-row">
-                                        <span class="grupo-card__meta-label">Carrera</span>
-                                        <span class="grupo-card__meta-value" data-carrera-key="{{carrera}}">Carrera</span>
+                                        <span class="grupo-card__meta-label">Carrera profesional</span>
+                                        <span class="grupo-card__meta-value grupo-card__meta-value--carrera" data-carrera-key="{{carrera}}">
+                                            Carrera
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="grupo-card__footer">
@@ -204,10 +234,10 @@ block_types:
                                         <i class="material-icons" aria-hidden="true">calendar_today</i>
                                         <span class="date-text">—</span>
                                     </span>
-                                    <button type="button" class="btn-ver-detalles" aria-label="Ver detalles de {{nombre_grupo}}">
+                                    <span class="btn-ver-detalles" aria-hidden="true">
                                         Ver Detalles
                                         <i class="material-icons" aria-hidden="true">arrow_forward</i>
-                                    </button>
+                                    </span>
                                 </div>
 
                                 <!-- Raw hidden data for JS parsing -->
@@ -220,8 +250,8 @@ block_types:
                     </div>
 
                     <!-- No Results message -->
-                    <div id="noResults" class="text-center py-5 d-none">
-                        <i class="material-icons text-muted" style="font-size: 48px;">search_off</i>
+                    <div id="noResults" class="text-center py-5 d-none" role="status" aria-live="polite">
+                        <i class="material-icons text-muted" style="font-size: 48px;" aria-hidden="true">search_off</i>
                         <p class="mt-3 text-muted">No se encontraron grupos de investigación con los filtros seleccionados.</p>
                     </div>
 
@@ -243,20 +273,20 @@ block_types:
         </div>
 
         <!-- Modal de Detalles del Grupo -->
-        <div class="grupo-modal" id="grupoModal" role="dialog" aria-modal="true" aria-labelledby="grupoModalTitle" hidden>
+        <div class="grupo-modal" id="grupoModal" role="dialog" aria-modal="true" aria-labelledby="grupoModalTitle" aria-describedby="grupoModalLinea" hidden>
             <div class="grupo-modal__backdrop"></div>
-            <div class="grupo-modal__container">
+            <div class="grupo-modal__container" role="document">
                 <div class="grupo-modal__header">
                     <div>
-                        <span class="grupo-modal__eyebrow">Información del grupo</span>
-                        <h2 class="grupo-modal__title" id="grupoModalTitle">Nombre del Grupo</h2>
                         <div class="grupo-modal__badges">
-                            <span class="grupo-modal__badge" id="modalCarrera">Carrera</span>
-                            <span class="grupo-modal__badge grupo-modal__badge--outline" id="modalLinea">Línea de investigación</span>
+                            <span class="grupo-modal__badge grupo-modal__badge--estado" id="modalEstado">Activo</span>
+                            <span class="grupo-modal__badge grupo-modal__badge--outline" id="modalCarrera">Carrera</span>
                         </div>
+                        <h2 class="grupo-modal__title" id="grupoModalTitle">Nombre del Grupo</h2>
+                        <p class="grupo-modal__linea" id="grupoModalLinea">Línea de investigación</p>
                     </div>
                     <button type="button" class="grupo-modal__close" aria-label="Cerrar detalles">
-                        <i class="material-icons">close</i>
+                        <i class="material-icons" aria-hidden="true">close</i>
                     </button>
                 </div>
                 <div class="grupo-modal__body">
@@ -265,11 +295,14 @@ block_types:
                             <span class="grupo-modal__label">Coordinador/a</span>
                             <div class="grupo-modal__coordinator">
                                 <div class="coordinator-avatar" id="modalAvatar" aria-hidden="true">GI</div>
-                                <span class="coordinator-name" id="modalCoordinator">Nombre del coordinador</span>
+                                <div>
+                                    <span class="coordinator-name" id="modalCoordinator">Nombre del coordinador</span>
+                                    <span class="coordinator-email" id="modalEmail"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="grupo-modal__column">
-                            <span class="grupo-modal__label">Integrantes <span class="integrantes-count" id="modalIntegrantesCount">0</span></span>
+                            <span class="grupo-modal__label">Integrantes <span class="integrantes-count-badge" id="modalIntegrantesCount">0</span></span>
                             <ul class="grupo-modal__integrantes" id="modalIntegrantes">
                                 <!-- Populated by JS -->
                             </ul>
@@ -291,14 +324,14 @@ block_types:
                             <i class="material-icons" aria-hidden="true">calendar_today</i>
                             <span id="modalFecha">—</span>
                         </span>
-                        <a href="#" id="modalResolucion" class="btn-ver-resolucion" target="_blank" rel="noopener noreferrer">
-                            <i class="material-icons" aria-hidden="true">description</i>
-                            Ver Resolución
-                        </a>
+                        <div class="grupo-modal__footer-actions">
+                            <a href="#" id="modalResolucion" class="btn-ver-resolucion" target="_blank" rel="noopener noreferrer">
+                                <i class="material-icons" aria-hidden="true">open_in_new</i>
+                                Ver Resolución
+                            </a>
+                            <button type="button" class="grupo-modal__btn-cerrar">Cerrar</button>
+                        </div>
                     </div>
-                </div>
-                <div class="grupo-modal__actions">
-                    <button type="button" class="grupo-modal__btn-cerrar">Cerrar</button>
                 </div>
             </div>
         </div>

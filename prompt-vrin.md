@@ -4,15 +4,26 @@ Analiza y modifica los siguientes archivos:
 
 content/collections/pages/lineas-de-investigacion.md
 content/collections/pages/unidades-de-investigacion.md
+content/collections/pages/grupos-de-investigacion.md
+content/collections/pages/incubadora.md
+content/collections/pages/institutos.md
+content/collections/pages/produccion.md
+content/collections/pages/innovacion.md
+content/collections/pages/docentes-renacyt.md
+content/collections/pages/quienes-somos.md
 public/vrinstyle/css/estilos.css
 public/vrinstyle/js/vrin.js
 
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/UNIDADES.png
-public/assets/vrin/LINEAS-ANTIGUO.png
-public/assets/vrin/LINEAS-ACTUAL.png
+public/assets/vrin/NOSOTROSS.png
+public/assets/vrin/AUTORIDADESS.png
+public/assets/vrin/DIRECCIONESS.png
+public/assets/vrin/ORGANIGRAMAS.png
+public/assets/vrin/GRUPOSS.png
+public/assets/vrin/GRUPOSS-DETALLE.png
+public/assets/vrin/RENACYTS.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.

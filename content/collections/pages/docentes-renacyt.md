@@ -109,9 +109,9 @@ block_types:
                  <table class="table table-hover table-renacyt">
                     <thead>
                         <tr>
-                            <th>CÓDIGO RENACYT</th>
+                            <th>CÓDIGO</th>
                             <th>INVESTIGADOR</th>
-                            <th>CORREO</th>
+                            <th>RESOLUCIÓN VRI</th>
                             <th>FACULTAD</th>
                             <th>NIVEL</th>
                             <th>ESTADO</th>
@@ -134,7 +134,7 @@ block_types:
                             <td class="col-investigador">
                                 <span class="investigador-name">{{nombre}}</span>
                             </td>
-                            <td class="col-correo">{{ if gmail }}<a href="mailto:{{ gmail }}" class="renacyt-email-link">{{ gmail }}</a>{{ else }}-{{ /if }}</td>
+                            <td class="col-resolucion">{{ if resolucion }}{{ resolucion }}{{ else }}Cargando...{{ /if }}</td>
                             <td class="col-facultad">{{carrera:label}}</td>
                             <td class="col-nivel">
                                 <span class="badge-nivel">{{ if nivel:label }}{{ nivel:label }}{{ else }}I{{ /if }}</span>
@@ -143,7 +143,7 @@ block_types:
                                 <span class="badge-estado">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span>
                             </td>
                             <td class="col-link">
-                                <a href="{{link}}" target="_blank" class="btn-cti">
+                                <a href="{{link}}" target="_blank" class="btn-cti" aria-label="Ver CTI Vitae de {{nombre}}">
                                     <i class="fa fa-file-text-o"></i>
                                 </a>
                             </td>

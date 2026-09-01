@@ -1500,19 +1500,20 @@ if (document.readyState === 'loading') {
     const noResults = document.getElementById('noResults');
     const paginationRow = document.getElementById('paginationRow');
     const sidebar = document.querySelector('.filters-sidebar');
+    const exportBtn = document.getElementById('btnExportarLista');
 
     const modal = document.getElementById('grupoModal');
-    // Mover el modal al final de <body> para evitar problemas de z-index/stacking context
-    // con el navbar u otros elementos sticky/fixed.
     if (modal && modal.parentElement !== document.body) {
       document.body.appendChild(modal);
     }
 
     const modalTitle = document.getElementById('grupoModalTitle');
+    const modalEstado = document.getElementById('modalEstado');
     const modalCarrera = document.getElementById('modalCarrera');
-    const modalLinea = document.getElementById('modalLinea');
+    const modalLinea = document.getElementById('grupoModalLinea');
     const modalAvatar = document.getElementById('modalAvatar');
     const modalCoordinator = document.getElementById('modalCoordinator');
+    const modalEmail = document.getElementById('modalEmail');
     const modalIntegrantesCount = document.getElementById('modalIntegrantesCount');
     const modalIntegrantes = document.getElementById('modalIntegrantes');
     const modalDescripcionSection = document.getElementById('modalDescripcionSection');
@@ -1579,12 +1580,12 @@ if (document.readyState === 'loading') {
 
     function formatDate(value, fallback) {
       if (!value && fallback) value = fallback;
-      if (!value) return { text: '—', year: '' };
+      if (!value) return { text: '—', shortText: '—', year: '' };
 
       const str = String(value).trim();
       if (/[a-zA-Z]/.test(str)) {
         const yearMatch = str.match(/\b(20\d{2})\b/);
-        return { text: str, year: yearMatch ? yearMatch[1] : '' };
+        return { text: str, shortText: str, year: yearMatch ? yearMatch[1] : '' };
       }
 
       let m = str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
@@ -1596,11 +1597,16 @@ if (document.readyState === 'loading') {
         const year = m[1];
         const monthIndex = parseInt(m[2], 10) - 1;
         const day = parseInt(m[3], 10);
-        return { text: day + ' de ' + monthNames[monthIndex] + ' de ' + year, year: year };
+        const monthName = monthNames[monthIndex];
+        return {
+          text: day + ' de ' + monthName + ' de ' + year,
+          shortText: day + ' ' + monthName.substring(0, 3) + ', ' + year,
+          year: year
+        };
       }
 
       const yearMatch = str.match(/\b(20\d{2})\b/);
-      return { text: str, year: yearMatch ? yearMatch[1] : '' };
+      return { text: str, shortText: str, year: yearMatch ? yearMatch[1] : '' };
     }
 
     function getMapLabel(map, key) {
@@ -1624,6 +1630,18 @@ if (document.readyState === 'loading') {
       return div.innerHTML;
     }
 
+    function splitKeys(keysStr) {
+      return String(keysStr || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    }
+
+    function setText(el, text) {
+      if (el) el.textContent = text;
+    }
+
+    function setHtml(el, html) {
+      if (el) el.innerHTML = html;
+    }
+
     /* ----------------------------------------------------------------------
        Inicialización de cada tarjeta
        ---------------------------------------------------------------------- */
@@ -1637,20 +1655,16 @@ if (document.readyState === 'loading') {
       const rawFecha = card.getAttribute('data-fecha');
       const rawLink = card.getAttribute('data-link');
 
-      // Fecha y año (data-fecha tiene prioridad; si no, fallback de metadata)
       const dateInfo = formatDate(rawFecha, meta.date);
       const year = dateInfo.year || meta.year || new Date().getFullYear().toString();
       card.setAttribute('data-year', year);
       card.setAttribute('data-date', dateInfo.text);
 
-      // El título se renderiza directamente desde Antlers; no se sobrescribe con JS
-      // para evitar que cualquier problema de ejecución lo oculte.
-
-      // Línea y Carrera como texto plano con etiqueta
+      // Línea y carrera
       const lineaValue = card.querySelector('.grupo-card__meta-value--linea');
-      const carreraValue = card.querySelector('.grupo-card__meta-value:not(.grupo-card__meta-value--linea)');
+      const carreraValue = card.querySelector('.grupo-card__meta-value--carrera');
       const lineaLabel = getMapLabel(lineaMap, lineaKey.split(',')[0]) || 'Línea de investigación';
-      const carreraLabel = getMapLabel(carreraMap, carreraKey) || 'Carrera';
+      const carreraLabel = getMapLabel(carreraMap, carreraKey) || 'Carrera profesional';
       if (lineaValue) lineaValue.textContent = lineaLabel;
       if (carreraValue) carreraValue.textContent = carreraLabel;
 
@@ -1660,14 +1674,21 @@ if (document.readyState === 'loading') {
       const coordNameEl = card.querySelector('.coordinator-name');
       if (coordNameEl) coordNameEl.textContent = jefe || 'Sin coordinador';
       const emailEl = card.querySelector('.coordinator-email');
+      const emailTextEl = card.querySelector('.coordinator-email .email-text');
       const email = (card.getAttribute('data-email') || '').trim();
-      if (emailEl) emailEl.textContent = email;
+      if (emailTextEl) {
+        emailTextEl.textContent = email;
+      }
+      if (emailEl) {
+        emailEl.setAttribute('title', email);
+        emailEl.style.display = email ? '' : 'none';
+      }
 
-      // Fecha en footer: mostrar solo el año en la tarjeta
+      // Fecha en footer: mostrar fecha corta en tarjeta
       const dateTextEl = card.querySelector('.date-text');
-      if (dateTextEl) dateTextEl.textContent = year;
+      if (dateTextEl) dateTextEl.textContent = (dateInfo.shortText && dateInfo.shortText !== '—') ? dateInfo.shortText : year;
 
-      // Estado: Activo por defecto; respeta data-estado (true/1/activo = activo; false/0/inactivo = inactivo)
+      // Estado
       const estadoRaw = (card.getAttribute('data-estado') || '').trim().toLowerCase();
       const isInactive = estadoRaw === 'inactivo' || estadoRaw === 'false' || estadoRaw === '0';
       const estadoLabel = isInactive ? 'Inactivo' : 'Activo';
@@ -1678,6 +1699,7 @@ if (document.readyState === 'loading') {
         statusDot.classList.remove('status-active', 'status-inactive');
         statusDot.classList.add(isInactive ? 'status-inactive' : 'status-active');
       }
+      card.setAttribute('data-estado-label', estadoLabel);
 
       // Integrantes
       const rawDiv = card.querySelector('.raw-integrantes-html');
@@ -1687,18 +1709,17 @@ if (document.readyState === 'loading') {
       card.setAttribute('data-members-count', members.length);
       card.setAttribute('data-members-list', members.join('|'));
 
-      // Descripción y objetivos para el modal
+      // Descripción y objetivos
       const descripcionRaw = (card.getAttribute('data-descripcion') || '').trim();
-      card.setAttribute('data-descripcion', descripcionRaw);
-
       const objetivosRaw = (card.getAttribute('data-objetivos') || '').trim();
       const objetivosList = objetivosRaw
         .split(/\n|<br\s*\/?>/i)
         .map(function (s) { return s.replace(/[•\-–—]/g, '').trim(); })
         .filter(function (s) { return s.length > 2; });
+      card.setAttribute('data-descripcion', descripcionRaw);
       card.setAttribute('data-objetivos-list', objetivosList.join('|'));
 
-      // Texto indexable para búsqueda
+      // Texto indexable
       const searchable = normalizeText([
         nombre,
         jefe,
@@ -1711,7 +1732,7 @@ if (document.readyState === 'loading') {
       ].join(' '));
       card.setAttribute('data-searchable', searchable);
 
-      // Enlace a resolución (data-link primero; luego metadata; si no hay, vacío)
+      // Enlace a resolución
       const link = (rawLink && rawLink.trim() !== '#' && rawLink.trim() !== '') ? rawLink.trim() : (meta.link || '');
       card.setAttribute('data-resolution-link', link);
       card.setAttribute('data-resolution-text', meta.resolution || '');
@@ -1724,30 +1745,28 @@ if (document.readyState === 'loading') {
       const yearInput = document.querySelector('input[name="filter-year"]:checked');
       const lineas = Array.from(document.querySelectorAll('input[name="filter-linea"]:checked')).map(function (i) { return i.value; });
       const carreras = Array.from(document.querySelectorAll('input[name="filter-carrera"]:checked')).map(function (i) { return i.value; });
-      return {
-        year: yearInput ? yearInput.value : 'all',
-        lineas: lineas,
-        carreras: carreras
-      };
+      return { year: yearInput ? yearInput.value : 'all', lineas: lineas, carreras: carreras };
+    }
+
+    function matchesFilters(card, state, query) {
+      const cardLineas = splitKeys(card.getAttribute('data-linea'));
+      const cardCarreras = splitKeys(card.getAttribute('data-carrera'));
+      const year = card.getAttribute('data-year') || '';
+      const searchable = card.getAttribute('data-searchable') || '';
+
+      const yearMatch = state.year === 'all' || year === state.year;
+      const lineaMatch = state.lineas.length === 0 || state.lineas.some(function (v) { return cardLineas.includes(v); });
+      const carreraMatch = state.carreras.length === 0 || state.carreras.some(function (v) { return cardCarreras.includes(v); });
+      const searchMatch = !query || searchable.includes(query);
+
+      return yearMatch && lineaMatch && carreraMatch && searchMatch;
     }
 
     function filterCards() {
       const state = getFilterState();
       const query = normalizeText(searchField ? searchField.value : '');
 
-      filtered = cards.filter(function (card) {
-        const cardLineas = (card.getAttribute('data-linea') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-        const cardCarreras = (card.getAttribute('data-carrera') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-        const year = card.getAttribute('data-year') || '';
-        const searchable = card.getAttribute('data-searchable') || '';
-
-        const yearMatch = state.year === 'all' || year === state.year;
-        const lineaMatch = state.lineas.length === 0 || state.lineas.some(function (v) { return cardLineas.includes(v); });
-        const carreraMatch = state.carreras.length === 0 || state.carreras.some(function (v) { return cardCarreras.includes(v); });
-        const searchMatch = !query || searchable.includes(query);
-
-        return yearMatch && lineaMatch && carreraMatch && searchMatch;
-      });
+      filtered = cards.filter(function (card) { return matchesFilters(card, state, query); });
 
       if (filtered.length === 0) {
         if (noResults) noResults.classList.remove('d-none');
@@ -1761,8 +1780,7 @@ if (document.readyState === 'loading') {
       if (paginationRow) paginationRow.classList.remove('d-none');
 
       const totalPages = Math.ceil(filtered.length / itemsPerPage);
-      if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-      if (currentPage < 1) currentPage = 1;
+      currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
       const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
@@ -1803,6 +1821,7 @@ if (document.readyState === 'loading') {
           const a = document.createElement('a');
           a.href = '#';
           a.setAttribute('data-page', page);
+          a.setAttribute('aria-label', 'Ir a la página ' + page);
           a.innerHTML = content;
           li.appendChild(a);
         }
@@ -1817,7 +1836,7 @@ if (document.readyState === 'loading') {
     }
 
     /* ----------------------------------------------------------------------
-       Eventos de filtros y búsqueda
+       Eventos de filtros, búsqueda y paginación
        ---------------------------------------------------------------------- */
     if (sidebar) {
       sidebar.addEventListener('click', function (e) {
@@ -1863,6 +1882,45 @@ if (document.readyState === 'loading') {
     }
 
     /* ----------------------------------------------------------------------
+       Exportar lista a CSV
+       ---------------------------------------------------------------------- */
+    function escapeCsv(value) {
+      const str = String(value == null ? '' : value).replace(/"/g, '""');
+      return /[",\n]/.test(str) ? '"' + str + '"' : str;
+    }
+
+    function exportarCSV() {
+      const headers = ['Nombre del Grupo', 'Estado', 'Coordinador', 'Email', 'Línea de Investigación', 'Carrera', 'Año', 'Integrantes'];
+      const rows = filtered.map(function (card) {
+        const lineaKey = card.getAttribute('data-linea') || '';
+        const carreraKey = card.getAttribute('data-carrera') || '';
+        return [
+          card.getAttribute('data-nombre') || '',
+          card.getAttribute('data-estado-label') || 'Activo',
+          card.getAttribute('data-jefe') || '',
+          card.getAttribute('data-email') || '',
+          getMapLabel(lineaMap, lineaKey.split(',')[0]),
+          getMapLabel(carreraMap, carreraKey),
+          card.getAttribute('data-year') || '',
+          (card.getAttribute('data-members-list') || '').replace(/\|/g, '; ')
+        ].map(escapeCsv).join(',');
+      });
+
+      const csv = '\uFEFF' + headers.map(escapeCsv).join(',') + '\n' + rows.join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'grupos-de-investigacion.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    if (exportBtn) exportBtn.addEventListener('click', exportarCSV);
+
+    /* ----------------------------------------------------------------------
        Modal de detalles
        ---------------------------------------------------------------------- */
     function openModal(card) {
@@ -1878,24 +1936,26 @@ if (document.readyState === 'loading') {
       const members = (card.getAttribute('data-members-list') || '').split('|').filter(Boolean);
       const descripcion = card.getAttribute('data-descripcion') || '';
       const objetivos = (card.getAttribute('data-objetivos-list') || '').split('|').filter(Boolean);
+      const estadoLabel = card.getAttribute('data-estado-label') || 'Activo';
+      const email = card.getAttribute('data-email') || '';
 
-      if (modalTitle) modalTitle.textContent = nombre || 'Grupo de Investigación';
-      if (modalCarrera) modalCarrera.textContent = 'Carrera: ' + (getMapLabel(carreraMap, carreraKey) || '—');
-      if (modalLinea) modalLinea.textContent = 'Línea: ' + (getMapLabel(lineaMap, lineaKey.split(',')[0]) || '—');
-      if (modalAvatar) modalAvatar.textContent = getInitials(jefe);
-      if (modalCoordinator) modalCoordinator.textContent = jefe || 'Sin coordinador';
-      if (modalFecha) modalFecha.textContent = (dateText && dateText !== '—') ? 'Fecha de Resolución: ' + dateText : '—';
+      const carreraLabel = getMapLabel(carreraMap, carreraKey) || '—';
+      const lineaLabel = getMapLabel(lineaMap, lineaKey.split(',')[0]) || '—';
 
-      if (modalIntegrantesCount) modalIntegrantesCount.textContent = String(members.length);
-      if (modalIntegrantes) {
-        modalIntegrantes.innerHTML = members.map(function (m) {
-          return '<li>' + escapeHtml(m) + '</li>';
-        }).join('');
-      }
+      setText(modalTitle, nombre || 'Grupo de Investigación');
+      setText(modalEstado, estadoLabel);
+      setText(modalCarrera, carreraLabel);
+      setText(modalLinea, lineaLabel);
+      setText(modalAvatar, getInitials(jefe));
+      setText(modalCoordinator, jefe || 'Sin coordinador');
+      setText(modalEmail, email);
+      setText(modalFecha, (dateText && dateText !== '—') ? 'Fecha de Resolución: ' + dateText : '—');
+
+      setText(modalIntegrantesCount, String(members.length));
+      setHtml(modalIntegrantes, members.map(function (m) { return '<li>' + escapeHtml(m) + '</li>'; }).join(''));
 
       if (modalDescripcionSection && modalDescripcion) {
         if (descripcion.trim()) {
-          // Preservar saltos de línea como <br> para mantener párrafos
           modalDescripcion.innerHTML = escapeHtml(descripcion).replace(/\n/g, '<br>');
           modalDescripcionSection.hidden = false;
         } else {
@@ -1905,9 +1965,7 @@ if (document.readyState === 'loading') {
 
       if (modalObjetivosSection && modalObjetivos) {
         if (objetivos.length) {
-          modalObjetivos.innerHTML = objetivos.map(function (o) {
-            return '<li>' + escapeHtml(o) + '</li>';
-          }).join('');
+          modalObjetivos.innerHTML = objetivos.map(function (o) { return '<li>' + escapeHtml(o) + '</li>'; }).join('');
           modalObjetivosSection.hidden = false;
         } else {
           modalObjetivosSection.hidden = true;
@@ -1921,7 +1979,6 @@ if (document.readyState === 'loading') {
           modalResolucion.style.display = '';
         } else {
           modalResolucion.href = '#';
-          modalResolucion.title = 'Enlace no disponible';
           modalResolucion.style.display = 'none';
         }
       }
@@ -1930,9 +1987,7 @@ if (document.readyState === 'loading') {
       modal.hidden = false;
       document.body.classList.add('modal-open');
       document.addEventListener('keydown', trapFocus);
-      requestAnimationFrame(function () {
-        modal.classList.add('grupo-modal--open');
-      });
+      requestAnimationFrame(function () { modal.classList.add('grupo-modal--open'); });
       if (modalClose) modalClose.focus();
     }
 
@@ -1952,16 +2007,11 @@ if (document.readyState === 'loading') {
       lastFocused = null;
     }
 
-    /* ----------------------------------------------------------------------
-       Focus trap para accesibilidad del modal
-       ---------------------------------------------------------------------- */
     function getFocusableElements() {
       if (!modal) return [];
       return Array.from(modal.querySelectorAll(
         'a[href]:not([href="#"]), button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )).filter(function (el) {
-        return el.offsetParent !== null && el.tabIndex >= 0;
-      });
+      )).filter(function (el) { return el.offsetParent !== null && el.tabIndex >= 0; });
     }
 
     function trapFocus(e) {
@@ -1979,12 +2029,17 @@ if (document.readyState === 'loading') {
       }
     }
 
+    function handleCardActivate(e) {
+      const card = e.target.closest('.grupo-card-container');
+      if (!card) return;
+      if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+      if (e.type === 'keydown') e.preventDefault();
+      openModal(card);
+    }
+
     if (grid) {
-      grid.addEventListener('click', function (e) {
-        const card = e.target.closest('.grupo-card-container');
-        if (!card) return;
-        openModal(card);
-      });
+      grid.addEventListener('click', handleCardActivate);
+      grid.addEventListener('keydown', handleCardActivate);
     }
 
     if (modal) {
