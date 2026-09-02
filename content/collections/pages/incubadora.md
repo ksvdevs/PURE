@@ -97,42 +97,42 @@ block_types:
               
               <div class="dir-profile-details">
                 <div class="dir-detail-item">
-                  <i class="fa fa-file-text-o dir-detail-icon"></i>
+                  <i class="fa fa-file-text-o dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Resolución Rectoral</span>
                     <span class="dir-detail-value">R. Nº 6589-2023-UNAMBA</span>
                   </div>
                 </div>
                 <div class="dir-detail-item">
-                  <i class="fa fa-graduation-cap dir-detail-icon"></i>
+                  <i class="fa fa-graduation-cap dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Investigador</span>
                     <span class="dir-detail-value">
-                      <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=90008" target="_blank">CTI Vitae (Concytec)</a>
+                      <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=90008" target="_blank" rel="noopener noreferrer">CTI Vitae (Concytec)</a>
                     </span>
                   </div>
                 </div>
                 <div class="dir-detail-item">
-                  <i class="fa fa-envelope-o dir-detail-icon"></i>
+                  <i class="fa fa-envelope-o dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Correo Institucional</span>
                     <span class="dir-detail-value">{{correo}}</span>
                   </div>
                 </div>
               </div>
-              
+
               <a href="mailto:{{correo}}" class="dir-contact-btn">
-                CONTACTAR DIRECCIÓN ▷
+                Contactar Dirección <i class="fa fa-arrow-right" aria-hidden="true"></i>
               </a>
             </div>
 
             <!-- Info Card (Horario y Oficina) -->
             <div class="dir-info-card">
               <div class="dir-info-card-header">
-                <i class="fa fa-clock-o"></i>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
                 <span class="dir-info-card-title">Horario de Atención</span>
               </div>
-              
+
               <p class="dir-info-card-subtitle">Lunes – Viernes</p>
               <ul class="dir-schedule-list">
                 <li class="dir-schedule-item">
@@ -148,12 +148,12 @@ block_types:
               <div class="dir-info-location">
                 <p class="dir-location-header">Oficina</p>
                 <div class="dir-location-value">
-                  <i class="fa fa-map-marker"></i>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
                   <span>{{direccion_oficina}}</span>
                 </div>
               </div>
-              
-              <img src="/assets/direcciones/incubadora/incubadora.jpg" alt="Oficina" class="dir-office-img">
+
+              <img src="/assets/direcciones/incubadora/incubadora.jpg" alt="Imagen representativa de la Dirección de Incubadora de Empresas" class="dir-office-img">
             </div>
           </div>
         </div>
@@ -168,16 +168,16 @@ block_types:
             
             <div class="dir-gallery-slider">
               <div class="dir-gallery-slides">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2199.jpg" alt="Slide 1">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2203.jpg" alt="Slide 2">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2175.jpg" alt="Slide 3">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2199.jpg" alt="Integrantes del equipo de la Dirección de Incubadora de Empresas en las instalaciones de la UNAMBA">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2203.jpg" alt="Equipo del Vicerrectorado de Investigación junto a autoridades universitarias">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2175.jpg" alt="Integrantes de las direcciones del Vicerrectorado de Investigación en la UNAMBA">
               </div>
-              <button class="dir-gallery-btn prev">❮</button>
-              <button class="dir-gallery-btn next">❯</button>
+              <button type="button" class="dir-gallery-btn prev" aria-label="Imagen anterior">❮</button>
+              <button type="button" class="dir-gallery-btn next" aria-label="Imagen siguiente">❯</button>
               <div class="dir-gallery-indicators">
-                <button class="dir-gallery-dot active"></button>
-                <button class="dir-gallery-dot"></button>
-                <button class="dir-gallery-dot"></button>
+                <button type="button" class="dir-gallery-dot active" aria-label="Ver imagen 1"></button>
+                <button type="button" class="dir-gallery-dot" aria-label="Ver imagen 2"></button>
+                <button type="button" class="dir-gallery-dot" aria-label="Ver imagen 3"></button>
               </div>
             </div>
           </div>
@@ -201,15 +201,15 @@ block_types:
                   <p class="dir-unit-desc">Brindar apoyo operativo, soporte en los proyectos y soporte en la gestión de actividades vinculadas a la Dirección de Incubadora de Empresas y demás.</p>
                   <div class="dir-unit-contact">
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-user"></i>
+                      <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Lic. Yovana Huillca Sime</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-envelope"></i>
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
                       <span>incubadorasdeempresas@unamba.edu.pe</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-map-marker"></i>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
                       <span>Biblioteca General, 2° Piso</span>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ block_types:
             </div>
             
             <div class="dir-news-slider-wrap">
-              <button class="dir-news-nav-btn prev" id="dir-news-prev">❮</button>
+              <button type="button" class="dir-news-nav-btn prev" id="dir-news-prev" aria-label="Noticias anteriores">❮</button>
               <div class="dir-news-container">
                 <div class="dir-news-track">
                   {{ collection:noticias }}
@@ -239,14 +239,14 @@ block_types:
                     </div>
                     <div class="dir-news-info">
                       <h4 class="dir-news-title">{{ title }}</h4>
-                      <a href="{{ link }}" target="_blank" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right"></i></a>
+                      <a href="{{ link }}" target="_blank" rel="noopener noreferrer" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                   </div>
                   {{ /if }}
                   {{ /collection:noticias }}
                 </div>
               </div>
-              <button class="dir-news-nav-btn next" id="dir-news-next">❯</button>
+              <button type="button" class="dir-news-nav-btn next" id="dir-news-next" aria-label="Noticias siguientes">❯</button>
             </div>
           </div>
         </section>

@@ -9,8 +9,8 @@ public/vrinstyle/js/vrin.js
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/GRUPOSV8.png
-public/assets/vrin/GRUPOS-DETALLESV8.png
+public/assets/vrin/GRUPOSS.png
+public/assets/vrin/GRUPOSS-DETALLE.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.

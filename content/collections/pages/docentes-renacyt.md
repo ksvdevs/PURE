@@ -27,22 +27,47 @@ block_types:
     id: lkf8qzde
     template:
       code: |-
-        <div class="renacyt-header text-center">
-            <h1 class="renacyt-main-title">Docentes RENACYT</h1>
-            <p class="renacyt-subtitle">
-                En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
-            </p>
-        </div>
+        <nav class="grupos-breadcrumb" aria-label="Migas de pan">
+            <ol class="grupos-breadcrumb__list">
+                <li class="grupos-breadcrumb__item"><a href="/">Inicio</a></li>
+                <li class="grupos-breadcrumb__item"><a href="/investigacion">Investigación</a></li>
+                <li class="grupos-breadcrumb__item" aria-current="page">Docentes RENACYT</li>
+            </ol>
+        </nav>
 
-        <div class="container-fluid renacyt-container-padding">
+        <div class="renacyt-container-padding">
+            <!-- Header + Topbar en la misma fila -->
+            <div class="row align-items-end grupos-top-section">
+                <div class="col-lg-8 col-md-12 mb-3 mb-lg-0">
+                    <header class="grupos-header">
+                        <h1 class="grupos-main-title">Docentes RENACYT</h1>
+                        <p class="grupos-subtitle">
+                            En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
+                        </p>
+                    </header>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <!-- Topbar: búsqueda + exportar -->
+                    <div class="grupos-topbar">
+                        <div class="search-input-wrapper">
+                            <i class="material-icons search-icon" aria-hidden="true">search</i>
+                            <input type="text" id="renacytTopSearch" class="form-control search-field" placeholder="Buscar por nombre o código RENACYT" aria-label="Buscar por nombre o código RENACYT">
+                        </div>
+                        <button type="button" id="btnExportTop" class="btn-exportar-lista" aria-label="Exportar lista de docentes RENACYT a Excel">
+                            <i class="material-icons" aria-hidden="true">download</i>
+                            <span>Exportar Lista</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <!-- Panel de Distribución por Nivel -->
-            <section class="chart-panel mb-5">
-                <h3 class="chart-panel-title">Distribución por Nivel</h3>
+            <section class="chart-panel mb-5" aria-labelledby="chartPanelTitle">
+                <h2 class="chart-panel-title" id="chartPanelTitle">Distribución por Nivel</h2>
                 <div class="chart-content-row">
                     <!-- Left: Pie Chart -->
                     <div class="chart-left-side">
                         <div class="pie-chart-wrapper">
-                            <svg class="donut-chart" viewBox="0 0 100 100" style="overflow: visible;">
+                            <svg class="donut-chart" viewBox="0 0 100 100" style="overflow: visible;" role="img" aria-label="Gráfico circular de distribución de docentes RENACYT por nivel">
                                 <circle cx="50" cy="50" r="38" fill="#f1f5f9"></circle>
                                 <g id="donutSegments"></g>
                             </svg>
@@ -57,11 +82,11 @@ block_types:
                         <div class="summary-stats-wrapper">
                             <div class="summary-card total-card">
                                 <span class="summary-label">TOTAL DOCENTES</span>
-                                <span class="summary-value" id="summaryTotal">60</span>
+                                <span class="summary-value" id="summaryTotal" aria-live="polite">60</span>
                             </div>
                             <div class="summary-card active-card">
                                 <span class="summary-label">ACTIVOS</span>
-                                <span class="summary-value" id="summaryActive">60</span>
+                                <span class="summary-value" id="summaryActive" aria-live="polite">60</span>
                             </div>
                         </div>
                     </div>
@@ -72,13 +97,13 @@ block_types:
             <div class="controls-wrapper mb-4">
                 <div class="controls-left">
                     <div class="search-input-wrapper">
-                        <i class="material-icons search-icon">search</i>
-                        <input type="text" id="renacytSearch" class="form-control search-field" placeholder="Buscar por nombre o código RENACYT">
+                        <i class="material-icons search-icon" aria-hidden="true">search</i>
+                        <input type="text" id="renacytSearch" class="form-control search-field" placeholder="Buscar por nombre o código RENACYT" aria-label="Buscar por nombre o código RENACYT">
                     </div>
                 </div>
                 <div class="controls-right">
                     <div class="select-wrapper">
-                        <select id="filterCarrera" class="form-control select-field">
+                        <select id="filterCarrera" class="form-control select-field" aria-label="Filtrar por carrera">
                             <option value="all">Carrera</option>
                             <option value="Administración">Administración</option>
                             <option value="Educación Inicial Intercultural Bilingüe">Educación Inicial Intercultural Bilingüe</option>
@@ -92,30 +117,31 @@ block_types:
                         </select>
                     </div>
                     <div class="select-wrapper">
-                        <select id="filterEstado" class="form-control select-field">
+                        <select id="filterEstado" class="form-control select-field" aria-label="Filtrar por estado">
                             <option value="all">Estado</option>
                             <option value="Activo">Activo</option>
                             <option value="Inactivo">Inactivo</option>
                         </select>
                     </div>
-                    <button class="btn btn-export" id="btnExport">
-                        <i class="fa fa-download mr-2"></i> Exportar Lista
+                    <button type="button" class="btn btn-export" id="btnExport">
+                        <i class="fa fa-download mr-2" aria-hidden="true"></i> Exportar Lista
                     </button>
                 </div>
             </div>
 
             <!-- Tabla de Docentes -->
-            <div class="table-responsive-wrapper shadow-sm">
+            <div class="table-responsive-wrapper">
                  <table class="table table-hover table-renacyt">
+                    <caption class="sr-only">Listado de docentes investigadores reconocidos por RENACYT, con código, resolución VRI, facultad, nivel, estado y enlace a CTI Vitae</caption>
                     <thead>
                         <tr>
-                            <th>CÓDIGO</th>
-                            <th>INVESTIGADOR</th>
-                            <th>RESOLUCIÓN VRI</th>
-                            <th>FACULTAD</th>
-                            <th>NIVEL</th>
-                            <th>ESTADO</th>
-                            <th>CTI VITAE</th>
+                            <th scope="col">CÓDIGO</th>
+                            <th scope="col">INVESTIGADOR</th>
+                            <th scope="col">RESOLUCIÓN VRI</th>
+                            <th scope="col">FACULTAD</th>
+                            <th scope="col">NIVEL</th>
+                            <th scope="col">ESTADO</th>
+                            <th scope="col">CTI VITAE</th>
                         </tr>
                     </thead>
                     <tbody id="docentesTableBody">
@@ -140,37 +166,37 @@ block_types:
                                 <span class="badge-nivel">{{ if nivel:label }}{{ nivel:label }}{{ else }}I{{ /if }}</span>
                             </td>
                             <td class="col-estado">
-                                <span class="badge-estado">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span>
+                                <span class="badge-estado"><span class="status-dot" aria-hidden="true"></span><span class="badge-estado-text">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span></span>
                             </td>
                             <td class="col-link">
                                 <a href="{{link}}" target="_blank" class="btn-cti" aria-label="Ver CTI Vitae de {{nombre}}">
-                                    <i class="fa fa-file-text-o"></i>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>
                         {{/collection:doc_renacyt}}
                     </tbody>
                 </table>
+
+                <!-- Paginación -->
+                <div class="row align-items-center mx-0 mt-3 mb-2 px-3" id="renacytPaginationRow">
+                    <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
+                        <span class="pagination-info-text" id="renacytPageInfo" aria-live="polite">Mostrando 1 al 10 de 25 docentes</span>
+                    </div>
+                    <div class="col-sm-6 text-center text-sm-right">
+                        <nav class="d-inline-block" aria-label="Paginación de docentes">
+                            <ul class="custom-pagination" id="renacytPaginationControls">
+                                <!-- Controles dinámicos -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
 
             <!-- Mensaje sin resultados -->
-            <div id="renacytNoResults" class="text-center py-5 d-none">
-                <i class="material-icons text-muted" style="font-size: 48px;">search_off</i>
+            <div id="renacytNoResults" class="text-center py-5 d-none" role="status" aria-live="polite">
+                <i class="material-icons text-muted" style="font-size: 48px;" aria-hidden="true">search_off</i>
                 <p class="mt-3 text-muted">No se encontraron docentes con los criterios de búsqueda seleccionados.</p>
-            </div>
-
-            <!-- Paginación -->
-            <div class="row align-items-center mt-4 mb-5" id="renacytPaginationRow">
-                <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
-                    <span class="pagination-info-text" id="renacytPageInfo">Mostrando 1º al 20º docentes</span>
-                </div>
-                <div class="col-sm-6 text-center text-sm-right">
-                    <nav class="d-inline-block">
-                        <ul class="custom-pagination" id="renacytPaginationControls">
-                            <!-- Controles dinámicos -->
-                        </ul>
-                    </nav>
-                </div>
             </div>
         </div>
       mode: htmlmixed

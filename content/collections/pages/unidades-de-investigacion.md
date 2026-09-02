@@ -18,113 +18,113 @@ block_types:
     id: lkuttke4
     template:
       code: |-
-        <div class="unidades-page-container">
-          <!-- Hero Section -->
-          <div class="unidades-container">
-            <header class="unidades-hero text-center">
-              <div class="unidades-hero-content">
-                <h1 class="unidades-hero-title">Unidades de Investigación</h1>
-                <p class="unidades-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
-              </div>
-            </header>
-          </div>
-
-          <!-- Directorio Section -->
-          <section class="directorio-section">
-            <div class="unidades-container">
-              <h2 class="directorio-title-main">Comité Directivo de Investigación</h2>
-              <p class="directorio-subtitle-main">Conoce a las autoridades encargadas de dirigir y promover la investigación en cada una de nuestras unidades académicas.</p>
-              
-              <!-- Grid containing all 5 cards, flowing into 3 columns (Row 1: 3 cards, Row 2: 2 cards centered) -->
-              <div class="directorio-grid-mixed">
-                {{ collection:dir_unidades sort="title:asc" }}
-                <div class="directorio-card reveal">
-                  <h3 class="directorio-card-title">{{ title }}</h3>
-                  <div class="directorio-author-block">
-                    <img src="{{ imagen_director_unidades }}" alt="{{ nombre_director_unidades }}" class="directorio-avatar">
-                    <div class="directorio-author-text">
-                      <span class="directorio-label">
-                        {{ if nombre_director_unidades | contains('Esther') or nombre_director_unidades | contains('Silvia') }}DIRECTORA{{ else }}DIRECTOR{{ /if }}
-                      </span>
-                      <span class="directorio-name">{{ nombre_director_unidades }}</span>
-                    </div>
-                  </div>
-                  <div class="directorio-contact-list">
-                    {{ if link_ctvitae }}
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-id-card-o"></i>
-                      <a href="{{ link_ctvitae }}" target="_blank" class="directorio-action-link">Ver CTI Vitae</a>
-                    </div>
-                    {{ /if }}
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-envelope"></i>
-                      <a href="mailto:{{ correo }}">{{ correo }}</a>
-                    </div>
-                    <div class="directorio-contact-item">
-                      <i class="fa fa-clock-o"></i>
-                      <span><strong>Horario de atención:</strong> 8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 3:30 p.m.</span>
-                    </div>
-                  </div>
-                  <div class="directorio-office-section">
-                    <div class="directorio-contact-item directorio-office-text">
-                      <i class="fa fa-map-marker"></i>
-                      <span><strong>Ubicación:</strong> {{ direccion_oficina }}</span>
-                    </div>
-                    {{ if oficina }}
-                      {{ oficina }}
-                      <div class="directorio-office-map-container mt-2">
-                        <img src="{{ url }}" alt="Croquis de Oficina" class="directorio-office-map-img zoomable-map" data-zoom-src="{{ url }}" title="Click para ampliar croquis">
-                      </div>
-                      {{ /oficina }}
-                    {{ /if }}
-                  </div>
-                </div>
-                {{ /collection:dir_unidades }}
-              </div>
+        <!-- Hero Section -->
+        <div class="unidades-container">
+          <header class="unidades-hero">
+            <div class="unidades-hero-content">
+              <h1 class="unidades-hero-title">Unidades de Investigación</h1>
+              <p class="unidades-hero-subtitle">La Unidad de Investigación es el órgano académico que coordina, fomenta y conduce el desarrollo de la actividad investigativa institucional en las diferentes facultades. Su propósito es vincular el conocimiento científico con los desafíos regionales y nacionales, bajo la dirección del Vicerrectorado de Investigación.</p>
             </div>
-          </section>
-
-          <!-- Funciones Section -->
-          <div class="funciones-section unidades-container">
-            <div class="funciones-card reveal">
-              <h2 class="funciones-title">Funciones de la Unidad de Investigación</h2>
-              <div class="funciones-grid">
-                <div class="funciones-item">
-                  <span class="funciones-letter">a)</span>
-                  <span class="funciones-text">Conducir el proceso de investigación, desarrollo e innovación tecnológica en docentes, estudiantes y graduados universitarios adscritos a la facultad.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">b)</span>
-                  <span class="funciones-text">Generar mecanismos que incentiven la realización de investigaciones y su publicación en revistas indexadas por parte de docentes, investigadores y estudiantes.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">c)</span>
-                  <span class="funciones-text">Liderar los procesos de generación, revisión y medición de las líneas de investigación.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">d)</span>
-                  <span class="funciones-text">Vincular a la Unidad de Investigación con los organismos especializados de investigación a nivel universitario, nacional y/o extranjero, previa coordinación de la actividad.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">e)</span>
-                  <span class="funciones-text">Promover la publicación de los mejores trabajos de investigación.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">f)</span>
-                  <span class="funciones-text">Registrar los grupos de investigación y medir los indicadores de producción científica.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">g)</span>
-                  <span class="funciones-text">Coordinar, monitorizar y evaluar el archivo documental de investigaciones en el repositorio de la UNAMBA.</span>
-                </div>
-                <div class="funciones-item">
-                  <span class="funciones-letter">h)</span>
-                  <span class="funciones-text">Otras funciones que señale el Decano, Consejo de Facultad, el Reglamento del Instituto de Investigación y su propio Reglamento.</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </header>
         </div>
+
+        <!-- Directorio Section -->
+        <section class="directorio-section" aria-labelledby="directorio-title-main">
+          <div class="unidades-container">
+            <h2 class="directorio-title-main" id="directorio-title-main">Comité Directivo de Investigación</h2>
+            <p class="directorio-subtitle-main">Conoce a las autoridades encargadas de dirigir y promover la investigación en cada una de nuestras unidades académicas.</p>
+
+            <!-- Grid containing all 5 cards, flowing into 3 columns (Row 1: 3 cards, Row 2: 2 cards centered) -->
+            <div class="directorio-grid-mixed">
+              {{ collection:dir_unidades sort="title:asc" }}
+              <article class="directorio-card reveal">
+                <h3 class="directorio-card-title">{{ title }}</h3>
+                <div class="directorio-author-block">
+                  <img src="{{ imagen_director_unidades }}" alt="Fotografía de {{ nombre_director_unidades }}" class="directorio-avatar" loading="lazy">
+                  <div class="directorio-author-text">
+                    <span class="directorio-label">
+                      {{ if nombre_director_unidades | contains('Esther') or nombre_director_unidades | contains('Silvia') }}DIRECTORA{{ else }}DIRECTOR{{ /if }}
+                    </span>
+                    <span class="directorio-name">{{ nombre_director_unidades }}</span>
+                  </div>
+                </div>
+                <div class="directorio-contact-list">
+                  {{ if link_ctvitae }}
+                  <div class="directorio-contact-item">
+                    <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                    <a href="{{ link_ctvitae }}" target="_blank" rel="noopener noreferrer" class="directorio-action-link">Ver CTI Vitae</a>
+                  </div>
+                  {{ /if }}
+                  <div class="directorio-contact-item">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <a href="mailto:{{ correo }}">{{ correo }}</a>
+                  </div>
+                  <div class="directorio-contact-item">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span><strong>Horario de atención:</strong> 8:00 a.m. – 1:00 p.m. | 2:00 p.m. – 3:30 p.m.</span>
+                  </div>
+                </div>
+                <div class="directorio-office-section">
+                  <div class="directorio-contact-item directorio-office-text">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span><strong>Ubicación:</strong> {{ direccion_oficina }}</span>
+                  </div>
+                  {{ if oficina }}
+                  {{ oficina }}
+                  <div class="directorio-office-map-container">
+                    <button type="button" class="directorio-office-map-link zoomable-map" data-zoom-src="{{ url }}" aria-label="Ampliar croquis de ubicación de la oficina">
+                      <img src="{{ url }}" alt="Croquis de ubicación de la oficina de la unidad" class="directorio-office-map-img" loading="lazy">
+                    </button>
+                  </div>
+                  {{ /oficina }}
+                  {{ /if }}
+                </div>
+              </article>
+              {{ /collection:dir_unidades }}
+            </div>
+          </div>
+        </section>
+
+        <!-- Funciones Section -->
+        <section class="funciones-section unidades-container" aria-labelledby="funciones-title">
+          <div class="funciones-card reveal">
+            <h2 class="funciones-title" id="funciones-title">Funciones de la Unidad de Investigación</h2>
+            <ol class="funciones-grid">
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">a)</span>
+                <span class="funciones-text">Conducir el proceso de investigación, desarrollo e innovación tecnológica en docentes, estudiantes y graduados universitarios adscritos a la facultad.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">b)</span>
+                <span class="funciones-text">Generar mecanismos que incentiven la realización de investigaciones y su publicación en revistas indexadas por parte de docentes, investigadores y estudiantes.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">c)</span>
+                <span class="funciones-text">Liderar los procesos de generación, revisión y medición de las líneas de investigación.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">d)</span>
+                <span class="funciones-text">Vincular a la Unidad de Investigación con los organismos especializados de investigación a nivel universitario, nacional y/o extranjero, previa coordinación de la actividad.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">e)</span>
+                <span class="funciones-text">Promover la publicación de los mejores trabajos de investigación.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">f)</span>
+                <span class="funciones-text">Registrar los grupos de investigación y medir los indicadores de producción científica.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">g)</span>
+                <span class="funciones-text">Coordinar, monitorizar y evaluar el archivo documental de investigaciones en el repositorio de la UNAMBA.</span>
+              </li>
+              <li class="funciones-item">
+                <span class="funciones-letter" aria-hidden="true">h)</span>
+                <span class="funciones-text">Otras funciones que señale el Decano, Consejo de Facultad, el Reglamento del Instituto de Investigación y su propio Reglamento.</span>
+              </li>
+            </ol>
+          </div>
+        </section>
       mode: htmlmixed
     type: template
     enabled: true

@@ -16,7 +16,8 @@ link: 'https://drive.google.com/file/d/1So7yo13buhD1bAW9Aqvd--ls372g__T6/view?us
 correo_electronico: hrojas@unamba.edu.pe
 celular: '983762003'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1788207743
+updated_at: 1788380197
 fecha: '2023-05-15'
 nombre_grupo: 'Educación, Patrimonio Cultural y Sociedad a través de la Informática (EPCSI)'
+foto: 'https://ctivitae.concytec.gob.pe/appDirectorioCTI/UploadFotoPath.do?tipo=visualizar_archivo&id_investigador=36648&ruta=/documents/docInvestigadores/36648/imagenes/PASAPORTE_hesmeralda.jpg&content_type=image/jpeg'
 ---

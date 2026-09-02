@@ -28,7 +28,7 @@ block_types:
     horario_ce: '8:00 a.m. – 1:00 pm. y 2:00 pm. – 3:30 pm.'
     template:
       code: |-
-        <div class="dir-page-container">
+        <main class="dir-page-container">
           <!-- Hero Section -->
           <header class="dir-hero">
             <div class="dir-hero-content">
@@ -115,23 +115,23 @@ block_types:
                 
                 <div class="dir-profile-details">
                   <div class="dir-detail-item">
-                    <i class="fa fa-file-text-o dir-detail-icon"></i>
+                    <i class="fa fa-file-text-o dir-detail-icon" aria-hidden="true"></i>
                     <div class="dir-detail-content">
                       <span class="dir-detail-label">Resolución Rectoral</span>
                       <span class="dir-detail-value">R. Nº 6589-2023-UNAMBA</span>
                     </div>
                   </div>
                   <div class="dir-detail-item">
-                    <i class="fa fa-graduation-cap dir-detail-icon"></i>
+                    <i class="fa fa-graduation-cap dir-detail-icon" aria-hidden="true"></i>
                     <div class="dir-detail-content">
                       <span class="dir-detail-label">Investigador</span>
                       <span class="dir-detail-value">
-                        <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=99489" target="_blank">CTI Vitae (Concytec)</a>
+                        <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=99489" target="_blank" rel="noopener noreferrer">CTI Vitae (Concytec)</a>
                       </span>
                     </div>
                   </div>
                   <div class="dir-detail-item">
-                    <i class="fa fa-envelope-o dir-detail-icon"></i>
+                    <i class="fa fa-envelope-o dir-detail-icon" aria-hidden="true"></i>
                     <div class="dir-detail-content">
                       <span class="dir-detail-label">Correo Institucional</span>
                       <span class="dir-detail-value">bienesyservicios@unamba.edu.pe</span>
@@ -147,7 +147,7 @@ block_types:
               <!-- Info Card (Horario y Oficina) -->
               <div class="dir-info-card">
                 <div class="dir-info-card-header">
-                  <i class="fa fa-clock-o"></i>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
                   <span class="dir-info-card-title">Horario de Atención</span>
                 </div>
                 
@@ -166,12 +166,12 @@ block_types:
                 <div class="dir-info-location">
                   <p class="dir-location-header">Oficina</p>
                   <div class="dir-location-value">
-                    <i class="fa fa-map-marker"></i>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
                     <span>{{direccion_oficina}}</span>
                   </div>
                 </div>
                 
-                <img src="/assets/direcciones/produccion/produccion.jpg" alt="Oficina" class="dir-office-img">
+                <img src="/assets/direcciones/produccion/produccion.jpg" alt="Oficina de la Dirección de Producción de Bienes y Servicios" class="dir-office-img">
               </div>
             </div>
           </div>
@@ -188,22 +188,22 @@ block_types:
                 <!-- Centro 1: Idiomas -->
                 <div class="dir-unit-card">
                   <div class="dir-unit-photo-wrap">
-                    <img src="/assets/{{imagen_ci}}" alt="Jefe Centro de Idiomas" class="dir-unit-photo">
+                    <img src="/assets/{{imagen_ci}}" alt="{{nombre_ci}}, jefa del Centro de Idiomas" class="dir-unit-photo">
                   </div>
                   <div class="dir-unit-info">
                     <h3 class="dir-unit-title">Centro de Idiomas</h3>
                     <p class="dir-unit-desc">Encargado de promover la enseñanza y aprendizaje de idiomas extranjeros y lenguas originarias a la comunidad universitaria y sociedad.</p>
                     <div class="dir-unit-contact">
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                         <span>{{nombre_ci}}</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
                         <span>centrodeidiomas@unamba.edu.pe</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <span>{{direccion_oficina_ci}}</span>
                       </div>
                     </div>
@@ -213,22 +213,22 @@ block_types:
                 <!-- Centro 2: Informática -->
                 <div class="dir-unit-card">
                   <div class="dir-unit-photo-wrap">
-                    <img src="/assets/{{imagen_cii}}" alt="Jefe Centro de Informática" class="dir-unit-photo">
+                    <img src="/assets/{{imagen_cii}}" alt="{{nombre_cii}}, jefe del Centro de Informática e Internet" class="dir-unit-photo">
                   </div>
                   <div class="dir-unit-info">
                     <h3 class="dir-unit-title">Centro de Informática e Internet</h3>
                     <p class="dir-unit-desc">Responsable de brindar capacitación y certificación en el uso de tecnologías de la información, herramientas de computación y desarrollo de software.</p>
                     <div class="dir-unit-contact">
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                         <span>{{nombre_cii}}</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
                         <span>cii@unamba.edu.pe</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <span>{{direccion_oficina_cii}}</span>
                       </div>
                     </div>
@@ -238,22 +238,22 @@ block_types:
                 <!-- Centro 3: Centros Experimentales -->
                 <div class="dir-unit-card">
                   <div class="dir-unit-photo-wrap">
-                    <img src="/assets/{{imagen_ce}}" alt="Jefe Centros Experimentales" class="dir-unit-photo">
+                    <img src="/assets/{{imagen_ce}}" alt="{{nombre_ce}}, jefe de Centros Experimentales" class="dir-unit-photo">
                   </div>
                   <div class="dir-unit-info">
                     <h3 class="dir-unit-title">Centros Experimentales</h3>
                     <p class="dir-unit-desc">Encargado de la gestión, mantenimiento y desarrollo de los fundos y centros agropecuarios experimentales para la investigación y producción.</p>
                     <div class="dir-unit-contact">
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                         <span>{{nombre_ce}}</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
                         <span>centrosexperimentales@unamba.edu.pe</span>
                       </div>
                       <div class="dir-unit-contact-item">
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <span>{{direccion_oficina_ce}}</span>
                       </div>
                     </div>
@@ -279,7 +279,7 @@ block_types:
                   </div>
                   <h3 class="dir-service-title">Centro de Idiomas</h3>
                   <p class="dir-service-desc">Portal oficial con información sobre cursos de inglés, quechua, portugués, matrículas, notas y certificaciones.</p>
-                  <a href="https://idiomas.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                  <a href="https://idiomas.unamba.edu.pe/" target="_blank" rel="noopener noreferrer" class="dir-service-btn">Ver Página</a>
                 </div>
                 <!-- Centro 2 -->
                 <div class="dir-service-card">
@@ -288,7 +288,7 @@ block_types:
                   </div>
                   <h3 class="dir-service-title">Centro de Informática</h3>
                   <p class="dir-service-desc">Portal oficial de informática con detalles sobre cursos de ofimática, lenguajes de programación, diseño y base de datos.</p>
-                  <a href="https://centrodeinformatica.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                  <a href="https://centrodeinformatica.unamba.edu.pe/" target="_blank" rel="noopener noreferrer" class="dir-service-btn">Ver Página</a>
                 </div>
                 <!-- Centro 3 -->
                 <div class="dir-service-card">
@@ -306,7 +306,7 @@ block_types:
                   </div>
                   <h3 class="dir-service-title">Centro Pre Universitario</h3>
                   <p class="dir-service-desc">Portal oficial del CPU UNAMBA con información sobre ciclos de preparación académica para el ingreso universitario directo.</p>
-                  <a href="https://cpu.unamba.edu.pe/" target="_blank" class="dir-service-btn">Ver Página</a>
+                  <a href="https://cpu.unamba.edu.pe/" target="_blank" rel="noopener noreferrer" class="dir-service-btn">Ver Página</a>
                 </div>
               </div>
             </div>
@@ -321,7 +321,7 @@ block_types:
               </div>
               
               <div class="dir-news-slider-wrap">
-                <button class="dir-news-nav-btn prev" id="dir-news-prev">❮</button>
+                <button type="button" class="dir-news-nav-btn prev" id="dir-news-prev" aria-label="Ver noticias anteriores"><span aria-hidden="true">❮</span></button>
                 <div class="dir-news-container">
                   <div class="dir-news-track">
                     {{ collection:noticias }}
@@ -332,18 +332,18 @@ block_types:
                       </div>
                       <div class="dir-news-info">
                         <h4 class="dir-news-title">{{ title }}</h4>
-                        <a href="{{ link }}" target="_blank" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ link }}" target="_blank" rel="noopener noreferrer" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                       </div>
                     </div>
                     {{ /if }}
                     {{ /collection:noticias }}
                   </div>
                 </div>
-                <button class="dir-news-nav-btn next" id="dir-news-next">❯</button>
+                <button type="button" class="dir-news-nav-btn next" id="dir-news-next" aria-label="Ver noticias siguientes"><span aria-hidden="true">❯</span></button>
               </div>
             </div>
           </section>
-        </div>
+        </main>
       mode: htmlmixed
     type: Director_jefes_produccion_bienes_y_servicios
     enabled: true

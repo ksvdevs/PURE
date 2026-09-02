@@ -17,43 +17,44 @@ block_types:
     id: m7bwuhre
     template:
       code: |-
-        <div class="container mt-5">
+        <div class="container mt-5 nosotros-page-container">
+                    <h1 class="sr-only">{{ titulo_pagina }}</h1>
                     <div class="row">
                         <!-- Sidebar del miniíndice -->
-                        <div class="col-lg-3">
+                        <aside class="col-lg-3 col-12" aria-label="Secciones de Nosotros">
                             <div class="nosotros-sidebar">
                                 <h3 class="nosotros-sidebar-title">NOSOTROS</h3>
                                 <div class="nosotros-sidebar-list">
-                                    <button class="nosotros-sidebar-item active" data-target="sobre-vrin">
+                                    <button type="button" class="nosotros-sidebar-item active" data-target="sobre-vrin" aria-controls="sobre-vrin">
                                         <span class="nosotros-sidebar-item-label">
-                                            <i class="fa fa-university"></i> Quiénes somos
+                                            <i class="fa fa-university" aria-hidden="true"></i> Quiénes somos
                                         </span>
-                                        <i class="fa fa-chevron-down nosotros-chevron"></i>
+                                        <i class="fa fa-chevron-down nosotros-chevron" aria-hidden="true"></i>
                                     </button>
-                                    <button class="nosotros-sidebar-item" data-target="autoridades">
+                                    <button type="button" class="nosotros-sidebar-item" data-target="autoridades" aria-controls="autoridades">
                                         <span class="nosotros-sidebar-item-label">
-                                            <i class="fa fa-users"></i> Autoridades
+                                            <i class="fa fa-users" aria-hidden="true"></i> Autoridades
                                         </span>
-                                        <i class="fa fa-chevron-right nosotros-chevron"></i>
+                                        <i class="fa fa-chevron-right nosotros-chevron" aria-hidden="true"></i>
                                     </button>
-                                    <button class="nosotros-sidebar-item" data-target="dependencias">
+                                    <button type="button" class="nosotros-sidebar-item" data-target="dependencias" aria-controls="dependencias">
                                         <span class="nosotros-sidebar-item-label">
-                                            <i class="fa fa-th-large"></i> Direcciones del VRIN
+                                            <i class="fa fa-th-large" aria-hidden="true"></i> Direcciones del VRIN
                                         </span>
-                                        <i class="fa fa-chevron-right nosotros-chevron"></i>
+                                        <i class="fa fa-chevron-right nosotros-chevron" aria-hidden="true"></i>
                                     </button>
-                                    <button class="nosotros-sidebar-item" data-target="organigrama">
+                                    <button type="button" class="nosotros-sidebar-item" data-target="organigrama" aria-controls="organigrama">
                                         <span class="nosotros-sidebar-item-label">
-        								   <i class="fa fa-sitemap"></i>Organigrama
+                                            <i class="fa fa-sitemap" aria-hidden="true"></i> Organigrama
                                         </span>
-                                        <i class="fa fa-chevron-right nosotros-chevron"></i>
+                                        <i class="fa fa-chevron-right nosotros-chevron" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>
-                        </div>  
+                        </aside>
 
                         <!-- Contenido principal -->
-                        <div class="col-lg-9">
+                        <div class="col-lg-9 col-12">
                             <!-- Sección Sobre el VRIN -->
                             <section id="sobre-vrin" class="nosotros-content-section" style="display: block;">
                                 <!-- Header Card -->
@@ -64,7 +65,7 @@ block_types:
                                 
                                 <!-- Content Card -->
                                 <div class="nosotros-content-card">
-                                    <h3 class="nosotros-section-title">Presentación</h3>
+                                    <h3 class="dir-pane-title">Presentación</h3>
                                     <p>
                                         El Vicerrectorado de Investigación es un órgano ejecutivo desconcentrado, de apoyo encargado de implementar y materializar los lineamientos de investigación, buscando el estímulo a la ciencia, investigación y creación. El Vicerrector de Investigación, reemplaza al Rector o al Vicerrector Académico en caso de ausencia, licencia, impedimento temporal o vacancia al rector y al Rector en casos de ausencia o impedimento temporal de ambos.
                                     </p>
@@ -75,7 +76,7 @@ block_types:
                                         El VRIN fomenta la transferencia tecnológica, la innovación y la difusión de los resultados de las investigaciones, integrando a la universidad, la empresa y la sociedad.
                                     </p>
                                     
-                                    <h3 class="nosotros-section-title">Funciones del VRIN</h3>
+                                    <h3 class="dir-pane-title">Funciones del VRIN</h3>
                                     <div class="nosotros-function-list">
                                         <div class="nosotros-function-item">
                                             <div class="nosotros-function-circle">1</div>
@@ -126,14 +127,14 @@ block_types:
                                             <h4 class="vicerrector-name">{{ nombre }}</h4>
                                             <div class="vicerrector-details">
                                                 <a href="#" class="vicerrector-link font-weight-bold d-block">Resolución R. N° 9731-2021-UNFV</a>
-                                                <a href="{{ ficha_cti_vitae }}" target="_blank" class="vicerrector-link d-block">Ficha de Registro CTI Vitae</a>
+                                                <a href="{{ ficha_cti_vitae }}" target="_blank" rel="noopener" class="vicerrector-link d-block">Ficha de Registro CTI Vitae</a>
                                                 <a href="mailto:{{ correo }}" class="vicerrector-link d-block">{{ correo }}</a>
                                             </div>
                                             {{ /if }}
                                         {{ /collection:autoridades }}
                                     </div>
                                     
-                                    <hr class="my-5" style="border-top: 1px solid #e8eaf0;">
+                                    <hr class="my-5" style="border-top: 1px solid var(--border-soft);">
                                     
                                     <!-- Directores -->
                                     <h3 class="text-center mb-4">Autoridades por Dirección</h3>
@@ -151,7 +152,7 @@ block_types:
                                                     <div class="director-info">
                                                         <h5 class="director-name">{{ nombre }}</h5>
                                                         <a href="#" class="director-link font-weight-bold">Resolución R. N° 6569-2019-UNAMBA</a>
-                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" class="director-link">Ficha de Registro CTI Vitae</a>
+                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" rel="noopener" class="director-link">Ficha de Registro CTI Vitae</a>
                                                         <a href="mailto:{{ correo }}" class="director-link">{{ correo }}</a>
                                                     </div>
                                                 </div>
@@ -171,7 +172,7 @@ block_types:
                                                     <div class="director-info">
                                                         <h5 class="director-name">{{ nombre }}</h5>
                                                         <a href="#" class="director-link font-weight-bold">Resolución R. N° 6569-2019-UNAMBA</a>
-                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" class="director-link">Ficha de Registro CTI Vitae</a>
+                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" rel="noopener" class="director-link">Ficha de Registro CTI Vitae</a>
                                                         <a href="mailto:{{ correo }}" class="director-link">{{ correo }}</a>
                                                     </div>
                                                 </div>
@@ -191,7 +192,7 @@ block_types:
                                                     <div class="director-info">
                                                         <h5 class="director-name">{{ nombre }}</h5>
                                                         <a href="#" class="director-link font-weight-bold">Resolución R. N° 6569-2019-UNAMBA</a>
-                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" class="director-link">Ficha de Registro CTI Vitae</a>
+                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" rel="noopener" class="director-link">Ficha de Registro CTI Vitae</a>
                                                         <a href="mailto:{{ correo }}" class="director-link">{{ correo }}</a>
                                                     </div>
                                                 </div>
@@ -211,7 +212,7 @@ block_types:
                                                     <div class="director-info">
                                                         <h5 class="director-name">{{ nombre }}</h5>
                                                         <a href="#" class="director-link font-weight-bold">Resolución R. N° 6569-2019-UNAMBA</a>
-                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" class="director-link">Ficha de Registro CTI Vitae</a>
+                                                        <a href="{{ ficha_cti_vitae }}" target="_blank" rel="noopener" class="director-link">Ficha de Registro CTI Vitae</a>
                                                         <a href="mailto:{{ correo }}" class="director-link">{{ correo }}</a>
                                                     </div>
                                                 </div>
@@ -231,11 +232,11 @@ block_types:
                                 </div>
                                 
                                 <!-- Tab Buttons -->
-                                <div class="dir-tabs">
-                                    <button class="dir-tab-btn active" data-target="#pane-ditt">Dirección de Innovación y Transferencia Tecnológica</button>
-                                    <button class="dir-tab-btn" data-target="#pane-die">Dirección de Incubadora de Empresas</button>
-                                    <button class="dir-tab-btn" data-target="#pane-diin">Dirección de Institutos de Investigación</button>
-                                    <button class="dir-tab-btn" data-target="#pane-dpbs">Dirección de Producción de Bienes y Servicios</button>
+                                <div class="dir-tabs" role="tablist" aria-label="Direcciones del VRIN">
+                                    <button type="button" role="tab" aria-selected="true" aria-controls="pane-ditt" class="dir-tab-btn active" data-target="#pane-ditt">Dirección de Innovación y Transferencia Tecnológica</button>
+                                    <button type="button" role="tab" aria-selected="false" aria-controls="pane-die" class="dir-tab-btn" data-target="#pane-die">Dirección de Incubadora de Empresas</button>
+                                    <button type="button" role="tab" aria-selected="false" aria-controls="pane-diin" class="dir-tab-btn" data-target="#pane-diin">Dirección de Institutos de Investigación</button>
+                                    <button type="button" role="tab" aria-selected="false" aria-controls="pane-dpbs" class="dir-tab-btn" data-target="#pane-dpbs">Dirección de Producción de Bienes y Servicios</button>
                                 </div>
                                 
                                 <!-- Content Card -->
@@ -258,7 +259,7 @@ block_types:
                                         </ol>
                                         
                                         <div class="text-center mt-5">
-                                            <a href="/innovacion" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1"></i></a>
+                                            <a href="/innovacion" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                     
@@ -280,7 +281,7 @@ block_types:
                                         </ol>
                                         
                                         <div class="text-center mt-5">
-                                            <a href="/incubadora" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1"></i></a>
+                                            <a href="/incubadora" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                     
@@ -302,7 +303,7 @@ block_types:
                                         </ol>
                                         
                                         <div class="text-center mt-5">
-                                            <a href="/institutos" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1"></i></a>
+                                            <a href="/institutos" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                     
@@ -324,7 +325,7 @@ block_types:
                                         </ol>
                                         
                                         <div class="text-center mt-5">
-                                            <a href="/produccion" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1"></i></a>
+                                            <a href="/produccion" class="dir-link-btn">Ir a la página de la dirección <i class="fa fa-chevron-right ml-1" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -340,19 +341,18 @@ block_types:
                                 
                                 <!-- Content Card -->
                                 <div class="nosotros-content-card">
-                                    <h3 class="nosotros-section-title">Estructura Organizacional</h3>
+                                    <h3 class="dir-pane-title">Estructura Organizacional</h3>
                                     <p>
                                         El Vicerrectorado de Investigación cuenta con una estructura organizacional diseñada para gestionar eficientemente las actividades de investigación, innovación y transferencia tecnológica de la universidad. El organigrama muestra las cuatro direcciones principales que conforman el VRIN, así como las unidades de apoyo que contribuyen al logro de los objetivos institucionales.
                                     </p>
                                     <div class="organigrama-container text-center mt-4">
-                                        <img src="/assets/organigramas.png" alt="Organigrama del VRIN" class="img-fluid organigrama-img">
+                                        <img src="/assets/organigramas.png" alt="Organigrama del Vicerrectorado de Investigación de la UNAMBA" class="img-fluid organigrama-img">
                                     </div>
                                 </div>
                             </section>
                         </div>
                     </div>
-                </div>   
-        <script> </script>
+                </div>
       mode: htmlmixed
     type: template
     enabled: true

@@ -75,8 +75,7 @@ block_types:
                         <!-- Filtro por Año -->
                         <div class="filter-group">
                             <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterYear" type="button">
-                                <i class="material-icons" aria-hidden="true">calendar_today</i>
-                                <span>Año</span>
+                                <span>AÑO</span>
                                 <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterYear">
@@ -111,11 +110,55 @@ block_types:
                         <!-- Filtro por Líneas de Investigación -->
                         <div class="filter-group">
                             <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterLineas" type="button">
-                                <i class="material-icons" aria-hidden="true">lightbulb</i>
-                                <span>Líneas de Investigación</span>
+                                <span>LÍNEAS DE INVESTIGACIÓN</span>
                                 <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterLineas">
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="1">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Caracterización, desarrollo de procesos e innovación en la agroindustria</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="2">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Gestión empresarial</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="3">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Gestión pública</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="4">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Minería, procesamiento de minerales</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="5">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Geología, geotecnia y medio ambiente</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="6">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Educación inicial, desarrollo infantil y gestión pedagógica</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="7">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Interculturalidad y cosmovisión andina</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="8">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería de la construcción</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="9">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería de materiales</span>
+                                </label>
                                 <label class="filter-checkbox">
                                     <input type="checkbox" name="filter-linea" value="10">
                                     <span class="checkmark"></span>
@@ -127,19 +170,49 @@ block_types:
                                     <span class="filter-label">Ingeniería informática, industria y sociedad</span>
                                 </label>
                                 <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="12">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería de software e innovación tecnológica</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="13">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Modelos de gestión y calidad educativa</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="14">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Agua, agricultura, silvicultura y pecuaria sostenible</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="15">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Biotecnología, fitomejoramiento y conservación de la biodiversidad</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="16">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Sistema político y gobernabilidad</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="17">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Teoría política y gobernabilidad</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-linea" value="18">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Aplicación de la matemática, estadística, física, química y biología</span>
+                                </label>
+                                <label class="filter-checkbox">
                                     <input type="checkbox" name="filter-linea" value="19">
                                     <span class="checkmark"></span>
                                     <span class="filter-label">Desarrollo humano y calidad de vida</span>
                                 </label>
                                 <label class="filter-checkbox">
-                                    <input type="checkbox" name="filter-linea" value="7">
+                                    <input type="checkbox" name="filter-linea" value="20">
                                     <span class="checkmark"></span>
-                                    <span class="filter-label">Interculturalidad y cosmovisión andina</span>
-                                </label>
-                                <label class="filter-checkbox">
-                                    <input type="checkbox" name="filter-linea" value="4">
-                                    <span class="checkmark"></span>
-                                    <span class="filter-label">Minería, procesamiento de minerales</span>
+                                    <span class="filter-label">Sociedad e identidad nacional, territorios y cambios climáticos</span>
                                 </label>
                             </div>
                         </div>
@@ -147,20 +220,24 @@ block_types:
                         <!-- Filtro por Carrera -->
                         <div class="filter-group">
                             <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterCarrera" type="button">
-                                <i class="material-icons" aria-hidden="true">school</i>
-                                <span>Carrera</span>
+                                <span>CARRERA PROFESIONAL</span>
                                 <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterCarrera">
                                 <label class="filter-checkbox">
-                                    <input type="checkbox" name="filter-carrera" value="9">
+                                    <input type="checkbox" name="filter-carrera" value="1">
                                     <span class="checkmark"></span>
-                                    <span class="filter-label">Medicina Veterinaria y Zootecnia</span>
+                                    <span class="filter-label">Administración</span>
                                 </label>
                                 <label class="filter-checkbox">
-                                    <input type="checkbox" name="filter-carrera" value="6">
+                                    <input type="checkbox" name="filter-carrera" value="2">
                                     <span class="checkmark"></span>
-                                    <span class="filter-label">Ingeniería Informática y Sistemas</span>
+                                    <span class="filter-label">Educación Inicial Intercultural Bilingüe</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="3">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ciencia Política y Gobernabilidad</span>
                                 </label>
                                 <label class="filter-checkbox">
                                     <input type="checkbox" name="filter-carrera" value="4">
@@ -168,9 +245,44 @@ block_types:
                                     <span class="filter-label">Ingeniería Agroindustrial</span>
                                 </label>
                                 <label class="filter-checkbox">
-                                    <input type="checkbox" name="filter-carrera" value="2">
+                                    <input type="checkbox" name="filter-carrera" value="5">
                                     <span class="checkmark"></span>
-                                    <span class="filter-label">Educación Inicial Intercultural Bilingüe</span>
+                                    <span class="filter-label">Ingeniería de Minas</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="6">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería Informática y Sistemas</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="7">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería Civil</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="8">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Ingeniería Agroecológica y Desarrollo Rural</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="9">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Medicina Veterinaria y Zootecnia</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="10">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Departamento Académico de Ciencias Básicas</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="11">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Departamento Académico de Humanidades</span>
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="filter-carrera" value="12">
+                                    <span class="checkmark"></span>
+                                    <span class="filter-label">Escuela de Posgrado</span>
                                 </label>
                             </div>
                         </div>
@@ -179,6 +291,7 @@ block_types:
 
                 <!-- Main Content Area -->
                 <main class="col-lg-9 col-md-8 col-12">
+                    <h2 class="sr-only">Listado de grupos de investigación</h2>
                     <!-- Grid of Cards -->
                     <div class="row" id="gruposGrid">
                         {{collection:grupos_inv}}
@@ -197,6 +310,7 @@ block_types:
                              data-objetivos="{{objetivos | strip_tags}}"
                              tabindex="0"
                              role="button"
+                             aria-haspopup="dialog"
                              aria-label="Ver detalles de {{nombre_grupo ?? title}}">
                             <article class="grupo-card">
                                 <span class="grupo-card__status">

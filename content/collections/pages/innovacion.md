@@ -103,23 +103,23 @@ block_types:
               
               <div class="dir-profile-details">
                 <div class="dir-detail-item">
-                  <i class="fa fa-file-text-o dir-detail-icon"></i>
+                  <i class="fa fa-file-text-o dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Resolución Rectoral</span>
                     <span class="dir-detail-value">R. Nº 6589-2023-UNAMBA</span>
                   </div>
                 </div>
                 <div class="dir-detail-item">
-                  <i class="fa fa-graduation-cap dir-detail-icon"></i>
+                  <i class="fa fa-graduation-cap dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Investigador</span>
                     <span class="dir-detail-value">
-                      <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=19657" target="_blank">CTI Vitae (Concytec)</a>
+                      <a href="https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=19657" target="_blank" rel="noopener noreferrer">CTI Vitae (Concytec)</a>
                     </span>
                   </div>
                 </div>
                 <div class="dir-detail-item">
-                  <i class="fa fa-envelope-o dir-detail-icon"></i>
+                  <i class="fa fa-envelope-o dir-detail-icon" aria-hidden="true"></i>
                   <div class="dir-detail-content">
                     <span class="dir-detail-label">Correo Institucional</span>
                     <span class="dir-detail-value">{{correo}}</span>
@@ -135,7 +135,7 @@ block_types:
             <!-- Info Card (Horario y Oficina) -->
             <div class="dir-info-card">
               <div class="dir-info-card-header">
-                <i class="fa fa-clock-o"></i>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
                 <span class="dir-info-card-title">Horario de Atención</span>
               </div>
               
@@ -154,12 +154,12 @@ block_types:
               <div class="dir-info-location">
                 <p class="dir-location-header">Oficina</p>
                 <div class="dir-location-value">
-                  <i class="fa fa-map-marker"></i>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
                   <span>{{direccion_oficina}}</span>
                 </div>
               </div>
               
-              <img src="/assets/direcciones/innovacion/innovacion.jpg" alt="Oficina" class="dir-office-img">
+              <img src="/assets/direcciones/innovacion/innovacion.jpg" alt="Oficina de la Dirección de Innovación y Transferencia Tecnológica" class="dir-office-img" loading="lazy">
             </div>
           </div>
         </div>
@@ -174,16 +174,16 @@ block_types:
             
             <div class="dir-gallery-slider">
               <div class="dir-gallery-slides">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2188.jpg" alt="Slide 1">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2052.jpg" alt="Slide 2">
-                <img src="/assets/fotos_vrin_redimensionado/mir_2220.jpg" alt="Slide 3">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2188.jpg" alt="Actividades de la Dirección de Innovación y Transferencia Tecnológica en sus instalaciones (foto 1)">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2052.jpg" alt="Actividades de la Dirección de Innovación y Transferencia Tecnológica en sus instalaciones (foto 2)">
+                <img src="/assets/fotos_vrin_redimensionado/mir_2220.jpg" alt="Actividades de la Dirección de Innovación y Transferencia Tecnológica en sus instalaciones (foto 3)">
               </div>
-              <button class="dir-gallery-btn prev">❮</button>
-              <button class="dir-gallery-btn next">❯</button>
+              <button class="dir-gallery-btn prev" type="button" aria-label="Foto anterior">❮</button>
+              <button class="dir-gallery-btn next" type="button" aria-label="Foto siguiente">❯</button>
               <div class="dir-gallery-indicators">
-                <button class="dir-gallery-dot active"></button>
-                <button class="dir-gallery-dot"></button>
-                <button class="dir-gallery-dot"></button>
+                <button class="dir-gallery-dot active" type="button" aria-label="Ir a la foto 1"></button>
+                <button class="dir-gallery-dot" type="button" aria-label="Ir a la foto 2"></button>
+                <button class="dir-gallery-dot" type="button" aria-label="Ir a la foto 3"></button>
               </div>
             </div>
           </div>
@@ -201,22 +201,22 @@ block_types:
               <!-- Unidad 1 -->
               <div class="dir-unit-card">
                 <div class="dir-unit-photo-wrap">
-                  <img src="/assets/doc_renacyt/yonatan_mamani_coaquira.png" alt="Unidad de Repositorio Institucional" class="dir-unit-photo">
+                  <img src="/assets/doc_renacyt/yonatan_mamani_coaquira.png" alt="Mag. Yonathan Mamani Coaquira, responsable de la Unidad de Repositorio Institucional" class="dir-unit-photo">
                 </div>
                 <div class="dir-unit-info">
                   <h3 class="dir-unit-title">Unidad de Repositorio Institucional</h3>
                   <p class="dir-unit-desc">Nos enfocamos en impulsar la gestión y preservación de los recursos académicos y científicos producidos en la universidad, garantizando el acceso abierto y la visibilidad global.</p>
                   <div class="dir-unit-contact">
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-user"></i>
+                      <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Mag. Yonathan Mamani Coaquira</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-envelope"></i>
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
                       <span>repositorio@unamba.edu.pe</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-map-marker"></i>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
                       <span>Biblioteca General, 2° Piso</span>
                     </div>
                   </div>
@@ -232,15 +232,15 @@ block_types:
                   <p class="dir-unit-desc">Nos enfocamos en promover el registro de patentes y protección de propiedad intelectual de los investigadores; gestionar la protección intelectual y registro de patentes que se originen como resultado de las investigaciones.</p>
                   <div class="dir-unit-contact">
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-user"></i>
+                      <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Ing. Rommel Sotomayor Felix</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-envelope"></i>
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
                       <span>patentes@unamba.edu.pe</span>
                     </div>
                     <div class="dir-unit-contact-item">
-                      <i class="fa fa-map-marker"></i>
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
                       <span>Biblioteca General, 2° Piso</span>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ block_types:
                 </div>
                 <h3 class="dir-service-title">Turnitin</h3>
                 <p class="dir-service-desc">Herramienta antiplagio de referencia. Permite revisar trabajos académicos y detectar coincidencias para garantizar la originalidad de la investigación.</p>
-                <a href="https://www.turnitin.com/" target="_blank" class="dir-service-btn">Ver Página</a>
+                <a href="https://www.turnitin.com/" target="_blank" rel="noopener noreferrer" class="dir-service-btn">Ver Página</a>
               </div>
               <!-- Servicio 2: My Loft -->
               <div class="dir-service-card">
@@ -275,7 +275,7 @@ block_types:
                 </div>
                 <h3 class="dir-service-title">My Loft</h3>
                 <p class="dir-service-desc">Tu biblioteca personal en la nube. Permite acceder de forma remota a las bases de datos bibliográficas suscritas por la UNAMBA.</p>
-                <a href="https://app.myloft.xyz/user/login" target="_blank" class="dir-service-btn">Ver Página</a>
+                <a href="https://app.myloft.xyz/user/login" target="_blank" rel="noopener noreferrer" class="dir-service-btn">Ver Página</a>
               </div>
               <!-- Servicio 3: Fondo Editorial -->
               <div class="dir-service-card">
@@ -284,7 +284,7 @@ block_types:
                 </div>
                 <h3 class="dir-service-title">Fondo Editorial</h3>
                 <p class="dir-service-desc">Difusión, distribución y comunicación de las publicaciones oficiales (revistas, libros) desarrolladas por la comunidad académica de la UNAMBA.</p>
-                <a href="/fondo-editorials" target="_blank" class="dir-service-btn">Ver Página</a>
+                <a href="/fondo-editorials" class="dir-service-btn">Ver Página</a>
               </div>
             </div>
           </div>
@@ -299,7 +299,7 @@ block_types:
             </div>
             
             <div class="dir-news-slider-wrap">
-              <button class="dir-news-nav-btn prev" id="dir-news-prev">❮</button>
+              <button class="dir-news-nav-btn prev" id="dir-news-prev" type="button" aria-label="Publicaciones anteriores">❮</button>
               <div class="dir-news-container">
                 <div class="dir-news-track">
                   {{ collection:noticias }}
@@ -310,14 +310,14 @@ block_types:
                     </div>
                     <div class="dir-news-info">
                       <h4 class="dir-news-title">{{ title }}</h4>
-                      <a href="{{ link }}" target="_blank" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right"></i></a>
+                      <a href="{{ link }}" target="_blank" rel="noopener noreferrer" class="dir-news-btn">Ver Publicación <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                   </div>
                   {{ /if }}
                   {{ /collection:noticias }}
                 </div>
               </div>
-              <button class="dir-news-nav-btn next" id="dir-news-next">❯</button>
+              <button class="dir-news-nav-btn next" id="dir-news-next" type="button" aria-label="Publicaciones siguientes">❯</button>
             </div>
           </div>
         </section>
