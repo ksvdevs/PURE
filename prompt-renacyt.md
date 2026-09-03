@@ -9,7 +9,7 @@ public/vrinstyle/js/vrin.js
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/DOCENTES-RENACYTT.png
+public/assets/vrin/rena.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.

@@ -794,6 +794,23 @@ if (document.readyState === 'loading') {
     }
   }, 150);
 
+  // Navegación con teclado según el patrón ARIA de pestañas (flechas, Inicio y Fin)
+  var tabsArray = Array.from(tabButtons);
+  tabButtons.forEach(function (btn, index) {
+    btn.addEventListener('keydown', function (e) {
+      var nextIndex = null;
+      if (e.key === 'ArrowRight') nextIndex = (index + 1) % tabsArray.length;
+      else if (e.key === 'ArrowLeft') nextIndex = (index - 1 + tabsArray.length) % tabsArray.length;
+      else if (e.key === 'Home') nextIndex = 0;
+      else if (e.key === 'End') nextIndex = tabsArray.length - 1;
+      if (nextIndex !== null) {
+        e.preventDefault();
+        tabsArray[nextIndex].focus();
+        tabsArray[nextIndex].click();
+      }
+    });
+  });
+
   /**
    * Toggles the accordion row for lines of investigation, closing other rows.
    * Uses scrollHeight calculation for smooth, dynamic CSS height transitions.
@@ -1516,6 +1533,8 @@ if (document.readyState === 'loading') {
     const paginationRow = document.getElementById('paginationRow');
     const sidebar = document.querySelector('.filters-sidebar');
     const exportBtn = document.getElementById('btnExportarLista');
+    const resetBtn = document.getElementById('btnResetFilters');
+    const resultsCount = document.getElementById('gruposResultsCount');
 
     const modal = document.getElementById('grupoModal');
     if (modal && modal.parentElement !== document.body) {
@@ -1660,6 +1679,26 @@ if (document.readyState === 'loading') {
       if (el) el.innerHTML = html;
     }
 
+    // Avatar: foto del coordinador si existe, si no iniciales (con fallback si la imagen falla)
+    function setAvatar(el, name, fotoUrl) {
+      if (!el) return;
+      const url = String(fotoUrl || '').trim();
+      if (!url) {
+        el.textContent = getInitials(name);
+        return;
+      }
+      el.textContent = '';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.addEventListener('error', function onError() {
+        img.removeEventListener('error', onError);
+        el.textContent = getInitials(name);
+      });
+      el.appendChild(img);
+    }
+
     /* ----------------------------------------------------------------------
        Inicialización de cada tarjeta
        ---------------------------------------------------------------------- */
@@ -1672,6 +1711,7 @@ if (document.readyState === 'loading') {
       const lineaKey = (card.getAttribute('data-linea') || '').trim();
       const rawFecha = card.getAttribute('data-fecha');
       const rawLink = card.getAttribute('data-link');
+      const foto = card.getAttribute('data-foto') || '';
 
       const dateInfo = formatDate(rawFecha, meta.date);
       const year = dateInfo.year || meta.year || new Date().getFullYear().toString();
@@ -1689,7 +1729,7 @@ if (document.readyState === 'loading') {
 
       // Avatar, nombre y correo del coordinador
       const avatarEl = card.querySelector('.coordinator-avatar');
-      if (avatarEl) avatarEl.textContent = getInitials(jefe);
+      setAvatar(avatarEl, jefe, foto);
       const coordNameEl = card.querySelector('.coordinator-name');
       if (coordNameEl) coordNameEl.textContent = jefe || 'Sin coordinador';
       const emailEl = card.querySelector('.coordinator-email');
@@ -1781,11 +1821,24 @@ if (document.readyState === 'loading') {
       return yearMatch && lineaMatch && carreraMatch && searchMatch;
     }
 
+    // Actualiza el contador "Grupos Registrados — N registros" y el estado del botón Reestablecer
+    function updateResultsSummary(state, query) {
+      if (resultsCount) {
+        resultsCount.textContent = filtered.length + (filtered.length === 1 ? ' registro' : ' registros');
+      }
+      if (resetBtn) {
+        const hasActiveFilters = state.year !== 'all' || state.lineas.length > 0 || state.carreras.length > 0 || query !== '';
+        resetBtn.disabled = !hasActiveFilters;
+      }
+    }
+
     function filterCards() {
       const state = getFilterState();
       const query = normalizeText(searchField ? searchField.value : '');
 
       filtered = cards.filter(function (card) { return matchesFilters(card, state, query); });
+
+      updateResultsSummary(state, query);
 
       if (filtered.length === 0) {
         if (noResults) noResults.classList.remove('d-none');
@@ -1873,6 +1926,53 @@ if (document.readyState === 'loading') {
           currentPage = 1;
           filterCards();
         }
+      });
+    }
+
+    /* ----------------------------------------------------------------------
+       "Reestablecer": limpia año, líneas, carreras y búsqueda
+       ---------------------------------------------------------------------- */
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        document.querySelectorAll('input[name="filter-linea"]:checked, input[name="filter-carrera"]:checked')
+          .forEach(function (input) { input.checked = false; });
+        const allYears = document.querySelector('input[name="filter-year"][value="all"]');
+        if (allYears) allYears.checked = true;
+        if (searchField) searchField.value = '';
+        currentPage = 1;
+        filterCards();
+      });
+    }
+
+    /* ----------------------------------------------------------------------
+       Contadores "(N)" de cada opción de filtro, calculados desde los datos
+       ---------------------------------------------------------------------- */
+    function appendFilterCount(input, count) {
+      const option = input.closest('.filter-checkbox');
+      if (!option) return;
+      const badge = document.createElement('span');
+      badge.className = 'filter-count';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.textContent = '(' + count + ')';
+      option.appendChild(badge);
+    }
+
+    function initFilterCounts() {
+      document.querySelectorAll('.filters-sidebar input[name="filter-year"]').forEach(function (input) {
+        const count = input.value === 'all'
+          ? cards.length
+          : cards.filter(function (c) { return c.getAttribute('data-year') === input.value; }).length;
+        appendFilterCount(input, count);
+      });
+
+      ['filter-linea', 'filter-carrera'].forEach(function (name) {
+        const attr = name === 'filter-linea' ? 'data-linea' : 'data-carrera';
+        document.querySelectorAll('.filters-sidebar input[name="' + name + '"]').forEach(function (input) {
+          const count = cards.filter(function (c) {
+            return splitKeys(c.getAttribute(attr)).includes(input.value);
+          }).length;
+          appendFilterCount(input, count);
+        });
       });
     }
 
@@ -1995,6 +2095,7 @@ if (document.readyState === 'loading') {
       const objetivos = (card.getAttribute('data-objetivos-list') || '').split('|').filter(Boolean);
       const estadoLabel = card.getAttribute('data-estado-label') || 'Activo';
       const email = card.getAttribute('data-email') || '';
+      const foto = card.getAttribute('data-foto') || '';
 
       const carreraLabel = getMapLabel(carreraMap, carreraKey) || '—';
       const lineaLabel = getMapLabel(lineaMap, lineaKey.split(',')[0]) || '—';
@@ -2004,7 +2105,7 @@ if (document.readyState === 'loading') {
       if (modalEstado) modalEstado.classList.toggle('is-inactive', estadoLabel === 'Inactivo');
       setText(modalCarrera, carreraLabel);
       setText(modalLinea, lineaLabel !== '—' ? 'Línea: ' + lineaLabel : '—');
-      setText(modalAvatar, getInitials(jefe));
+      setAvatar(modalAvatar, jefe, foto);
       setText(modalCoordinator, jefe || 'Sin coordinador');
       setText(modalEmail, email);
       setText(modalFecha, (dateText && dateText !== '—') ? 'Fecha de Resolución: ' + dateText : '—');
@@ -2116,6 +2217,7 @@ if (document.readyState === 'loading') {
        ---------------------------------------------------------------------- */
     initFilterVerMas();
     cards.forEach(initCard);
+    initFilterCounts();
     filterCards();
   });
 })();
@@ -2140,15 +2242,28 @@ if (document.readyState === 'loading') {
       'II', 'II', 'II', 'IV', 'V', 'VI', 'VII', 'IV', 'V', 'I'
     ];
 
+    // Colores muestreados de la imagen de referencia (pie + leyenda comparten paleta)
     const levelDetails = {
-      'I': { label: 'Nivel I', color: '#8d5b4c' },
-      'II': { label: 'Nivel II', color: '#7b2cbf' },
-      'III': { label: 'Nivel III', color: '#caa47e' },
-      'IV': { label: 'Nivel IV', color: '#9e7a56' },
-      'V': { label: 'Nivel V', color: '#2e2e2e' },
-      'VI': { label: 'Nivel VI', color: '#0f3073' },
-      'VII': { label: 'Nivel VII', color: '#2980b9' },
-      'ID': { label: 'Investigador Distinguido', color: '#94a3b8' }
+      'I': { label: 'Nivel I', color: '#7c3f3f' },
+      'II': { label: 'Nivel II', color: '#c0c0c0' },
+      'III': { label: 'Nivel III', color: '#d4b896' },
+      'IV': { label: 'Nivel IV', color: '#c8b088' },
+      'V': { label: 'Nivel V', color: '#a67c52' },
+      'VI': { label: 'Nivel VI', color: '#2c2c2c' },
+      'VII': { label: 'Nivel VII', color: '#1e7a9e' },
+      'ID': { label: 'Investigador Distinguido', color: '#8a93a3' }
+    };
+
+    // Colores de las píldoras de nivel en la tabla (paleta propia de la referencia)
+    const badgeDetails = {
+      'I':   { text: '#8b4040', bg: '#f5e9e9' },
+      'II':  { text: '#a0522d', bg: '#fdf0e6' },
+      'III': { text: '#8b6914', bg: '#fef3e2' },
+      'IV':  { text: '#a67c52', bg: '#f9efe4' },
+      'V':   { text: '#1a7a4a', bg: '#e8f5ee' },
+      'VI':  { text: '#3a3a3a', bg: '#ececec' },
+      'VII': { text: '#1e7a9e', bg: '#e6f2f7' },
+      'ID':  { text: '#6b7280', bg: '#f1f2f4' }
     };
 
     const rows = Array.from(tableBody.querySelectorAll('.docente-row'));
@@ -2188,10 +2303,9 @@ if (document.readyState === 'loading') {
       const badgeSpan = row.querySelector('.badge-nivel');
       if (badgeSpan) {
         badgeSpan.textContent = level;
-        const lvlColor = levelDetails[level] ? levelDetails[level].color : levelDetails['ID'].color;
-        // Píldora de fondo tenue con numeral de color (estilo del mockup)
-        badgeSpan.style.backgroundColor = lvlColor + '1F';
-        badgeSpan.style.color = lvlColor;
+        const badge = badgeDetails[level] || badgeDetails['ID'];
+        badgeSpan.style.backgroundColor = badge.bg;
+        badgeSpan.style.color = badge.text;
       }
 
       const estadoSpan = row.querySelector('.badge-estado');
@@ -2248,7 +2362,6 @@ if (document.readyState === 'loading') {
 
     // Elementos de UI
     const searchInput = document.getElementById('renacytSearch');
-    const topSearchInput = document.getElementById('renacytTopSearch');
     const filterCarrera = document.getElementById('filterCarrera');
     const filterEstado = document.getElementById('filterEstado');
     const paginationControls = document.getElementById('renacytPaginationControls');
@@ -2256,7 +2369,6 @@ if (document.readyState === 'loading') {
     const noResults = document.getElementById('renacytNoResults');
     const paginationRow = document.getElementById('renacytPaginationRow');
     const btnExport = document.getElementById('btnExport');
-    const btnExportTop = document.getElementById('btnExportTop');
     const tableWrapper = tableBody ? tableBody.closest('.table-responsive-wrapper') : null;
 
     function filterAndPaginate() {
@@ -2322,7 +2434,7 @@ if (document.readyState === 'loading') {
 
     function updatePaginationControls(totalPages, totalItems, fromItem, toItem) {
       if (pageInfo) {
-        pageInfo.innerHTML = `Mostrando <strong>${fromItem}</strong> al <strong>${toItem}</strong> de <strong>${totalItems}</strong> docentes`;
+        pageInfo.innerHTML = `Página <strong>${currentPage}</strong> de <strong>${totalPages}</strong>`;
       }
       if (!paginationControls) return;
       paginationControls.innerHTML = '';
@@ -2333,61 +2445,50 @@ if (document.readyState === 'loading') {
       }
       if (paginationRow) paginationRow.classList.remove('d-none');
 
-      // Anterior (<)
-      const prevLi = document.createElement('li');
-      if (currentPage === 1) {
-        prevLi.className = 'disabled';
-        prevLi.innerHTML = `<span><i class="fa fa-angle-left"></i></span>`;
-      } else {
-        const prevA = document.createElement('a');
-        prevA.innerHTML = `<i class="fa fa-angle-left"></i>`;
-        prevA.addEventListener('click', function (e) {
-          e.preventDefault();
-          currentPage--;
-          window.scrollTo({ top: tableBody.offsetTop - 120, behavior: 'smooth' });
-          filterAndPaginate();
-        });
-        prevLi.appendChild(prevA);
-      }
-      paginationControls.appendChild(prevLi);
+      // Helper único para generar ítems de paginación (anterior / número / siguiente)
+      function createNavItem(content, targetPage, options) {
+        const opts = options || {};
+        const li = document.createElement('li');
 
-      // Números (1, 2, 3...)
-      for (let i = 1; i <= totalPages; i++) {
-        const pageLi = document.createElement('li');
-        if (i === currentPage) {
-          pageLi.className = 'active';
-          pageLi.innerHTML = `<span>${i}</span>`;
+        if (opts.disabled) {
+          li.className = 'disabled';
+          li.innerHTML = `<span${opts.ariaLabel ? ` aria-label="${opts.ariaLabel}"` : ''}>${content}</span>`;
         } else {
-          const pageA = document.createElement('a');
-          pageA.textContent = i;
-          pageA.addEventListener('click', function (e) {
+          const a = document.createElement('a');
+          a.href = '#';
+          if (opts.ariaLabel) a.setAttribute('aria-label', opts.ariaLabel);
+          if (opts.current) {
+            li.className = 'active';
+            a.setAttribute('aria-current', 'page');
+          }
+          a.innerHTML = content;
+          a.addEventListener('click', function (e) {
             e.preventDefault();
-            currentPage = i;
+            currentPage = targetPage;
             window.scrollTo({ top: tableBody.offsetTop - 120, behavior: 'smooth' });
             filterAndPaginate();
           });
-          pageLi.appendChild(pageA);
+          li.appendChild(a);
         }
-        paginationControls.appendChild(pageLi);
+        return li;
+      }
+
+      // Anterior (<)
+      paginationControls.appendChild(createNavItem('<i class="fa fa-angle-left"></i>', currentPage - 1, {
+        disabled: currentPage === 1,
+        ariaLabel: 'Página anterior'
+      }));
+
+      // Números (1, 2, 3...)
+      for (let i = 1; i <= totalPages; i++) {
+        paginationControls.appendChild(createNavItem(String(i), i, { current: i === currentPage }));
       }
 
       // Siguiente (>)
-      const nextIconLi = document.createElement('li');
-      if (currentPage === totalPages) {
-        nextIconLi.className = 'disabled';
-        nextIconLi.innerHTML = `<span><i class="fa fa-angle-right"></i></span>`;
-      } else {
-        const nextIconA = document.createElement('a');
-        nextIconA.innerHTML = `<i class="fa fa-angle-right"></i>`;
-        nextIconA.addEventListener('click', function (e) {
-          e.preventDefault();
-          currentPage++;
-          window.scrollTo({ top: tableBody.offsetTop - 120, behavior: 'smooth' });
-          filterAndPaginate();
-        });
-        nextIconLi.appendChild(nextIconA);
-      }
-      paginationControls.appendChild(nextIconLi);
+      paginationControls.appendChild(createNavItem('<i class="fa fa-angle-right"></i>', currentPage + 1, {
+        disabled: currentPage === totalPages,
+        ariaLabel: 'Página siguiente'
+      }));
     }
 
     function updateChartAndLegend(filteredDocs) {
@@ -2443,7 +2544,7 @@ if (document.readyState === 'loading') {
       // Orden específico para dibujar los sectores en sentido horario (como el mockup)
       const drawingOrder = ['IV', 'III', 'II', 'I', 'VII', 'VI', 'V', 'ID'];
 
-      let cumulativePercent = -60 / 360; // Empezar a las 10 en punto (-60 grados)
+      let cumulativePercent = -90 / 360; // Empezar a las 12 en punto (como la referencia)
 
       drawingOrder.forEach(level => {
         const count = counts[level];
@@ -2508,7 +2609,8 @@ if (document.readyState === 'loading') {
             text.setAttribute('text-anchor', 'middle');
           }
 
-          text.setAttribute('fill', '#4b5563');
+          // La etiqueta hereda el color de su sector (como en el diseño de referencia)
+          text.setAttribute('fill', color);
           text.setAttribute('font-size', '5.5');
           text.setAttribute('font-family', "'Inter', sans-serif");
           text.setAttribute('font-weight', '600');
@@ -2521,25 +2623,11 @@ if (document.readyState === 'loading') {
     }
 
     // Eventos de Filtrado
-    // La búsqueda del topbar y la de los controles se sincronizan entre sí
-    function handleSearchInput(source) {
-      const value = source.value;
-      if (searchInput && searchInput !== source) searchInput.value = value;
-      if (topSearchInput && topSearchInput !== source) topSearchInput.value = value;
-      searchQuery = value.trim().toLowerCase();
-      currentPage = 1;
-      filterAndPaginate();
-    }
-
     if (searchInput) {
       searchInput.addEventListener('input', function () {
-        handleSearchInput(searchInput);
-      });
-    }
-
-    if (topSearchInput) {
-      topSearchInput.addEventListener('input', function () {
-        handleSearchInput(topSearchInput);
+        searchQuery = searchInput.value.trim().toLowerCase();
+        currentPage = 1;
+        filterAndPaginate();
       });
     }
 
@@ -2657,12 +2745,6 @@ if (document.readyState === 'loading') {
 
     if (btnExport) {
       btnExport.addEventListener('click', function (e) {
-        e.preventDefault();
-        exportarLista();
-      });
-    }
-    if (btnExportTop) {
-      btnExportTop.addEventListener('click', function (e) {
         e.preventDefault();
         exportarLista();
       });

@@ -22,6 +22,7 @@ links: 'https://drive.google.com/file/d/1UvmOb3_aKIAWo6aIXt9W-lVQxwjTIATv/view'
 correo_electronico: iochoa@unamba.edu.pe
 celular: '929851284'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1788207772
+updated_at: 1788450272
 nombre_grupo: 'Nutrición y Microbiologia Veterinaria (NUTRIMIV)'
+foto: 'https://ctivitae.concytec.gob.pe/appDirectorioCTI/UploadFotoPath.do?tipo=visualizar_archivo&id_investigador=112766&ruta=/documents/docInvestigadores/112766/imagenes/WhatsApp%20Image%202026-01-21%20at%2007.50.15.jpeg&content_type=image/jpeg'
 ---

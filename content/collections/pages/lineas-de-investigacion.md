@@ -28,10 +28,10 @@ block_types:
             </ol>
         </nav>
 
-        <header class="renacyt-header text-center">
-            <h1 class="renacyt-main-title">Líneas de Investigación</h1>
-            <p class="renacyt-subtitle">
-                Las líneas de investigación orientan el quehacer investigativo de la universidad y responden a las prioridades locales, regionales y nacionales de desarrollo.
+        <header class="grupos-header grupos-top-section lineas-header">
+            <h1 class="grupos-main-title lineas-main-title">Líneas de Investigación</h1>
+            <p class="grupos-subtitle">
+                Las líneas de investigación orientan el desarrollo del conocimiento científico, tecnológico y humanístico en nuestra universidad, respondiendo a las necesidades de la región y el país.
             </p>
         </header>
 
@@ -59,7 +59,10 @@ block_types:
 
                 <!-- Panel de Distribución por Línea de Investigación -->
                 <section class="chart-panel mb-5" aria-label="Gráfico de distribución por línea de investigación">
-                    <h3 class="chart-panel-title">Distribución por Línea de Investigación</h3>
+                    <div class="chart-panel-header">
+                        <h3 class="chart-panel-title">Distribución por Línea de Investigación</h3>
+                        <span class="chart-axis-title">Participación (%)</span>
+                    </div>
 
                     <!-- Contenedor del Gráfico con CSS Grid/Flex -->
                     <div class="chart-card-wrapper">

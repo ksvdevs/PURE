@@ -32,7 +32,6 @@ block_types:
         <nav class="grupos-breadcrumb" aria-label="Migas de pan">
             <ol class="grupos-breadcrumb__list">
                 <li class="grupos-breadcrumb__item"><a href="/">Inicio</a></li>
-                <li class="grupos-breadcrumb__item"><a href="/investigacion">Investigación</a></li>
                 <li class="grupos-breadcrumb__item" aria-current="page">Grupos de Investigación</li>
             </ol>
         </nav>
@@ -44,7 +43,7 @@ block_types:
                     <header class="grupos-header">
                         <h1 class="grupos-main-title">Grupos de Investigación</h1>
                         <p class="grupos-subtitle">
-                            Los grupos de investigación son equipos de trabajo conformados por docentes investigadores que comparten líneas de investigación y desarrollan proyectos científicos en áreas específicas del conocimiento, contribuyendo al avance de la ciencia y la sociedad.
+                            En este espacio presentamos nuestros grupos de investigación, equipos multidisciplinarios que generan conocimiento científico y soluciones innovadoras para la sociedad.
                         </p>
                     </header>
                 </div>
@@ -67,22 +66,25 @@ block_types:
                 <!-- Sidebar: Filtros -->
                 <aside class="col-lg-3 col-md-4 col-12 mb-4">
                     <div class="filters-sidebar">
-                        <h3 class="sidebar-title">
-                            <i class="material-icons" aria-hidden="true">filter_list</i>
-                            <span>Filtros</span>
-                        </h3>
+                        <div class="sidebar-title">
+                            <h3 class="sidebar-title__heading">
+                                <span class="sidebar-title__icon"><i class="material-icons" aria-hidden="true">filter_list</i></span>
+                                <span>Filtros de búsqueda</span>
+                            </h3>
+                            <button type="button" class="filters-reset" id="btnResetFilters">Reestablecer</button>
+                        </div>
 
                         <!-- Filtro por Año -->
                         <div class="filter-group">
                             <button class="filter-group__toggle" aria-expanded="true" aria-controls="filterYear" type="button">
-                                <span>AÑO</span>
+                                <span>AÑO DE APROBACIÓN</span>
                                 <i class="material-icons filter-group__chevron" aria-hidden="true">expand_less</i>
                             </button>
                             <div class="filter-group__content open" id="filterYear">
                                 <label class="filter-checkbox">
                                     <input type="radio" name="filter-year" value="all" checked>
                                     <span class="checkmark"></span>
-                                    <span class="filter-label">Todos</span>
+                                    <span class="filter-label">Todos los años</span>
                                 </label>
                                 <label class="filter-checkbox">
                                     <input type="radio" name="filter-year" value="2025">
@@ -291,7 +293,10 @@ block_types:
 
                 <!-- Main Content Area -->
                 <main class="col-lg-9 col-md-8 col-12">
-                    <h2 class="sr-only">Listado de grupos de investigación</h2>
+                    <div class="grupos-results-header">
+                        <h2 class="grupos-results-title">Grupos Registrados</h2>
+                        <span class="grupos-results-count" id="gruposResultsCount" role="status" aria-live="polite">0 registros</span>
+                    </div>
                     <!-- Grid of Cards -->
                     <div class="row" id="gruposGrid">
                         {{collection:grupos_inv}}
@@ -300,6 +305,7 @@ block_types:
                              data-nombre="{{nombre_grupo ?? title}}"
                              data-estado="{{ estado ? 'activo' : 'inactivo' }}"
                              data-jefe="{{jefe_grupo}}"
+                             data-foto="{{ foto }}"
                              data-integrantes="{{integrantes | strip_tags}}"
                              data-carrera="{{carrera}}"
                              data-linea="{{lineas_de_investigacion}}"

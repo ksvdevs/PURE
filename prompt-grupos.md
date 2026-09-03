@@ -9,7 +9,7 @@ public/vrinstyle/js/vrin.js
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/GRUPOSS.png
+public/assets/vrin/group.png
 public/assets/vrin/GRUPOSS-DETALLE.png
 
 Objetivo:

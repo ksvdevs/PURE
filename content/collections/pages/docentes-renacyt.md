@@ -36,29 +36,14 @@ block_types:
         </nav>
 
         <div class="renacyt-container-padding">
-            <!-- Header + Topbar en la misma fila -->
-            <div class="row align-items-end grupos-top-section">
-                <div class="col-lg-8 col-md-12 mb-3 mb-lg-0">
-                    <header class="grupos-header">
-                        <h1 class="grupos-main-title">Docentes RENACYT</h1>
-                        <p class="grupos-subtitle">
-                            En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
-                        </p>
-                    </header>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <!-- Topbar: búsqueda + exportar -->
-                    <div class="grupos-topbar">
-                        <div class="search-input-wrapper">
-                            <i class="material-icons search-icon" aria-hidden="true">search</i>
-                            <input type="text" id="renacytTopSearch" class="form-control search-field" placeholder="Buscar por nombre o código RENACYT" aria-label="Buscar por nombre o código RENACYT">
-                        </div>
-                        <button type="button" id="btnExportTop" class="btn-exportar-lista" aria-label="Exportar lista de docentes RENACYT a Excel">
-                            <i class="material-icons" aria-hidden="true">download</i>
-                            <span>Exportar Lista</span>
-                        </button>
-                    </div>
-                </div>
+            <!-- Header: el diseño de referencia no incluye topbar; búsqueda y exportar viven en la fila de controles -->
+            <div class="grupos-top-section">
+                <header class="grupos-header">
+                    <h1 class="grupos-main-title">Docentes RENACYT</h1>
+                    <p class="grupos-subtitle">
+                        En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
+                    </p>
+                </header>
             </div>
             <!-- Panel de Distribución por Nivel -->
             <section class="chart-panel mb-5" aria-labelledby="chartPanelTitle">
@@ -135,7 +120,7 @@ block_types:
                     <caption class="sr-only">Listado de docentes investigadores reconocidos por RENACYT, con código, resolución VRI, facultad, nivel, estado y enlace a CTI Vitae</caption>
                     <thead>
                         <tr>
-                            <th scope="col">CÓDIGO</th>
+                            <th scope="col">CÓDIGO RENACYT</th>
                             <th scope="col">INVESTIGADOR</th>
                             <th scope="col">RESOLUCIÓN VRI</th>
                             <th scope="col">FACULTAD</th>
@@ -169,7 +154,7 @@ block_types:
                                 <span class="badge-estado"><span class="status-dot" aria-hidden="true"></span><span class="badge-estado-text">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span></span>
                             </td>
                             <td class="col-link">
-                                <a href="{{link}}" target="_blank" class="btn-cti" aria-label="Ver CTI Vitae de {{nombre}}">
+                                <a href="{{link}}" target="_blank" rel="noopener noreferrer" class="btn-cti" aria-label="Ver CTI Vitae de {{nombre}}">
                                     <i class="fa fa-file-text-o" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -177,19 +162,19 @@ block_types:
                         {{/collection:doc_renacyt}}
                     </tbody>
                 </table>
+            </div>
 
-                <!-- Paginación -->
-                <div class="row align-items-center mx-0 mt-3 mb-2 px-3" id="renacytPaginationRow">
-                    <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
-                        <span class="pagination-info-text" id="renacytPageInfo" aria-live="polite">Mostrando 1 al 10 de 25 docentes</span>
-                    </div>
-                    <div class="col-sm-6 text-center text-sm-right">
-                        <nav class="d-inline-block" aria-label="Paginación de docentes">
-                            <ul class="custom-pagination" id="renacytPaginationControls">
-                                <!-- Controles dinámicos -->
-                            </ul>
-                        </nav>
-                    </div>
+            <!-- Paginación (fuera del wrapper con scroll horizontal) -->
+            <div class="row align-items-center mx-0 mt-3 mb-2" id="renacytPaginationRow">
+                <div class="col-sm-6 text-center text-sm-left mb-3 mb-sm-0">
+                    <span class="pagination-info-text" id="renacytPageInfo" aria-live="polite">Página 1 de 1</span>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <nav class="d-inline-block" aria-label="Paginación de docentes">
+                        <ul class="custom-pagination" id="renacytPaginationControls">
+                            <!-- Controles dinámicos -->
+                        </ul>
+                    </nav>
                 </div>
             </div>
 

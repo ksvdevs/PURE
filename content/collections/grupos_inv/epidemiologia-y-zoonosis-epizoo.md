@@ -24,7 +24,8 @@ link: 'https://drive.google.com/file/d/1uvhxkvOPJRERQ93Lqn5dwebczxV_tp2m/view?us
 correo_electronico: avalderrama@unamba.edu.pe
 celular: '986609906'
 updated_by: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
-updated_at: 1788207754
+updated_at: 1788450315
 fecha: '2023-04-26'
 nombre_grupo: 'Epidemiología y Zoonosis (EPIZOO)'
+foto: 'https://ctivitae.concytec.gob.pe/appDirectorioCTI/UploadFotoPath.do?tipo=visualizar_archivo&id_investigador=3738&ruta=/documents/docInvestigadores/3738/imagenes/67627415_10218763008529799_2139207370574659584_n.jpg&content_type=image/jpeg'
 ---
