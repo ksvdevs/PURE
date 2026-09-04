@@ -1,188 +1,118 @@
-Actúa como un Desarrollador Frontend Senior y Arquitecto UX/UI con amplia experiencia en Laravel, HTML5, CSS3, JavaScript, Material UI, animaciones web modernas y diseño de aplicaciones empresariales.
+# Prompt: Rediseño del Navbar — Material Design 3 Corporativo
 
-Analiza y modifica únicamente los siguientes archivos:
+Actúa como un **Desarrollador Frontend Senior y Arquitecto UX/UI** con amplia experiencia en Laravel, HTML5, CSS3, JavaScript, Material Design 3, animaciones web modernas y diseño de aplicaciones empresariales.
 
-* content/collections/globals/navbar.yml
-* public/vrinstyle/css/estilos.css
-* public/vrinstyle/js/vrin.js
+## Alcance
 
-Objetivo principal:
+Analiza y modifica **únicamente** los siguientes archivos:
 
-Rediseñar completamente el Navbar actual para convertirlo en un menú de navegación corporativo, moderno, elegante y profesional, mejorando significativamente la experiencia visual y de usuario sin alterar la lógica funcional existente.
+- `content/collections/globals/navbar.yml`
+- `public/vrinstyle/css/estilos.css`
+- `public/vrinstyle/js/vrin.js`
 
-Requisitos del nuevo Navbar:
+## Objetivo principal
 
-1. Diseño Profesional
+Rediseñar completamente el Navbar actual para convertirlo en un menú de navegación **corporativo, moderno, elegante y profesional**, mejorando significativamente la experiencia visual y de usuario **sin alterar la lógica funcional existente** (rutas, enlaces, estructura de menús definida en `navbar.yml` y comportamiento de navegación).
 
-* Crear un navbar moderno inspirado en Material Design 3.
-* Apariencia corporativa similar a Google Workspace, Atlassian, Microsoft Fluent UI o SAP Fiori.
-* Diseño limpio, minimalista y elegante.
-* Mantener coherencia visual con el resto de la aplicación.
+## Requisitos del nuevo Navbar
 
-2. Paleta de Colores
-   Utilizar exclusivamente:
+### 1. Diseño profesional
+- Navbar moderno inspirado en **Material Design 3**.
+- Apariencia corporativa comparable a Google Workspace, Atlassian, Microsoft Fluent UI o SAP Fiori.
+- Diseño limpio, minimalista y elegante.
+- Coherencia visual total con el resto de la aplicación (paleta de colores institucional existente).
 
-* Primary: #052F83
-* Primary Dark: #001135
-* Success: #6CBF17
-* Success Light: #A4D65E
-* Light Blue: #DCEBFF
-* White: #FFFFFF
-* Gray Light: #E9EEF5
+### 2. Tipografía
+- Utilizar únicamente las familias del sistema tipográfico del sitio: **Roboto o Inter** para enlaces y menús (pesos 400 y 500), y la familia serif institucional solo si el logo lo requiere.
+- Aplicar jerarquía visual correcta: enlaces principales (`font-weight: 500`, 0.95rem), opciones de dropdown (`font-weight: 400`, 0.875rem).
+- Letter-spacing sutil en enlaces (0.01em–0.02em).
+- Respetar las custom properties tipográficas definidas en `estilos.css`; no introducir fuentes nuevas.
 
-3. Tipografía
-   Utilizar únicamente:
+### 3. Estructura del navbar
+- Altura fija y consistente: **64px en desktop** (48–56px en móvil).
+- Logo correctamente alineado verticalmente con altura controlada.
+- Distribución equilibrada: logo a la izquierda, menús centrados o a la derecha, acciones al extremo.
+- Espaciado uniforme entre enlaces (mínimo 8px, recomendado 16px–24px).
+- Navbar con posición `sticky` o `fixed` y sombra sutil al hacer scroll (elevation MD3).
 
-font-family: 'Roboto', sans-serif;
+### 4. Animaciones y microinteracciones
 
-Aplicar jerarquía visual correcta para títulos, enlaces y menús.
+**Hover en enlaces:**
+- Cambio de color suave.
+- Línea animada inferior (underline animation que crece de 0 a 100% desde el centro o la izquierda).
+- Ligera elevación o cambio de fondo tipo "state layer" MD3.
 
-4. Navbar Moderno
+**Hover en botones:**
+- Transición gradual de color y efecto de profundidad (box-shadow).
 
-* Altura adecuada y consistente.
-* Mejor distribución de espacios.
-* Logo correctamente alineado.
-* Menús visualmente equilibrados.
-* Adaptable a diferentes resoluciones.
-* Diseño responsive para Desktop, Tablet y Mobile.
+**Dropdowns:**
+- Apertura con `fade-in` + `slide-down` (opacity + translateY).
+- Cierre suave.
 
-5. Animaciones y Microinteracciones
-   Implementar animaciones suaves y modernas:
+**Menú móvil:**
+- Navigation Drawer con apertura/cierre lateral animado.
+- Botón hamburguesa con transformación animada a ícono de cierre (X).
 
-Hover en enlaces:
-
-* Cambio de color suave.
-* Línea animada inferior (underline animation).
-* Elevación visual ligera.
-
-Hover en botones:
-
-* Cambio gradual de color.
-* Efecto de profundidad.
-
-Dropdowns:
-
-* Fade In.
-* Slide Down.
-* Apertura suave.
-
-Menú móvil:
-
-* Animación de apertura y cierre.
-* Transiciones fluidas.
-
-Duración recomendada:
-
+**Duración estándar:**
+```css
 transition: all 0.3s ease;
+```
+Usar `cubic-bezier(0.4, 0, 0.2, 1)` (easing MD3) para movimientos principales.
 
-6. Estados Visuales
-   Implementar estados claros para:
+### 5. Estados visuales
+Implementar estados claros y distinguibles para:
+- **Hover**
+- **Active** (página actual, con indicador persistente)
+- **Focus** (anillo visible, nunca `outline: none` sin reemplazo)
+- **Selected**
+- **Disabled** (opacidad reducida, `cursor: not-allowed`)
 
-* Hover
-* Active
-* Focus
-* Selected
-* Disabled
+### 6. Dropdowns
+- Submenús completamente modernizados.
+- `border-radius: 8px`.
+- Sombras suaves tipo MD3 (`box-shadow: 0 4px 16px rgba(0,0,0,0.12)`).
+- Padding interno generoso y separación clara entre opciones (mínimo 4px).
+- Opción con hover de fondo tipo state layer.
+- Cierre al hacer clic fuera o presionar `Escape`.
 
-El menú activo debe destacarse visualmente utilizando el color principal #052F83.
+### 7. Responsive design
+Optimizar para Desktop, Laptop, Tablet y Mobile con breakpoints coherentes (ej. 1280px / 1024px / 768px / 480px).
 
-7. Dropdowns
+**En móviles:**
+- Convertir el menú en un **Navigation Drawer** lateral moderno.
+- Botón hamburguesa animado (3 líneas → X).
+- Apertura lateral suave con overlay semitransparente de fondo.
+- Áreas táctiles de mínimo 48×48px (guía MD3).
+- Cierre al seleccionar una opción o tocar el overlay.
 
-* Modernizar completamente los submenús.
-* Bordes redondeados de 8px.
-* Sombras suaves.
-* Animaciones de aparición.
-* Mejor separación entre opciones.
+### 8. Accesibilidad (WCAG AA)
+- Navegación completa por teclado (Tab, Enter, Escape, flechas en dropdowns).
+- Estados `focus-visible` claramente visibles.
+- Contraste mínimo 4.5:1 en texto.
+- Atributos ARIA correctos: `aria-expanded`, `aria-haspopup`, `aria-controls`, `aria-label` en el botón hamburguesa.
+- HTML semántico: `<nav>`, `<ul>`, `<li>`.
 
-8. Responsive Design
-   Optimizar completamente para:
+### 9. Calidad del código
+- Refactorizar el CSS del navbar: eliminar estilos redundantes o sin uso.
+- Definir y reutilizar **custom properties CSS** (colores, altura del navbar, transiciones, sombras, radios).
+- Código limpio, comentado por secciones y escalable.
+- En `vrin.js`: encapsular la lógica del menú (toggle, dropdowns, drawer) sin variables globales contaminantes y sin romper funcionalidad existente.
 
-* Desktop
-* Laptop
-* Tablet
-* Mobile
+## Entregables
 
-En dispositivos móviles:
+1. `estilos.css` con la sección del navbar refactorizada y comentada.
+2. `vrin.js` con la lógica del menú móvil y dropdowns actualizada.
+3. `navbar.yml` ajustado solo si la estructura de datos lo requiere (sin eliminar entradas de menú existentes).
+4. Resumen de cambios por archivo y una breve guía de las clases/variables nuevas.
 
-* Convertir el menú en un Navigation Drawer moderno.
-* Botón hamburguesa animado.
-* Apertura lateral suave.
-* Excelente experiencia táctil.
+## Restricciones
 
-9. Accesibilidad
-   Implementar buenas prácticas:
+- ❌ No cambiar la paleta de colores institucional.
+- ❌ No alterar rutas, URLs ni la estructura de menús definida en `navbar.yml`.
+- ❌ No agregar frameworks CSS ni librerías JS externas (todo con CSS y JS vanilla).
+- ❌ No modificar archivos fuera del alcance indicado.
+- ✅ Mantener compatibilidad con navegadores modernos y accesibilidad WCAG AA.
 
-* Navegación por teclado.
-* Estados focus visibles.
-* Contraste adecuado.
-* Etiquetas accesibles.
+## Resultado esperado
 
-10. Calidad del Código
-
-* Refactorizar CSS si es necesario.
-* Eliminar estilos redundantes.
-* Mantener código limpio y escalable.
-* Utilizar variables CSS cuando sea posible.
-* Seguir buenas prácticas de mantenibilidad.
-
-Resultado esperado:
-
-Generar un Navbar de nivel empresarial premium, visualmente atractivo, moderno, elegante y totalmente responsive, con animaciones profesionales, excelente experiencia de usuario y alineado con Material Design 3, manteniendo intacta la funcionalidad existente del sistema.
-
-
-
-=====================================================================================================================HEADER
-
-Actúa como un Desarrollador Senior Frontend y Full Stack con experiencia en Laravel, HTML5, CSS3, JavaScript, UX/UI y diseño web institucional.
-
-Analiza y modifica los siguientes archivos:
-
-content/collections/globals/navbar.yml
-public/vrinstyle/css/estilos.css
-public/vrinstyle/js/vrin.js
-
-Toma como referencia visual los siguientes diseños:
-
-public/assets/vrin/Header.png
-
-Objetivo:
-Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.
-
-Requisitos técnicos:
-
-Analiza cada imagen y determina la estructura visual, jerarquía de información, tipografías, espaciados, colores, tarjetas, secciones y distribución de elementos.
-Modifica únicamente los archivos indicados.
-Mantén compatibilidad con el proyecto actual sin afectar otras páginas.
-Implementa diseño responsive para:
-Desktop (>1200px)
-Tablet (768px – 1199px)
-Móvil (<768px)
-Utiliza Material UI
-Utiliza CSS moderno:
-Flexbox
-CSS Grid cuando sea necesario
-Variables CSS
-Transiciones suaves
-Buenas prácticas de accesibilidad
-Optimiza el JavaScript existente evitando código duplicado.
-Conserva la semántica HTML generada desde el archivo Markdown.
-Agrega comentarios únicamente en las secciones complejas.
-Mantén una alta puntuación en Lighthouse (Performance, Accessibility y Best Practices).
-
-Entregables:
-
-Explica brevemente los cambios realizados.
-Muestra el contenido completo actualizado de cada archivo modificado.
-Indica qué secciones del CSS fueron agregadas o reemplazadas.
-Justifica cualquier cambio estructural realizado en el Markdown.
-Si identificas problemas de UX/UI o accesibilidad, corrígelos y explica la mejora aplicada.
-
-Prioriza:
-
-Calidad visual.
-Código mantenible.
-Responsividad.
-Rendimiento.
-Accesibilidad.
-
-Trabaja como un desarrollador senior
+Un Navbar de **nivel empresarial premium**: visualmente atractivo, moderno, elegante, totalmente responsive, con animaciones profesionales, excelente experiencia de usuario y alineado con Material Design 3, manteniendo intacta la funcionalidad existente del sistema.

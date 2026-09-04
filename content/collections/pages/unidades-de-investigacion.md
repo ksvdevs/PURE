@@ -25,18 +25,19 @@ block_types:
                 <li class="grupos-breadcrumb__item" aria-current="page">Unidades de Investigación</li>
             </ol>
         </nav>
-
-        <div class="unidades-container">
-          <!-- Cabecera de página -->
-          <header class="unidades-page-head">
-            <h1 class="unidades-page-title">Unidades de Investigación</h1>
-            <p class="unidades-page-subtitle">La Unidad de Investigación coordina y fomenta la investigación institucional, promoviendo la generación de conocimiento y su vinculación con los desafíos regionales y sociales.</p>
-          </header>
+        <div class="renacyt-container-padding vrin-container">
+            <!-- Cabecera: título y subtítulo con el sistema compartido -->
+            <header class="vrin-page-head">
+                <h1 class="vrin-page-title">Unidades de Investigación</h1>
+                <p class="vrin-page-subtitle">
+                    La Unidad de Investigación coordina y fomenta la investigación institucional, promoviendo la generación de conocimiento y su vinculación con los desafíos regionales y sociales.
+                </p>
+            </header>
 
           <!-- Funciones Section: tarjeta colapsable -->
           <section class="funciones-section" aria-labelledby="funciones-title">
-            <div class="funciones-card reveal">
-              <button type="button" class="funciones-toggle" aria-expanded="true" aria-controls="funciones-body">
+            <div class="funciones-card reveal collapsed">
+              <button type="button" class="funciones-toggle" aria-expanded="false" aria-controls="funciones-body">
                 <span class="funciones-title" id="funciones-title" role="heading" aria-level="2">Funciones de las Unidades de Investigación</span>
                 <i class="fa fa-chevron-down funciones-chevron" aria-hidden="true"></i>
               </button>

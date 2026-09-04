@@ -2129,7 +2129,7 @@ if (document.readyState === 'loading') {
       lastFocused = document.activeElement;
       modal.hidden = false;
       document.body.classList.add('modal-open');
-      document.addEventListener('keydown', handleModalKeydown);
+      document.addEventListener('keydown', trapFocus);
       requestAnimationFrame(function () { modal.classList.add('grupo-modal--open'); });
       if (modalClose) modalClose.focus();
     }
@@ -2143,7 +2143,7 @@ if (document.readyState === 'loading') {
         }
       }, 300);
       document.body.classList.remove('modal-open');
-      document.removeEventListener('keydown', handleModalKeydown);
+      document.removeEventListener('keydown', trapFocus);
       if (lastFocused && typeof lastFocused.focus === 'function') {
         lastFocused.focus();
       }
@@ -2157,15 +2157,8 @@ if (document.readyState === 'loading') {
       )).filter(function (el) { return el.offsetParent !== null && el.tabIndex >= 0; });
     }
 
-    // Gestión de teclado del modal en un solo listener: Escape cierra y Tab
-    // mantiene el foco atrapado dentro del diálogo
-    function handleModalKeydown(e) {
-      if (!modal || modal.hidden || !modal.classList.contains('grupo-modal--open')) return;
-      if (e.key === 'Escape') {
-        closeModal();
-        return;
-      }
-      if (e.key !== 'Tab') return;
+    function trapFocus(e) {
+      if (e.key !== 'Tab' || !modal || modal.hidden) return;
       const focusable = getFocusableElements();
       if (focusable.length === 0) return;
       const first = focusable[0];
@@ -2196,23 +2189,16 @@ if (document.readyState === 'loading') {
       if (modalClose) modalClose.addEventListener('click', closeModal);
       if (modalBtnCerrar) modalBtnCerrar.addEventListener('click', closeModal);
       if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-      // Escape ya se gestiona en handleModalKeydown (registrado al abrir)
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden && modal.classList.contains('grupo-modal--open')) {
+          closeModal();
+        }
+      });
     }
 
     /* ----------------------------------------------------------------------
        Carga inicial
        ---------------------------------------------------------------------- */
-    // En móvil los grupos de filtros arrancan colapsados: el sidebar se apila
-    // bajo los resultados y 37 opciones expandidas alargan demasiado la página.
-    // El chevron (visible solo en móvil) da el affordance de expansión.
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      document.querySelectorAll('.filters-sidebar .filter-group__toggle').forEach(function (toggle) {
-        const content = document.getElementById(toggle.getAttribute('aria-controls'));
-        toggle.setAttribute('aria-expanded', 'false');
-        if (content) content.classList.remove('open');
-      });
-    }
-
     initFilterVerMas();
     cards.forEach(initCard);
     initFilterCounts();

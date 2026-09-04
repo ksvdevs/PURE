@@ -30,8 +30,7 @@ block_types:
         <nav class="grupos-breadcrumb" aria-label="Migas de pan">
             <ol class="grupos-breadcrumb__list">
                 <li class="grupos-breadcrumb__item"><a href="/">Inicio</a></li>
-                <li class="grupos-breadcrumb__item"><a href="/investigacion">Investigación</a></li>
-                <li class="grupos-breadcrumb__item" aria-current="page">Docentes RENACYT</li>
+                <li class="grupos-breadcrumb__item" aria-current="page">Docentes Renacyt</li>
             </ol>
         </nav>
 

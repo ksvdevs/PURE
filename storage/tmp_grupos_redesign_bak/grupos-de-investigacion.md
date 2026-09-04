@@ -69,7 +69,7 @@ block_types:
                         <div class="sidebar-title">
                             <h3 class="sidebar-title__heading">
                                 <span class="sidebar-title__icon"><i class="material-icons" aria-hidden="true">filter_list</i></span>
-                                <span>Filtros</span>
+                                <span>Filtros de búsqueda</span>
                             </h3>
                             <button type="button" class="filters-reset" id="btnResetFilters">Reestablecer</button>
                         </div>
@@ -300,9 +300,7 @@ block_types:
                     <!-- Grid of Cards -->
                     <div class="row" id="gruposGrid">
                         {{collection:grupos_inv}}
-                        <!-- El layout de columnas lo controla #gruposGrid (CSS Grid auto-fit/minmax);
-                             se retiran las clases .col-*/.mb-4 de Bootstrap para no duplicar espaciado -->
-                        <div class="grupo-card-container"
+                        <div class="col-xl-4 col-md-6 col-12 mb-4 grupo-card-container"
                              data-id="{{id}}"
                              data-nombre="{{nombre_grupo ?? title}}"
                              data-estado="{{ estado ? 'activo' : 'inactivo' }}"

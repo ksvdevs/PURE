@@ -23,18 +23,18 @@ block_types:
         <nav class="grupos-breadcrumb" aria-label="Migas de pan">
             <ol class="grupos-breadcrumb__list">
                 <li class="grupos-breadcrumb__item"><a href="/">Inicio</a></li>
-                <li class="grupos-breadcrumb__item"><a href="/investigacion">Investigación</a></li>
                 <li class="grupos-breadcrumb__item" aria-current="page">Líneas de Investigación</li>
             </ol>
         </nav>
 
-        <header class="grupos-header grupos-top-section lineas-header">
-            <h1 class="grupos-main-title lineas-main-title">Líneas de Investigación</h1>
-            <p class="grupos-subtitle">
-                Conoce el catálogo oficial de líneas de investigación que orienta la producción científica, tecnológica y humanística de la Universidad Nacional Micaela Bastidas de Apurímac, en respuesta a las necesidades de la región y del país.
-            </p>
-        </header>
-
+        <div class="renacyt-container-padding vrin-container">
+            <!-- Cabecera: título y subtítulo con el sistema compartido -->
+            <header class="vrin-page-head">
+                <h1 class="vrin-page-title">Líneas de Investigación</h1>
+                <p class="vrin-page-subtitle">
+                    Conoce el catálogo oficial de líneas de investigación que orienta la producción científica, tecnológica y humanística de la Universidad Nacional Micaela Bastidas de Apurímac, en respuesta a las necesidades de la región y del país.
+                </p>
+            </header>
 
         <div class="container-fluid renacyt-container-padding">
             <!-- Barra de Navegación de Pestañas -->
@@ -476,6 +476,7 @@ block_types:
                     </table>
                 </div>
             </div>
+        </div>
         </div>
       mode: htmlmixed
     type: template

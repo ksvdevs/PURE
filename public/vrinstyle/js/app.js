@@ -1,44 +1,16 @@
-/* ==========================================================
-   VRIN NAVBAR — Módulo de navegación (Material Design 3)
-   Encapsulado en IIFE con nombre: sin variables globales.
-   Cubre: dropdowns desktop (hover/click/teclado), drawer
-   móvil (overlay, foco atrapado, swipe), acordeón móvil,
-   sombra al scroll y marcado de link activo por URL.
-   ========================================================== */
-(function VRINNavbar() {
+(function () {
   'use strict';
 
-  var NAV_BREAKPOINT = 992;
-
-  /* Utilidad: cerrar todos los dropdowns desktop excepto uno */
-  function closeAllDropdowns(except) {
-    document.querySelectorAll('.has-dropdown.open').forEach(function (o) {
-      if (o === except) return;
-      o.classList.remove('open');
-      var t = o.querySelector(':scope > a');
-      if (t) t.setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  /* ---------- 1. Dropdowns Desktop (hover + click + teclado) ---------- */
+  /* ---------- 1. Dropdowns Desktop (hover + click) ---------- */
   var dropdowns = document.querySelectorAll('.has-dropdown');
 
-  dropdowns.forEach(function (item, index) {
+  dropdowns.forEach(function (item) {
     var toggle = item.querySelector(':scope > a');
-    var panel = item.querySelector(':scope > .dropdown-panel');
-    if (!toggle || !panel) return;
     var closeTimer;
-
-    // El partial no trae ids en los paneles: los generamos para aria-controls
-    if (!panel.id) panel.id = 'nav-dropdown-' + (index + 1);
-    toggle.setAttribute('aria-haspopup', 'true');
-    toggle.setAttribute('aria-controls', panel.id);
-
-    var panelLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href]'));
 
     item.addEventListener('mouseenter', function () {
       clearTimeout(closeTimer);
-      closeAllDropdowns(item);
+      dropdowns.forEach(function (o) { if (o !== item) o.classList.remove('open'); });
       item.classList.add('open');
       toggle.setAttribute('aria-expanded', 'true');
     });
@@ -53,59 +25,27 @@
     toggle.addEventListener('click', function (e) {
       e.preventDefault();
       var isOpen = item.classList.contains('open');
-      closeAllDropdowns();
-      item.classList.toggle('open', !isOpen);
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-    });
-
-    // Navegación por teclado dentro del dropdown
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (!item.classList.contains('open')) {
-          closeAllDropdowns();
-          item.classList.add('open');
-          toggle.setAttribute('aria-expanded', 'true');
-        }
-        if (panelLinks[0]) panelLinks[0].focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (!item.classList.contains('open')) {
-          closeAllDropdowns();
-          item.classList.add('open');
-          toggle.setAttribute('aria-expanded', 'true');
-        }
-        if (panelLinks.length) panelLinks[panelLinks.length - 1].focus();
-      } else if (e.key === 'Escape' && item.classList.contains('open')) {
-        item.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
-      }
-    });
-
-    // Flechas recorren las opciones; Escape cierra y devuelve el foco
-    panel.addEventListener('keydown', function (e) {
-      if (!panelLinks.length) return;
-      var i = panelLinks.indexOf(document.activeElement);
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        panelLinks[(i + 1) % panelLinks.length].focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        panelLinks[(i - 1 + panelLinks.length) % panelLinks.length].focus();
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        e.stopPropagation();
-        item.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var t = o.querySelector(':scope > a');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
       }
     });
   });
 
   // Cerrar dropdowns al click fuera
   document.addEventListener('click', function (e) {
-    if (!e.target.closest('.has-dropdown')) closeAllDropdowns();
+    if (!e.target.closest('.has-dropdown')) {
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var t = o.querySelector(':scope > a');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
   });
 
   /* ---------- 2. Drawer Móvil ---------- */
@@ -113,18 +53,14 @@
   var mobileNav = document.getElementById('mobileNav');
   var drawerOverlay = document.getElementById('drawerOverlay');
   var drawerClose = document.getElementById('drawerClose');
-  var lastFocused = null;
 
   function openDrawer() {
-    lastFocused = document.activeElement;
     mobileNav.classList.add('open');
     drawerOverlay.classList.add('open');
     hamburgerBtn.classList.add('active');
     hamburgerBtn.setAttribute('aria-expanded', 'true');
     mobileNav.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('drawer-open');
-    // Trasladar el foco al botón de cierre del drawer (accesibilidad)
-    if (drawerClose) drawerClose.focus();
+    document.body.style.overflow = 'hidden';
   }
 
   function closeDrawer() {
@@ -133,72 +69,44 @@
     hamburgerBtn.classList.remove('active');
     hamburgerBtn.setAttribute('aria-expanded', 'false');
     mobileNav.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('drawer-open');
-    // Devolver el foco al elemento que abrió el drawer
-    if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
-    lastFocused = null;
+    document.body.style.overflow = '';
   }
 
-  if (hamburgerBtn && mobileNav && drawerOverlay) {
-    hamburgerBtn.addEventListener('click', function () {
-      if (mobileNav.classList.contains('open')) closeDrawer();
-      else openDrawer();
-    });
+  hamburgerBtn.addEventListener('click', function () {
+    if (mobileNav.classList.contains('open')) closeDrawer();
+    else openDrawer();
+  });
 
-    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
-    drawerOverlay.addEventListener('click', closeDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
 
-    // Tecla Escape: cierra drawer o dropdowns desktop
-    document.addEventListener('keydown', function (e) {
-      if (e.key !== 'Escape') return;
-      if (mobileNav.classList.contains('open')) {
-        closeDrawer();
-      } else {
-        closeAllDropdowns();
-      }
-    });
+  // Tecla Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeDrawer();
+  });
 
-    // Trampa de foco ligera: Tab/Shift+Tab ciclan dentro del drawer
-    document.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab' || !mobileNav.classList.contains('open')) return;
-      var focusables = Array.prototype.slice.call(
-        mobileNav.querySelectorAll('a[href], button:not([disabled])')
-      );
-      if (!focusables.length) return;
-      var first = focusables[0];
-      var last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
+  // Swipe hacia la derecha para cerrar
+  var touchStartX = 0;
+  mobileNav.addEventListener('touchstart', function (e) {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
 
-    // Swipe hacia la derecha para cerrar
-    var touchStartX = 0;
-    mobileNav.addEventListener('touchstart', function (e) {
-      touchStartX = e.changedTouches[0].clientX;
-    }, { passive: true });
+  mobileNav.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx > 60) closeDrawer();
+  }, { passive: true });
 
-    mobileNav.addEventListener('touchend', function (e) {
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      if (dx > 60) closeDrawer();
-    }, { passive: true });
+  // Cerrar drawer al hacer click en cualquier link normal (no acordeón)
+  mobileNav.querySelectorAll('a:not([role="button"])').forEach(function (link) {
+    link.addEventListener('click', closeDrawer);
+  });
 
-    // Cerrar drawer al hacer click en cualquier link normal (no acordeón)
-    mobileNav.querySelectorAll('a:not([role="button"])').forEach(function (link) {
-      link.addEventListener('click', closeDrawer);
-    });
-
-    // Cerrar drawer si se redimensiona a desktop
-    window.addEventListener('resize', function () {
-      if (window.innerWidth >= NAV_BREAKPOINT && mobileNav.classList.contains('open')) {
-        closeDrawer();
-      }
-    }, { passive: true });
-  }
+  // Cerrar drawer si se redimensiona a desktop
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 992 && mobileNav.classList.contains('open')) {
+      closeDrawer();
+    }
+  }, { passive: true });
 
   /* ---------- 3. Acordeón Móvil ---------- */
   function setupAccordion(triggerId, dropdownId) {
@@ -211,16 +119,6 @@
       var isOpen = dropdown.classList.toggle('open');
       trigger.classList.toggle('open', isOpen);
       trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-
-    // Escape también cierra el acordeón desde su trigger
-    trigger.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && dropdown.classList.contains('open')) {
-        dropdown.classList.remove('open');
-        trigger.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.focus();
-      }
     });
   }
 
@@ -250,7 +148,7 @@
 
   /* ---------- 6. Inicializar clase tablet-range ---------- */
   function checkResponsiveRange() {
-    if (window.innerWidth >= NAV_BREAKPOINT && window.innerWidth <= 1200) {
+    if (window.innerWidth >= 992 && window.innerWidth <= 1200) {
       document.body.classList.add('tablet-range');
     } else {
       document.body.classList.remove('tablet-range');
@@ -787,6 +685,44 @@ if (document.readyState === 'loading') {
 
   requestAnimationFrame(_launch);
   window.addEventListener('load', _launch, { once: true });
+})();
+
+// Adding JavaScript for the new carousel functionality
+(function () {
+  const carousel = document.querySelector('#vrin-carousel .carousel-container');
+  const slides = document.querySelectorAll('#vrin-carousel .carousel-slide');
+  const prevButton = document.querySelector('#vrin-carousel .prev');
+  const nextButton = document.querySelector('#vrin-carousel .next');
+
+  // Guard to prevent script execution crash on pages without the carousel
+  if (!carousel || slides.length === 0 || !prevButton || !nextButton) return;
+
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.display = i === index ? 'block' : 'none';
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  prevButton.addEventListener('click', prevSlide);
+  nextButton.addEventListener('click', nextSlide);
+
+  // Auto-play functionality
+  setInterval(nextSlide, 5000);
+
+  // Initialize carousel
+  showSlide(currentIndex);
 })();
 
 /* ---------- 7. Pestañas de Líneas de Investigación & Acordeón ---------- */
@@ -1335,98 +1271,178 @@ if (document.readyState === 'loading') {
    ======================================================================== */
 (function () {
   'use strict';
-
-  function onReady(fn) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn);
-    } else {
-      fn();
-    }
-  }
-
-  /* ========================================================================
-     PÁGINA QUIÉNES SOMOS
-     Miniíndice lateral (secciones), pestañas de Direcciones del VRIN y
-     animaciones de entrada. Todo el estado vive en clases + ARIA; el JS
-     no escribe estilos inline, el CSS controla la presentación.
-     ======================================================================== */
+  
   function initNosotros() {
-    // 1. Miniíndice lateral: un botón por sección, sincronizado con ARIA
-    var sidebarItems = Array.prototype.slice.call(document.querySelectorAll('.vrin-sidebar-item'));
-    var sections = Array.prototype.slice.call(document.querySelectorAll('.vrin-panel-section'));
-
-    if (sidebarItems.length && sections.length) {
-      sidebarItems.forEach(function (item) {
-        item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
-
-        item.addEventListener('click', function (e) {
-          e.preventDefault();
-
-          var targetId = item.getAttribute('data-target');
-
-          sidebarItems.forEach(function (sib) {
-            var isCurrent = sib === item;
-            sib.classList.toggle('active', isCurrent);
-            sib.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
-          });
-
-          sections.forEach(function (sec) {
-            sec.classList.toggle('active', sec.id === targetId);
-          });
+    // 1. Navegación del Sidebar
+    const sidebarItems = document.querySelectorAll('.nosotros-sidebar-item');
+    const sections = document.querySelectorAll('.nosotros-content-section');
+    
+    if (sidebarItems.length === 0 || sections.length === 0) return;
+    
+    sidebarItems.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Quitar active de todos los items del sidebar
+        sidebarItems.forEach(function (sib) {
+          sib.classList.remove('active');
+          const chevron = sib.querySelector('.nosotros-chevron');
+          if (chevron) {
+            chevron.className = 'fa fa-chevron-right nosotros-chevron';
+          }
         });
-      });
-    }
-
-    // 2. Pestañas de Direcciones del VRIN (tablist/tabpanel con ARIA)
-    var dirTabBtns = Array.prototype.slice.call(document.querySelectorAll('.vrin-dir-tab'));
-
-    if (dirTabBtns.length) {
-      dirTabBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var targetSelector = btn.getAttribute('data-target');
-
-          dirTabBtns.forEach(function (b) {
-            var isCurrent = b === btn;
-            b.classList.toggle('active', isCurrent);
-            b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
-          });
-
-          document.querySelectorAll('.vrin-dir-pane').forEach(function (pane) {
-            pane.classList.toggle('active', '#' + pane.id === targetSelector);
-          });
+        
+        // Agregar active al item actual
+        item.classList.add('active');
+        const chevron = item.querySelector('.nosotros-chevron');
+        if (chevron) {
+          chevron.className = 'fa fa-chevron-down nosotros-chevron';
+        }
+        
+        // Ocultar todas las secciones
+        sections.forEach(function (sec) {
+          sec.style.display = 'none';
         });
-      });
-    }
-  }
-
-  // 3. Entrada suave al hacer scroll: solo transform/opacity (sin reflow).
-  //    Respeta prefers-reduced-motion y navegadores sin IntersectionObserver.
-  function initReveal() {
-    var nodes = document.querySelectorAll('.vrin-reveal');
-    if (!nodes.length) return;
-
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReduced || !('IntersectionObserver' in window)) {
-      nodes.forEach(function (n) { n.classList.add('is-visible'); });
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
+        
+        // Mostrar la sección correspondiente
+        const targetId = item.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.style.display = 'block';
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-    nodes.forEach(function (n) { io.observe(n); });
+    });
+    
+    // 2. Pestañas de Direcciones del VRIN
+    const dirTabBtns = document.querySelectorAll('.dir-tab-btn');
+    const dirPanes = document.querySelectorAll('.dir-tab-pane');
+    
+    if (dirTabBtns.length > 0 && dirPanes.length > 0) {
+      dirTabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          // Quitar active de todos los botones
+          dirTabBtns.forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          // Ocultar todos los paneles
+          dirPanes.forEach(function (p) { p.classList.remove('active'); });
+          
+          // Activar el botón y panel correspondientes
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          const targetSelector = btn.getAttribute('data-target');
+          const targetPane = document.querySelector(targetSelector);
+          if (targetPane) {
+            targetPane.classList.add('active');
+          }
+        });
+      });
+    }
   }
 
-  onReady(initNosotros);
-  onReady(initReveal);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNosotros);
+  } else {
+    initNosotros();
+  }
 })();
+
+/* ========================================================================
+   SECCIÓN DIRECCIONES (SLIDERS & CAROUSELS)
+   ======================================================================== */
+(function () {
+  'use strict';
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Gallery Image Slider
+    const gallerySlides = document.querySelector('.dir-gallery-slides');
+    const galleryImgs = document.querySelectorAll('.dir-gallery-slides img');
+    const galleryDots = document.querySelectorAll('.dir-gallery-dot');
+    const prevBtn = document.querySelector('.dir-gallery-btn.prev');
+    const nextBtn = document.querySelector('.dir-gallery-btn.next');
+    
+    if (gallerySlides && galleryImgs.length > 0) {
+      let currentIndex = 0;
+      const totalSlides = galleryImgs.length;
+      
+      const updateGallery = (index) => {
+        currentIndex = (index + totalSlides) % totalSlides;
+        gallerySlides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        galleryDots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentIndex);
+        });
+      };
+      
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => updateGallery(currentIndex - 1));
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => updateGallery(currentIndex + 1));
+      }
+      
+      galleryDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => updateGallery(idx));
+      });
+      
+      // Auto play every 6 seconds
+      let autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
+      
+      const resetTimer = () => {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
+      };
+      
+      if (prevBtn) prevBtn.addEventListener('click', resetTimer);
+      if (nextBtn) nextBtn.addEventListener('click', resetTimer);
+      galleryDots.forEach(dot => dot.addEventListener('click', resetTimer));
+    }
+    
+    // 2. News Horizontal Slider (Optimized to avoid layout thrashing)
+    const newsTrack = document.querySelector('.dir-news-track');
+    const newsCards = document.querySelectorAll('.dir-news-card');
+    const newsPrev = document.getElementById('dir-news-prev');
+    const newsNext = document.getElementById('dir-news-next');
+    
+    if (newsTrack && newsCards.length > 0) {
+      let index = 0;
+      let cardWidth = newsCards[0].getBoundingClientRect().width;
+      
+      const getCardsPerView = () => {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 992) return 2;
+        return 3;
+      };
+      
+      const slideNews = (dir) => {
+        const cardsPerView = getCardsPerView();
+        const maxIndex = Math.max(0, newsCards.length - cardsPerView);
+        
+        index += dir;
+        if (index < 0) index = maxIndex;
+        else if (index > maxIndex) index = 0;
+        
+        const gap = 24; // matches gap in CSS
+        const offset = index * (cardWidth + gap);
+        newsTrack.style.transform = `translateX(-${offset}px)`;
+      };
+      
+      if (newsPrev) newsPrev.addEventListener('click', () => slideNews(-1));
+      if (newsNext) newsNext.addEventListener('click', () => slideNews(1));
+      
+      window.addEventListener('resize', () => {
+        index = 0;
+        cardWidth = newsCards[0].getBoundingClientRect().width;
+        newsTrack.style.transform = 'translateX(0)';
+      }, { passive: true });
+    }
+  });
+
+  // Active scroll animation effects for Unidades de Investigación cards
+  // Initiated automatically via document class elements
+})();
+
 (function () {
   'use strict';
 
@@ -2129,7 +2145,7 @@ if (document.readyState === 'loading') {
       lastFocused = document.activeElement;
       modal.hidden = false;
       document.body.classList.add('modal-open');
-      document.addEventListener('keydown', handleModalKeydown);
+      document.addEventListener('keydown', trapFocus);
       requestAnimationFrame(function () { modal.classList.add('grupo-modal--open'); });
       if (modalClose) modalClose.focus();
     }
@@ -2143,7 +2159,7 @@ if (document.readyState === 'loading') {
         }
       }, 300);
       document.body.classList.remove('modal-open');
-      document.removeEventListener('keydown', handleModalKeydown);
+      document.removeEventListener('keydown', trapFocus);
       if (lastFocused && typeof lastFocused.focus === 'function') {
         lastFocused.focus();
       }
@@ -2157,15 +2173,8 @@ if (document.readyState === 'loading') {
       )).filter(function (el) { return el.offsetParent !== null && el.tabIndex >= 0; });
     }
 
-    // Gestión de teclado del modal en un solo listener: Escape cierra y Tab
-    // mantiene el foco atrapado dentro del diálogo
-    function handleModalKeydown(e) {
-      if (!modal || modal.hidden || !modal.classList.contains('grupo-modal--open')) return;
-      if (e.key === 'Escape') {
-        closeModal();
-        return;
-      }
-      if (e.key !== 'Tab') return;
+    function trapFocus(e) {
+      if (e.key !== 'Tab' || !modal || modal.hidden) return;
       const focusable = getFocusableElements();
       if (focusable.length === 0) return;
       const first = focusable[0];
@@ -2196,23 +2205,16 @@ if (document.readyState === 'loading') {
       if (modalClose) modalClose.addEventListener('click', closeModal);
       if (modalBtnCerrar) modalBtnCerrar.addEventListener('click', closeModal);
       if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-      // Escape ya se gestiona en handleModalKeydown (registrado al abrir)
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden && modal.classList.contains('grupo-modal--open')) {
+          closeModal();
+        }
+      });
     }
 
     /* ----------------------------------------------------------------------
        Carga inicial
        ---------------------------------------------------------------------- */
-    // En móvil los grupos de filtros arrancan colapsados: el sidebar se apila
-    // bajo los resultados y 37 opciones expandidas alargan demasiado la página.
-    // El chevron (visible solo en móvil) da el affordance de expansión.
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      document.querySelectorAll('.filters-sidebar .filter-group__toggle').forEach(function (toggle) {
-        const content = document.getElementById(toggle.getAttribute('aria-controls'));
-        toggle.setAttribute('aria-expanded', 'false');
-        if (content) content.classList.remove('open');
-      });
-    }
-
     initFilterVerMas();
     cards.forEach(initCard);
     initFilterCounts();
@@ -2610,7 +2612,7 @@ if (document.readyState === 'loading') {
           // La etiqueta hereda el color de su sector (como en el diseño de referencia)
           text.setAttribute('fill', color);
           text.setAttribute('font-size', '5.5');
-          text.setAttribute('font-family', "'IBM Plex Sans', sans-serif");
+          text.setAttribute('font-family', "'Inter', sans-serif");
           text.setAttribute('font-weight', '600');
           text.textContent = `${percentage}%`;
           segmentGroup.appendChild(text);
@@ -3146,7 +3148,7 @@ if (document.readyState === 'loading') {
 
           text.setAttribute('fill', '#4b5563');
           text.setAttribute('font-size', '5.5');
-          text.setAttribute('font-family', "'IBM Plex Sans', sans-serif");
+          text.setAttribute('font-family', "'Inter', sans-serif");
           text.setAttribute('font-weight', '600');
           text.textContent = `${percentage}%`;
           segmentGroup.appendChild(text);
@@ -3649,7 +3651,7 @@ if (document.readyState === 'loading') {
 
           text.setAttribute('fill', '#4b5563');
           text.setAttribute('font-size', '5.5');
-          text.setAttribute('font-family', "'IBM Plex Sans', sans-serif");
+          text.setAttribute('font-family', "'Inter', sans-serif");
           text.setAttribute('font-weight', '600');
           text.textContent = `${percentage}%`;
           segmentGroup.appendChild(text);
@@ -3856,46 +3858,4 @@ if (document.readyState === 'loading') {
   } else {
     initImageLightbox();
   }
-})();
-
-/* ---------- 10. Acordeón de Funciones (Unidades de Investigación) ---------- */
-(function () {
-  'use strict';
-
-  /**
-   * Colapsa/expande la tarjeta de funciones y rota el chevron.
-   * Usa max-height para una transición suave, igual que el acordeón de líneas.
-   */
-  document.addEventListener('click', function (e) {
-    var toggle = e.target.closest('.funciones-toggle');
-    if (!toggle) return;
-
-    var card = toggle.closest('.funciones-card');
-    var body = card ? card.querySelector('.funciones-body') : null;
-    if (!body) return;
-
-    var isOpen = toggle.getAttribute('aria-expanded') === 'true';
-
-    if (isOpen) {
-      // Colapsar: fijar la altura actual antes de transicionar a 0
-      body.style.maxHeight = body.scrollHeight + 'px';
-      void body.offsetWidth; // Forzar recálculo de layout para la transición
-      card.classList.add('collapsed');
-      body.style.maxHeight = '0px';
-    } else {
-      card.classList.remove('collapsed');
-      body.style.maxHeight = body.scrollHeight + 'px';
-
-      // Liberar el max-height inline al terminar para no bloquear cambios responsive
-      var onTransitionEnd = function (ev) {
-        if (ev.propertyName === 'max-height' && !card.classList.contains('collapsed')) {
-          body.style.maxHeight = 'none';
-        }
-        body.removeEventListener('transitionend', onTransitionEnd);
-      };
-      body.addEventListener('transitionend', onTransitionEnd);
-    }
-
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-  });
 })();
