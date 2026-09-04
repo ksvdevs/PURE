@@ -1,7 +1,7 @@
 ---
 id: 3118ffee-ac7d-4d12-8875-6cea1d04e1bf
 blueprint: page
-title: 'Lineas de Investigación'
+title: 'Líneas de Investigación'
 titulo_pagina: 'Líneas de Investigación - VRIN UNAMBA'
 texto_bienvenida: 'Líneas de Investigación'
 author: 06ac68ab-d29f-41e9-9b9a-dd4da3996484
@@ -31,18 +31,18 @@ block_types:
         <header class="grupos-header grupos-top-section lineas-header">
             <h1 class="grupos-main-title lineas-main-title">Líneas de Investigación</h1>
             <p class="grupos-subtitle">
-                Las líneas de investigación orientan el desarrollo del conocimiento científico, tecnológico y humanístico en nuestra universidad, respondiendo a las necesidades de la región y el país.
+                Conoce el catálogo oficial de líneas de investigación que orienta la producción científica, tecnológica y humanística de la Universidad Nacional Micaela Bastidas de Apurímac, en respuesta a las necesidades de la región y del país.
             </p>
         </header>
 
 
         <div class="container-fluid renacyt-container-padding">
             <!-- Barra de Navegación de Pestañas -->
-            <div class="lineas-tabs-container" role="tablist" aria-label="Categorías de líneas de investigación">
-                <button type="button" class="lineas-tab-btn active" data-tab="vigentes" id="tab-btn-vigentes" role="tab" aria-selected="true" aria-controls="tab-vigentes">
+            <div class="lineas-tabs-container vrin-tabs" role="tablist" aria-label="Categorías de líneas de investigación">
+                <button type="button" class="lineas-tab-btn vrin-tab active" data-tab="vigentes" id="tab-btn-vigentes" role="tab" aria-selected="true" aria-controls="tab-vigentes">
                     <i class="fa fa-check-circle" aria-hidden="true"></i> Líneas Vigentes
                 </button>
-                <button type="button" class="lineas-tab-btn" data-tab="no-vigentes" id="tab-btn-no-vigentes" role="tab" aria-selected="false" aria-controls="tab-no-vigentes">
+                <button type="button" class="lineas-tab-btn vrin-tab" data-tab="no-vigentes" id="tab-btn-no-vigentes" role="tab" aria-selected="false" aria-controls="tab-no-vigentes">
                     <i class="fa fa-history" aria-hidden="true"></i> Líneas No Vigentes (Histórico)
                 </button>
             </div>
@@ -53,8 +53,8 @@ block_types:
             <div id="tab-vigentes" class="lineas-tab-content" role="tabpanel" aria-labelledby="tab-btn-vigentes">
                 <!-- Caja de Información de Cabecera -->
                 <div class="lineas-info-box">
-                    <h4>Catálogo de Líneas Vigentes</h4>
-                    <p>Mediante la Resolución N.° 011-2026-CU-UNAMBA, se aprobaron las 7 líneas de investigación elaboradas por el Vicerrectorado de Investigación, las cuales se encuentran actualmente vigentes.</p>
+                    <h4 class="vrin-section-title">Catálogo de Líneas Vigentes</h4>
+                    <p>Mediante Resolución N.° 011-2026-CU-UNAMBA, el Consejo Universitario aprobó el catálogo de las 7 líneas de investigación elaborado por el Vicerrectorado de Investigación, las cuales se encuentran vigentes a la fecha.</p>
                 </div>
 
                 <!-- Panel de Distribución por Línea de Investigación -->
@@ -82,7 +82,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-navy" style="height: 100%; animation-delay: 0.1s;">
                                         <div class="chart-bar-val">100%</div>
-                                        <div class="chart-tooltip">Tecnologías Habilitadoras : 100%</div>
+                                        <div class="chart-tooltip">Tecnologías Habilitadoras: 100%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 1</div>
                                 </div>
@@ -91,7 +91,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-blue-med" style="height: 33.3%; animation-delay: 0.2s;">
                                         <div class="chart-bar-val">33.3%</div>
-                                        <div class="chart-tooltip">Inocuidad Alimentaria : 33.3%</div>
+                                        <div class="chart-tooltip">Inocuidad Alimentaria: 33.3%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 2</div>
                                 </div>
@@ -100,7 +100,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-blue-light" style="height: 22.2%; animation-delay: 0.3s;">
                                         <div class="chart-bar-val">22.2%</div>
-                                        <div class="chart-tooltip">Sistemas Agropecuarios : 22.2%</div>
+                                        <div class="chart-tooltip">Sistemas Agropecuarios: 22.2%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 3</div>
                                 </div>
@@ -109,7 +109,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-cyan-blue" style="height: 44.4%; animation-delay: 0.4s;">
                                         <div class="chart-bar-val">44.4%</div>
-                                        <div class="chart-tooltip">Recursos Hídricos y Riesgos : 44.4%</div>
+                                        <div class="chart-tooltip">Recursos Hídricos y Riesgos: 44.4%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 4</div>
                                 </div>
@@ -118,7 +118,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-green-light" style="height: 100%; animation-delay: 0.5s;">
                                         <div class="chart-bar-val">100%</div>
-                                        <div class="chart-tooltip">Gobernanza y Competitividad : 100%</div>
+                                        <div class="chart-tooltip">Gobernanza y Competitividad: 100%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 5</div>
                                 </div>
@@ -127,7 +127,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-green-med" style="height: 11.1%; animation-delay: 0.6s;">
                                         <div class="chart-bar-val">11.1%</div>
-                                        <div class="chart-tooltip">Calidad Educativa : 11.1%</div>
+                                        <div class="chart-tooltip">Calidad Educativa: 11.1%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 6</div>
                                 </div>
@@ -136,7 +136,7 @@ block_types:
                                     <div class="chart-bar-highlight"></div>
                                     <div class="chart-bar color-green-dark" style="height: 88.9%; animation-delay: 0.7s;">
                                         <div class="chart-bar-val">88.9%</div>
-                                        <div class="chart-tooltip">Interculturalidad y Género : 88.9%</div>
+                                        <div class="chart-tooltip">Interculturalidad y Género: 88.9%</div>
                                     </div>
                                     <div class="chart-bar-label">LI 7</div>
                                 </div>
@@ -297,7 +297,7 @@ block_types:
             <div id="tab-no-vigentes" class="lineas-tab-content d-none" role="tabpanel" aria-labelledby="tab-btn-no-vigentes">
                 <!-- Caja de Información del Historial -->
                 <div class="lineas-info-box border-red">
-                    <h4>Historial de Líneas</h4>
+                    <h4 class="vrin-section-title">Historial de Líneas</h4>
                     <p>Estas líneas corresponden a periodos anteriores y se mantienen en nuestro repositorio histórico con fines de consulta y trazabilidad. No aplican para nuevas convocatorias de investigación.</p>
                 </div>
 

@@ -35,16 +35,14 @@ block_types:
             </ol>
         </nav>
 
-        <div class="renacyt-container-padding">
-            <!-- Header: el diseño de referencia no incluye topbar; búsqueda y exportar viven en la fila de controles -->
-            <div class="grupos-top-section">
-                <header class="grupos-header">
-                    <h1 class="grupos-main-title">Docentes RENACYT</h1>
-                    <p class="grupos-subtitle">
-                        En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
-                    </p>
-                </header>
-            </div>
+        <div class="renacyt-container-padding vrin-container">
+            <!-- Cabecera: título y subtítulo con el sistema compartido -->
+            <header class="vrin-page-head">
+                <h1 class="vrin-page-title">Docentes RENACYT</h1>
+                <p class="vrin-page-subtitle">
+                    En este espacio encontrarás a los docentes investigadores reconocidos por su aporte al desarrollo académico y científico. Conoce a quienes, desde su especialidad, contribuyen al progreso de nuestra región y del país.
+                </p>
+            </header>
             <!-- Panel de Distribución por Nivel -->
             <section class="chart-panel mb-5" aria-labelledby="chartPanelTitle">
                 <h2 class="chart-panel-title" id="chartPanelTitle">Distribución por Nivel</h2>
@@ -108,7 +106,7 @@ block_types:
                             <option value="Inactivo">Inactivo</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-export" id="btnExport">
+                    <button type="button" class="btn btn-export vrin-btn vrin-btn--primary" id="btnExport">
                         <i class="fa fa-download mr-2" aria-hidden="true"></i> Exportar Lista
                     </button>
                 </div>
@@ -151,7 +149,7 @@ block_types:
                                 <span class="badge-nivel">{{ if nivel:label }}{{ nivel:label }}{{ else }}I{{ /if }}</span>
                             </td>
                             <td class="col-estado">
-                                <span class="badge-estado"><span class="status-dot" aria-hidden="true"></span><span class="badge-estado-text">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span></span>
+                                <span class="badge-estado vrin-chip {{ if estado }}vrin-chip--activo{{ else }}vrin-chip--inactivo{{ /if }}"><span class="badge-estado-text">{{ if estado }}Activo{{ else }}Inactivo{{ /if }}</span></span>
                             </td>
                             <td class="col-link">
                                 <a href="{{link}}" target="_blank" rel="noopener noreferrer" class="btn-cti" aria-label="Ver CTI Vitae de {{nombre}}">

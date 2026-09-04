@@ -8,10 +8,7 @@ public/vrinstyle/js/vrin.js
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/NOSOTROS.png
-public/assets/vrin/AUTORIDADES.png
-public/assets/vrin/DIRECCIONES.png
-public/assets/vrin/ORGANIGRAMA.png
+public/assets/vrin/direccionesde-vrin.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.

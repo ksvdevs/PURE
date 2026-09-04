@@ -36,13 +36,13 @@ block_types:
             </ol>
         </nav>
 
-        <div class="container-fluid grupos-container-padding">
+        <div class="vrin-container grupos-page">
             <!-- Header + Topbar en la misma fila -->
             <div class="row align-items-end grupos-top-section">
                 <div class="col-lg-8 col-md-12 mb-3 mb-lg-0">
-                    <header class="grupos-header">
-                        <h1 class="grupos-main-title">Grupos de Investigación</h1>
-                        <p class="grupos-subtitle">
+                    <header class="vrin-page-head">
+                        <h1 class="vrin-page-title">Grupos de Investigación</h1>
+                        <p class="vrin-page-subtitle">
                             En este espacio presentamos nuestros grupos de investigación, equipos multidisciplinarios que generan conocimiento científico y soluciones innovadoras para la sociedad.
                         </p>
                     </header>
@@ -54,7 +54,7 @@ block_types:
                             <i class="material-icons search-icon" aria-hidden="true">search</i>
                             <input type="text" id="grupoSearch" class="form-control search-field" placeholder="Buscar por grupo o coordinador..." aria-label="Buscar por grupo o coordinador">
                         </div>
-                        <button type="button" id="btnExportarLista" class="btn-exportar-lista" aria-label="Exportar lista de grupos a CSV">
+                        <button type="button" id="btnExportarLista" class="vrin-btn vrin-btn--primary grupos-btn-exportar" aria-label="Exportar lista de grupos a CSV">
                             <i class="material-icons" aria-hidden="true">download</i>
                             <span>Exportar Lista</span>
                         </button>
@@ -319,7 +319,7 @@ block_types:
                              aria-haspopup="dialog"
                              aria-label="Ver detalles de {{nombre_grupo ?? title}}">
                             <article class="grupo-card">
-                                <span class="grupo-card__status">
+                                <span class="grupo-card__status vrin-chip vrin-chip--activo">
                                     <span class="status-dot" aria-hidden="true"></span>
                                     <span class="status-text">Activo</span>
                                 </span>

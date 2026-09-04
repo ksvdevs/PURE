@@ -687,44 +687,6 @@ if (document.readyState === 'loading') {
   window.addEventListener('load', _launch, { once: true });
 })();
 
-// Adding JavaScript for the new carousel functionality
-(function () {
-  const carousel = document.querySelector('#vrin-carousel .carousel-container');
-  const slides = document.querySelectorAll('#vrin-carousel .carousel-slide');
-  const prevButton = document.querySelector('#vrin-carousel .prev');
-  const nextButton = document.querySelector('#vrin-carousel .next');
-
-  // Guard to prevent script execution crash on pages without the carousel
-  if (!carousel || slides.length === 0 || !prevButton || !nextButton) return;
-
-  let currentIndex = 0;
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.display = i === index ? 'block' : 'none';
-    });
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
-  }
-
-  prevButton.addEventListener('click', prevSlide);
-  nextButton.addEventListener('click', nextSlide);
-
-  // Auto-play functionality
-  setInterval(nextSlide, 5000);
-
-  // Initialize carousel
-  showSlide(currentIndex);
-})();
-
 /* ---------- 7. Pestañas de Líneas de Investigación & Acordeón ---------- */
 (function () {
   'use strict';
@@ -1271,178 +1233,98 @@ if (document.readyState === 'loading') {
    ======================================================================== */
 (function () {
   'use strict';
-  
+
+  function onReady(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
+
+  /* ========================================================================
+     PÁGINA QUIÉNES SOMOS
+     Miniíndice lateral (secciones), pestañas de Direcciones del VRIN y
+     animaciones de entrada. Todo el estado vive en clases + ARIA; el JS
+     no escribe estilos inline, el CSS controla la presentación.
+     ======================================================================== */
   function initNosotros() {
-    // 1. Navegación del Sidebar
-    const sidebarItems = document.querySelectorAll('.nosotros-sidebar-item');
-    const sections = document.querySelectorAll('.nosotros-content-section');
-    
-    if (sidebarItems.length === 0 || sections.length === 0) return;
-    
-    sidebarItems.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        // Quitar active de todos los items del sidebar
-        sidebarItems.forEach(function (sib) {
-          sib.classList.remove('active');
-          const chevron = sib.querySelector('.nosotros-chevron');
-          if (chevron) {
-            chevron.className = 'fa fa-chevron-right nosotros-chevron';
-          }
+    // 1. Miniíndice lateral: un botón por sección, sincronizado con ARIA
+    var sidebarItems = Array.prototype.slice.call(document.querySelectorAll('.vrin-sidebar-item'));
+    var sections = Array.prototype.slice.call(document.querySelectorAll('.vrin-panel-section'));
+
+    if (sidebarItems.length && sections.length) {
+      sidebarItems.forEach(function (item) {
+        item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          var targetId = item.getAttribute('data-target');
+
+          sidebarItems.forEach(function (sib) {
+            var isCurrent = sib === item;
+            sib.classList.toggle('active', isCurrent);
+            sib.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+          });
+
+          sections.forEach(function (sec) {
+            sec.classList.toggle('active', sec.id === targetId);
+          });
         });
-        
-        // Agregar active al item actual
-        item.classList.add('active');
-        const chevron = item.querySelector('.nosotros-chevron');
-        if (chevron) {
-          chevron.className = 'fa fa-chevron-down nosotros-chevron';
-        }
-        
-        // Ocultar todas las secciones
-        sections.forEach(function (sec) {
-          sec.style.display = 'none';
-        });
-        
-        // Mostrar la sección correspondiente
-        const targetId = item.getAttribute('data-target');
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.style.display = 'block';
-        }
       });
-    });
-    
-    // 2. Pestañas de Direcciones del VRIN
-    const dirTabBtns = document.querySelectorAll('.dir-tab-btn');
-    const dirPanes = document.querySelectorAll('.dir-tab-pane');
-    
-    if (dirTabBtns.length > 0 && dirPanes.length > 0) {
+    }
+
+    // 2. Pestañas de Direcciones del VRIN (tablist/tabpanel con ARIA)
+    var dirTabBtns = Array.prototype.slice.call(document.querySelectorAll('.vrin-dir-tab'));
+
+    if (dirTabBtns.length) {
       dirTabBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          // Quitar active de todos los botones
+          var targetSelector = btn.getAttribute('data-target');
+
           dirTabBtns.forEach(function (b) {
-            b.classList.remove('active');
-            b.setAttribute('aria-selected', 'false');
+            var isCurrent = b === btn;
+            b.classList.toggle('active', isCurrent);
+            b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
           });
-          // Ocultar todos los paneles
-          dirPanes.forEach(function (p) { p.classList.remove('active'); });
-          
-          // Activar el botón y panel correspondientes
-          btn.classList.add('active');
-          btn.setAttribute('aria-selected', 'true');
-          const targetSelector = btn.getAttribute('data-target');
-          const targetPane = document.querySelector(targetSelector);
-          if (targetPane) {
-            targetPane.classList.add('active');
-          }
+
+          document.querySelectorAll('.vrin-dir-pane').forEach(function (pane) {
+            pane.classList.toggle('active', '#' + pane.id === targetSelector);
+          });
         });
       });
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNosotros);
-  } else {
-    initNosotros();
-  }
-})();
+  // 3. Entrada suave al hacer scroll: solo transform/opacity (sin reflow).
+  //    Respeta prefers-reduced-motion y navegadores sin IntersectionObserver.
+  function initReveal() {
+    var nodes = document.querySelectorAll('.vrin-reveal');
+    if (!nodes.length) return;
 
-/* ========================================================================
-   SECCIÓN DIRECCIONES (SLIDERS & CAROUSELS)
-   ======================================================================== */
-(function () {
-  'use strict';
-  
-  document.addEventListener('DOMContentLoaded', function () {
-    // 1. Gallery Image Slider
-    const gallerySlides = document.querySelector('.dir-gallery-slides');
-    const galleryImgs = document.querySelectorAll('.dir-gallery-slides img');
-    const galleryDots = document.querySelectorAll('.dir-gallery-dot');
-    const prevBtn = document.querySelector('.dir-gallery-btn.prev');
-    const nextBtn = document.querySelector('.dir-gallery-btn.next');
-    
-    if (gallerySlides && galleryImgs.length > 0) {
-      let currentIndex = 0;
-      const totalSlides = galleryImgs.length;
-      
-      const updateGallery = (index) => {
-        currentIndex = (index + totalSlides) % totalSlides;
-        gallerySlides.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        galleryDots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === currentIndex);
-        });
-      };
-      
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => updateGallery(currentIndex - 1));
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => updateGallery(currentIndex + 1));
-      }
-      
-      galleryDots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => updateGallery(idx));
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      nodes.forEach(function (n) { n.classList.add('is-visible'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
       });
-      
-      // Auto play every 6 seconds
-      let autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
-      
-      const resetTimer = () => {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => updateGallery(currentIndex + 1), 6000);
-      };
-      
-      if (prevBtn) prevBtn.addEventListener('click', resetTimer);
-      if (nextBtn) nextBtn.addEventListener('click', resetTimer);
-      galleryDots.forEach(dot => dot.addEventListener('click', resetTimer));
-    }
-    
-    // 2. News Horizontal Slider (Optimized to avoid layout thrashing)
-    const newsTrack = document.querySelector('.dir-news-track');
-    const newsCards = document.querySelectorAll('.dir-news-card');
-    const newsPrev = document.getElementById('dir-news-prev');
-    const newsNext = document.getElementById('dir-news-next');
-    
-    if (newsTrack && newsCards.length > 0) {
-      let index = 0;
-      let cardWidth = newsCards[0].getBoundingClientRect().width;
-      
-      const getCardsPerView = () => {
-        if (window.innerWidth <= 768) return 1;
-        if (window.innerWidth <= 992) return 2;
-        return 3;
-      };
-      
-      const slideNews = (dir) => {
-        const cardsPerView = getCardsPerView();
-        const maxIndex = Math.max(0, newsCards.length - cardsPerView);
-        
-        index += dir;
-        if (index < 0) index = maxIndex;
-        else if (index > maxIndex) index = 0;
-        
-        const gap = 24; // matches gap in CSS
-        const offset = index * (cardWidth + gap);
-        newsTrack.style.transform = `translateX(-${offset}px)`;
-      };
-      
-      if (newsPrev) newsPrev.addEventListener('click', () => slideNews(-1));
-      if (newsNext) newsNext.addEventListener('click', () => slideNews(1));
-      
-      window.addEventListener('resize', () => {
-        index = 0;
-        cardWidth = newsCards[0].getBoundingClientRect().width;
-        newsTrack.style.transform = 'translateX(0)';
-      }, { passive: true });
-    }
-  });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  // Active scroll animation effects for Unidades de Investigación cards
-  // Initiated automatically via document class elements
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+
+  onReady(initNosotros);
+  onReady(initReveal);
 })();
-
 (function () {
   'use strict';
 
@@ -3858,4 +3740,46 @@ if (document.readyState === 'loading') {
   } else {
     initImageLightbox();
   }
+})();
+
+/* ---------- 10. Acordeón de Funciones (Unidades de Investigación) ---------- */
+(function () {
+  'use strict';
+
+  /**
+   * Colapsa/expande la tarjeta de funciones y rota el chevron.
+   * Usa max-height para una transición suave, igual que el acordeón de líneas.
+   */
+  document.addEventListener('click', function (e) {
+    var toggle = e.target.closest('.funciones-toggle');
+    if (!toggle) return;
+
+    var card = toggle.closest('.funciones-card');
+    var body = card ? card.querySelector('.funciones-body') : null;
+    if (!body) return;
+
+    var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+    if (isOpen) {
+      // Colapsar: fijar la altura actual antes de transicionar a 0
+      body.style.maxHeight = body.scrollHeight + 'px';
+      void body.offsetWidth; // Forzar recálculo de layout para la transición
+      card.classList.add('collapsed');
+      body.style.maxHeight = '0px';
+    } else {
+      card.classList.remove('collapsed');
+      body.style.maxHeight = body.scrollHeight + 'px';
+
+      // Liberar el max-height inline al terminar para no bloquear cambios responsive
+      var onTransitionEnd = function (ev) {
+        if (ev.propertyName === 'max-height' && !card.classList.contains('collapsed')) {
+          body.style.maxHeight = 'none';
+        }
+        body.removeEventListener('transitionend', onTransitionEnd);
+      };
+      body.addEventListener('transitionend', onTransitionEnd);
+    }
+
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+  });
 })();
