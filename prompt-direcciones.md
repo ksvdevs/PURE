@@ -12,10 +12,7 @@ public/vrinstyle/js/vrin.js
 
 Toma como referencia visual los siguientes diseños:
 
-public/assets/vrin/DIRECCION-INCUBADORA.png
-public/assets/vrin/DIRECCION-INSTITUTOS.png
-public/assets/vrin/DIRECCION-PRODUCCCION.png
-public/assets/vrin/DIRECCION-TRANSFERENCIA.png
+public/assets/vrin/direccion-institutos.png
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.que el diseño se igual a la imagen que te estoy enviando

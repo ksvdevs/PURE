@@ -43,19 +43,22 @@ block_types:
               </div>
             </article>
             {{ /collection:blog }}
-            <button type="button" class="carousel-control carousel-control-prev" aria-label="Convocatoria anterior">
-              <svg width="20" height="20" viewBox="0 0 24 24">
-                <polyline points="15 18 9 12 15 6" stroke="currentColor"
-                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <button type="button" class="carousel-control carousel-control-next" aria-label="Siguiente convocatoria">
-              <svg width="20" height="20" viewBox="0 0 24 24">
-                <polyline points="9 6 15 12 9 18" stroke="currentColor"
-                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
           </div>
+
+          <!-- Flechas: hijas directas de la sección para anclarlas a los bordes del hero -->
+          <button type="button" class="carousel-control carousel-control-prev" aria-label="Convocatoria anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <polyline points="15 18 9 12 15 6" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="carousel-control carousel-control-next" aria-label="Siguiente convocatoria">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <polyline points="9 6 15 12 9 18" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
           <div class="carousel-footer">
             <div class="carousel-dots" id="convocatoriasDots" role="tablist" aria-label="Paginación"></div>
             <div class="carousel-counter" aria-live="polite">

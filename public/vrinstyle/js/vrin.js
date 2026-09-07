@@ -3899,3 +3899,50 @@ if (document.readyState === 'loading') {
     toggle.setAttribute('aria-expanded', String(!isOpen));
   });
 })();
+
+/* ---------- 11. Páginas de Direcciones: copiar correo institucional ---------- */
+(function () {
+  'use strict';
+
+  /**
+   * Copia al portapapeles el correo indicado en data-copy de .dir-copy-btn.
+   * Ofrece retroalimentación visual (.copied) y cambia el aria-label;
+   * incluye fallback con execCommand para navegadores sin Clipboard API.
+   */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.dir-copy-btn');
+    if (!btn) return;
+
+    var text = (btn.getAttribute('data-copy') || '').trim();
+    if (!text) return;
+
+    function done() {
+      btn.classList.add('copied');
+      btn.setAttribute('aria-label', 'Correo copiado al portapapeles');
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.setAttribute('aria-label', 'Copiar correo institucional');
+      }, 2000);
+    }
+
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        if (document.execCommand('copy')) done();
+      } catch (err) { /* sin soporte: el enlace mailto sigue disponible */ }
+      document.body.removeChild(ta);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  });
+})();

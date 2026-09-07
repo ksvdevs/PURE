@@ -1052,7 +1052,9 @@ body.drawer-open {
 /* =================================================CARRUSEL=================================================== */
 /* ================================================================
    CARRUSEL DE CONVOCATORIAS - ESTILOS PRINCIPALES
-   Diseño: Institución con fondo gradiente, imagen + contenido
+   Diseño: Hero a pantalla completa con foto aérea del campus
+   (banner-unamba.jpg) bajo un velo azul oscuro, póster en
+   tarjeta blanca a la izquierda y contenido a la derecha.
 ================================================================ */
 .convocatorias-section {
   /* ---- POSICIONAMIENTO Y DIMENSIONES ---- */
@@ -1061,26 +1063,15 @@ body.drawer-open {
   overflow: hidden;
   isolation: isolate;
 
-  /* ---- FONDO GRADIENTE MULTICAPA ---- */
-  /* Capa 1: Glow verde (esquina superior derecha) */
-  /* Capa 2: Glow azul (esquina inferior izquierda) */
-  /* Capa 3: Gradiente base diagonal */
+  /* ---- FONDO: FOTO AÉREA DEL CAMPUS + VELO AZUL OSCURO ---- */
   background:
-    radial-gradient(ellipse 620px 520px at 100% 0%,
-      rgba(61, 170, 66, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 520px 480px at 0% 100%,
-      rgba(10, 71, 179, 0.28) 0%, transparent 60%),
-    linear-gradient(135deg,
-      var(--primary-dark) 0%,
-      var(--primary-blue) 55%,
-      var(--c-primary-light) 100%);
+    linear-gradient(rgba(4, 18, 46, 0.78), rgba(4, 18, 46, 0.78)),
+    url('/assets/vrin/banner-unamba.jpg') center / cover no-repeat;
 
-  /* ---- SOMBRAS ---- */
-   /*box-shadow:
-    0 25px 60px -15px rgba(5, 47, 131, 0.45),
-    
-    0 10px 30px -10px rgba(0, 0, 0, 0.3);
-  /* Sombra oscura difusa */
+  /* Viñeta interior suave: da profundidad sin oscurecer en exceso los bordes */
+  box-shadow:
+    inset 0 0 120px rgba(1, 8, 24, 0.35),
+    0 24px 48px -24px rgba(2, 10, 30, 0.45);
 }
 /* --- Pseudo-elemento superior: raya de acento (ELIMINADO) --- */
 .convocatorias-section::before {
@@ -1157,7 +1148,7 @@ body.drawer-open {
   animation-delay: 0.35s;
 }
 .carousel-item-conv.active .conv-media {
-  animation: convMediaIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: convMediaIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
 }
 /* --- KEYFRAMES: Animación de slide hacia arriba --- */
 @keyframes convSlideUp {
@@ -1233,12 +1224,23 @@ body.drawer-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-md);
+  /* Tarjeta blanca con marco: el póster luce enmarcado sobre el hero oscuro */
+  border-radius: var(--radius-lg);
+  border: 7px solid var(--c-white);
+  background: var(--c-white);
   box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.4),
+    0 28px 56px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.1);
   max-width: 100%;
   aspect-ratio: auto;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+/* Elevación sutil del póster al pasar el cursor (solo slide activo) */
+.carousel-item-conv.active .conv-media:hover img {
+  transform: scale(1.02);
+  box-shadow:
+    0 34px 64px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 /* ================================================================
    CONTENIDO DEL SLIDE
@@ -1262,6 +1264,7 @@ body.drawer-open {
   text-transform: uppercase;
   color: var(--accent-green);
   margin-bottom: 1rem;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
 }
 .conv-label-bar {
   display: inline-block;
@@ -1272,7 +1275,7 @@ body.drawer-open {
 }
 /* --- Título --- */
 .convocatoria-content h2 {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.75rem, 2.8vw, 2.6rem);
   font-weight: 700;
   line-height: 1.25;
   color: var(--c-white);
@@ -1300,6 +1303,7 @@ body.drawer-open {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
 }
 /* --- Botón CTA (Call-to-Action) --- */
 .convocatoria-content .btn {
@@ -1342,10 +1346,11 @@ body.drawer-open {
 .carousel-control {
   position: absolute;
   top: 50%;
-  width: 44px;
-  height: 44px;
-  background: var(--c-white-08);
-  border: 1.5px solid var(--c-white-20);
+  width: 52px;
+  height: 52px;
+  /* Cápsula discreta translúcida: visible sobre la foto sin competir con el contenido */
+  background: rgba(6, 16, 40, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1355,12 +1360,16 @@ body.drawer-open {
   transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
   z-index: 5;
   padding: 0;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .carousel-control:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.6);
+  /* Inversión elegante: la cápsula pasa a blanco y el chevrón a azul marino */
+  background: rgba(255, 255, 255, 0.95);
+  border-color: transparent;
+}
+.carousel-control:hover svg {
+  stroke: var(--primary-dark);
 }
 .carousel-control:active {
   transform: translateY(-50%) scale(0.92);
@@ -1370,16 +1379,20 @@ body.drawer-open {
   outline-offset: 3px;
 }
 .carousel-control svg {
+  width: 22px;
+  height: 22px;
   stroke: #fff;
+  stroke-width: 2.4;
   fill: none;
+  transition: stroke 0.25s ease;
 }
-/* --- Posicionamiento de flechas --- */
+/* --- Posicionamiento: ancladas a los bordes de la sección --- */
 .carousel-control-prev {
-  left: 20px;
+  left: 24px;
   /* Flecha izquierda */
 }
 .carousel-control-next {
-  right: 20px;
+  right: 24px;
   /* Flecha derecha */
 }
 /* ================================================================
@@ -1505,8 +1518,8 @@ body.drawer-open {
     margin-right: auto;
   }
   .carousel-control {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
   }
   .carousel-control-prev {
     left: 10px;
@@ -1613,7 +1626,9 @@ body.drawer-open {
 }
 .stats-counter-wrap {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* auto-fit evita el desbordamiento horizontal en móvil:
+     5 columnas en desktop, envoltura natural en pantallas angostas */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   background: #dde2ec;
   gap: 1px;
   border-radius: 0;
@@ -7263,4 +7278,452 @@ body.modal-open {
   color: #64748b;
   max-width: var(--max-reading);
   margin: 0;
+}
+
+/* ========================================================================
+   PÁGINAS DE DIRECCIONES VRIN
+   Institutos, Incubadora, Innovación y Producción.
+   Diseño (ref. direccion-institutos.png): migas de pan, título institucional
+   y lead; contenido en dos columnas —"Sobre la Oficina" + funciones a la
+   izquierda, tarjetas de director y horario a la derecha.
+   ======================================================================== */
+.dir-page {
+  --dir-navy: #0a2a6b;
+  --dir-navy-dark: #081f50;
+  --dir-text: #3f4653;
+  --dir-muted: #64748b;
+  --dir-border: #e8ebf2;
+  --dir-amber: #f5a623;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 24px 80px;
+}
+/* ---- Migas de pan ---- */
+.dir-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--dir-muted);
+  margin-bottom: 18px;
+}
+.dir-breadcrumb a {
+  color: var(--dir-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.dir-breadcrumb a:hover {
+  color: var(--dir-navy);
+  text-decoration: underline;
+}
+.dir-breadcrumb .sep {
+  opacity: 0.5;
+}
+.dir-breadcrumb [aria-current] {
+  color: var(--dir-navy);
+  font-weight: 600;
+}
+/* ---- Cabecera de página ---- */
+.dir-header h1 {
+  font-family: var(--font-family-title);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  color: var(--dir-navy);
+  letter-spacing: var(--ls-tight);
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+.dir-lead {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--dir-muted);
+  max-width: 62ch;
+  margin: 0;
+}
+/* ---- Grid principal: contenido + barra lateral ---- */
+.dir-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 370px;
+  gap: 44px;
+  align-items: start;
+  margin-top: 20px;
+}
+/* ---- Columna principal ---- */
+.dir-main h2 {
+  font-family: var(--font-family-title);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--dir-navy);
+  margin: 0 0 18px;
+}
+.dir-main h2:not(:first-child) {
+  margin-top: 40px;
+}
+.dir-main p {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--dir-text);
+  margin: 0 0 18px;
+}
+/* ---- Lista de funciones ---- */
+.dir-funciones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.dir-funciones li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--dir-text);
+}
+.dir-funciones li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dir-navy);
+}
+/* ---- Tarjetas de la barra lateral ---- */
+.dir-sidebar {
+  display: grid;
+  gap: 24px;
+}
+.dir-card {
+  background: #fff;
+  border: 1px solid var(--dir-border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 12px 32px rgba(10, 42, 107, 0.07);
+}
+/* ---- Tarjeta del director ---- */
+.dir-director-foto {
+  display: block;
+  width: 172px;
+  height: 186px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 0 auto 18px;
+  box-shadow: 0 10px 24px rgba(10, 42, 107, 0.18);
+}
+.dir-director-nombre {
+  font-family: var(--font-family-title);
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dir-navy);
+  margin: 0 0 6px;
+}
+.dir-director-cargo {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+  margin: 0 0 4px;
+}
+.dir-divider {
+  border: none;
+  border-top: 1px solid var(--dir-border);
+  margin: 20px 0;
+}
+.dir-meta {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.dir-meta-item {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.dir-meta-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(10, 42, 107, 0.06);
+  color: var(--dir-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+.dir-meta-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dir-muted);
+  margin-bottom: 2px;
+}
+.dir-meta-value {
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--dir-navy);
+  text-decoration: none;
+  word-break: break-word;
+}
+a.dir-meta-value {
+  transition: color 0.2s ease;
+}
+a.dir-meta-value:hover {
+  color: var(--accent-green);
+}
+.dir-meta-value.is-green {
+  color: var(--accent-green);
+}
+/* Correo + botón copiar */
+.dir-correo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.dir-copy-btn {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--dir-border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--dir-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.dir-copy-btn:hover {
+  color: var(--dir-navy);
+  border-color: var(--dir-navy);
+}
+.dir-copy-btn.copied {
+  color: #fff;
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+}
+/* Botón Contactar */
+.dir-btn-contacto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--dir-navy);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.dir-btn-contacto:hover {
+  background: var(--dir-navy-dark);
+  transform: translateY(-2px);
+}
+.dir-btn-contacto .fa {
+  font-size: 0.75rem;
+  transition: transform 0.25s ease;
+}
+.dir-btn-contacto:hover .fa {
+  transform: translateX(3px);
+}
+/* ---- Tarjeta de horario ---- */
+.dir-horario-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-family-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dir-navy);
+  margin: 0 0 14px;
+}
+.dir-horario-titulo .fa {
+  color: var(--accent-green);
+}
+.dir-dias {
+  font-size: 0.9rem;
+  color: var(--dir-muted);
+  margin: 0 0 12px;
+}
+.dir-horario-filas {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.dir-horario-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+.dir-horario-turno {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--dir-text);
+}
+.dir-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.dir-dot--manana {
+  background: var(--accent-green);
+}
+.dir-dot--tarde {
+  background: var(--dir-amber);
+}
+.dir-horario-hora {
+  font-weight: 600;
+  color: var(--dir-navy);
+  text-align: right;
+}
+.dir-oficina {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--dir-muted);
+  margin-bottom: 16px;
+}
+.dir-oficina .fa {
+  color: var(--dir-navy);
+  margin-top: 2px;
+}
+.dir-oficina-foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 12px;
+}
+/* ---- Sección de centros (Producción) ---- */
+.dir-centros {
+  margin-top: 52px;
+}
+.dir-centros-titulo {
+  font-family: var(--font-family-title);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--dir-navy);
+  margin: 0 0 24px;
+}
+.dir-centros-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.dir-centro-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dir-centro-foto {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.dir-centro-cuerpo {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.dir-centro-rol {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+  margin: 0;
+}
+.dir-centro-nombre {
+  font-family: var(--font-family-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dir-navy);
+  margin: 0 0 6px;
+}
+.dir-centro-meta {
+  display: grid;
+  gap: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--dir-muted);
+}
+.dir-centro-meta span {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.dir-centro-meta .fa {
+  color: var(--dir-navy);
+  margin-top: 2px;
+}
+/* ---- Responsividad ---- */
+@media (max-width: 1100px) {
+  .dir-grid {
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 32px;
+  }
+}
+@media (max-width: 992px) {
+  .dir-grid {
+    grid-template-columns: 1fr;
+  }
+  .dir-sidebar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .dir-centros-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .dir-page {
+    padding: 32px 16px 56px;
+  }
+  .dir-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .dir-centros-grid {
+    grid-template-columns: 1fr;
+  }
+  .dir-card {
+    padding: 22px;
+  }
+  .dir-centro-card {
+    padding: 0;
+  }
+}
+/* ---- Accesibilidad: movimiento reducido ---- */
+@media (prefers-reduced-motion: reduce) {
+  .dir-btn-contacto,
+  .dir-btn-contacto .fa,
+  .dir-copy-btn {
+    transition: none;
+  }
+  .dir-btn-contacto:hover {
+    transform: none;
+  }
 }

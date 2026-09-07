@@ -2,14 +2,16 @@ Actúa como un Desarrollador Senior Frontend y Full Stack con experiencia en Lar
 
 Analiza y modifica los siguientes archivos:
 
-content/collections/page/home.md
-public/vrinstyle/css/estilos.css
-public/vrinstyle/js/vrin.js
+@content/collections/page/home.md
+@public/vrinstyle/css/estilos.css
+@public/vrinstyle/js/vrin.js
 
 
 Toma como referencia visual los siguientes diseños:
 
 public/assets/vrin/carrusell.png
+@public/assets/vrin/slider.png
+@public/assets/vrin/banner-unamba.jpg
 
 Objetivo:
 Reproducir fielmente el diseño mostrado en las imágenes de referencia, manteniendo una estructura moderna, profesional e institucional acorde a una página universitaria.
